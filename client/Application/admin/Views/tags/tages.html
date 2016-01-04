@@ -1,0 +1,66 @@
+<template name="tags">
+	<div class="section">
+		<div class="container">
+			<div class="col-md-12">
+				<div class="col-md-12 row">
+				    <h3>Title</h3>
+					<input class="form-control" id="title">
+			    </div>
+				<div class="col-md-3">
+					<button id="addtitle" class="btn_login_a pull-right row">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br/><br/>
+
+	<!-- display -->
+	<div class="container">
+	<div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            All Categories
+                            <!-- <a href="/tags" class="pull-right"><button class="btn-black">Add New</button></a> -->
+                        </div>
+                        <!-- /.panel-heading --> 
+                        <div class="panel-body">
+                         	
+                            <div class="dataTable_wrapper">
+                            
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            
+                                            <th>Title</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    	{{#each distitle}}
+	                                        <tr class="gradeA">
+	                                            <td>001</td>
+	                                            <!-- <td><img src="/uploads/{{getImage image}}" class="img-responsive" width="50">
+                                                </td> -->
+                                                <td>{{title}}</td>
+	                                            <td colspan="2">
+	                                            <a href="#" id="delete">Delete</a>
+	                                            </td> 
+	                                        </tr>
+                                         {{/each}}      
+                                    </tbody>
+                                </table>
+                              
+                            </div>    
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+           </div>
+	<!--end -->
+</template>

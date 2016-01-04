@@ -1,0 +1,94 @@
+<template name="addContent">
+	<div class="section">
+		<div class="container">
+			<div class="col-md-12">
+				<h1 class="text-content">Content</h1>
+				<div class="download col-md-12">
+					<img src="/uploads/{{getImage}}" width="94px" height="100%">
+				</div>
+				<div class="col-md-12 row">
+					<div class="space-top-content">
+				    	<input type="file" id="img">
+					</div>
+			    </div>
+				<div class="col-md-12 row">
+				    <h3>Title</h3>
+					<input class="form-control title" id="style_login_a">
+			    </div>
+			    <div class="col-md-12 row">
+				    <h3>Your text</h3>
+					<textarea class="form-control text" id="style_login_a" rows="6"></textarea>
+			    </div>
+			    <div class="col-md-12 row">
+			       <div class="space-top-content">
+					<textarea class="form-control text2" id="style_login_a" rows="6"></textarea>
+				   </div>
+			    </div>
+			    <div class="row">
+					<div class="col-md-12">
+						<h2>Select Category</h2>
+						<div class="hold_menu_selete_category">
+			      		<ul class="nav navbar-nav">
+			      		{{#each getCategory}}
+			      			<li value="{{_id}}" id="cate"><a href="#">{{title}}</a></li>
+			      		{{/each}}
+			      		</ul>
+			      	</div>
+						<div class="clearfix"></div>
+						<div class="hold_selected_tag">
+							<ul class="list-inline">
+								<li class="selecteTage">Select Tag</li>
+								{{#each getTagsname}}
+									<li class="">
+										<a href="#" id="remove">x</a>
+										<a href="#">
+										<div class="add_tag">{{title}}</div>
+										</a>
+									</li>
+								{{/each}}
+							</ul>
+						</div>
+						<div class="clearfix"></div>
+						<div class="hold_tag">
+							<ul class="list-inline">
+								{{#each gettags}}
+									<li><a href="#" id="tag" value="{{_id}}">{{title}}</a></li>
+								{{/each}}
+							</ul>
+						</div>
+					</div>
+				</div>
+			     <div class="col-md-12 row">
+			      <div class="space-top-content">
+			        <h1 class="text-content">Selected layout</h1>
+			        <div class="row">
+			          <div class="col-md-4 lay1">
+					      <img src="/images/layout1.png" id="layout1" class="img-thumbnail img-layout" alt="Cinque Terre">
+			          </div>
+			          <div class="col-md-4 lay2">
+			          	<img src="/images/layout2.png" id="layout2" class="img-thumbnail img-layout" alt="Cinque Terre">
+			          </div>
+			          <div class="col-md-4 lay3">
+			          	<img src="/images/layout3.png" id="layout3" class="img-thumbnail img-layout" alt="Cinque Terre">
+			          </div>
+                      <div class="col-md-12 form-group">
+                        <div class="submit-btn-content">
+                          <div class="col-md-3">
+						  </div>
+						  <div class="col-md-3">
+						  </div>
+						  <div class="col-md-3">
+							<button class="btn_login_a pull-right" id="preview">Preview</button>
+						  </div>
+						  <div class="col-md-3">
+							<button class="btn_login_a pull-right row" id="btn-content">Submit</button>
+						  </div>
+						</div>
+					  </div>
+			        </div>
+			      </div>
+			    </div>
+			</div>
+		</div>
+	</div>
+</template>

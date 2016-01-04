@@ -1,0 +1,36 @@
+<template name="home">
+	<div class="section">
+		<div class="container">
+			<div class="row">
+			{{#each myitems}}
+				<div class="col-md-4">
+					<a href="/contentdetail/{{_id}}">
+					<div class="thumbnail {{disBackground catId}}">
+						<!--Hover load text -->
+					    <div class="view view-first">
+						  <div class="mask">
+		                    <p class="rotate-txt">Read</p>
+		                  </div>
+						</div>
+						
+						<!--end Hover load text -->
+							<img data-holder-rendered="true" src="/uploads/{{getImage imageId}}" style="height: 200px; width: 100%; display: block;" data-src="holder.js/100%x200" alt="100%x200"> 
+						{{#each getcatename catId}}
+						<span class="caption pull-right ">{{title}}</span>
+						{{/each}}
+						<div class="caption">
+							<div class="wrapper-title"> 
+								<h3>{{title}}</h3>
+							</div>
+							<div class="wrapper-text">
+								<p>{{description.text1}}</p> 
+							</div>
+						</div>
+					</div>
+					</a>
+				</div>	
+			{{/each}}
+			</div>
+		</div>
+	</div>
+</template>

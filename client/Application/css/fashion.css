@@ -1,0 +1,41 @@
+
+/*Fashion page*/
+
+.bg-fashion{
+  background: url("../images/bg-fashion.png") no-repeat;
+  height: 361px;
+}
+.bg-fashion-a{
+  background: url("../images/bg-fashion2.png") no-repeat;
+  height: 361px;
+  background-position: top;
+}
+.center-text-fashion{
+  text-align: center;
+  margin-top: 150px;
+  margin-left: 100px;
+
+}
+.center-text-fashion-a{
+    margin-left: 40px;
+    margin-top: 120px;
+}
+.text-fashion{
+  font-size: 40px;
+}
+.text-fashion-a{
+  font-size: 40px;
+  margin-top: 40px;
+}
+.space-top-fashion{
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+.img-fashion{
+margin-top: 50px;
+}
+.space-top-fashion{
+  margin-top: 50px;
+}
+/*Fashion page-1.1*/
+

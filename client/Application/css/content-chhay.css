@@ -1,0 +1,64 @@
+
+/*Content page*/
+
+#bg_content{
+  background:url("../images/bg-login.png") repeat-y;
+}
+.text-content{
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+.space-top-content{
+  margin-top:30px;
+}
+.img-thumbnail {
+    background-color: #fff;
+    border: 2px solid #7d7d7d;
+    border-radius: 0px;
+    display: inline-block;
+    line-height: 1.42857;
+    max-width: 100%;
+    padding: 4px;
+    transition: all 0.2s ease-in-out 0s;
+}
+#style_login_a {
+    border: 2px solid #7d7d7d;
+    border-radius: 0;
+}
+.submit-btn-content{
+  margin-top: 70px;
+}
+.btn_login_a {
+    -moz-user-select: none;
+    background: #000 none repeat scroll 0 0;
+    border: 0 none;
+    border-radius: 0;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 1.2em;
+    line-height: 1.42857;
+    margin-top: 20px;
+    padding: 5px 30px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.download {
+    border-style: dashed;
+    height: 100px;
+    width: 100px;
+    padding-left:0px;
+}
+
+.hold_selected_tag  ul.list-inline li a{
+	color:#000;
+	border:1px dotht #ccc;
+}
+.hold_selected_tag .add_tag{
+	border:2px dashed #000;		
+	padding:5px 15px;
+}
+
+

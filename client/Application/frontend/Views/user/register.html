@@ -1,0 +1,47 @@
+<template name="register">
+	<section class="content">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="col-lg-6 col-lg-offset-3">
+						<div class="header-login">
+							<button class="btn-lg btn-black col-lg-6 col-md-6 col-sm-6 col-xs-6" type="button">Register</button>
+							<a href="/login">
+								<button class="btn-lg-login btn-black col-lg-6 col-md-6 col-xs-6" type="button">Login</button>
+							</a>
+						</div> <!-- header-login -->
+						<div class="cleafix"></div>
+						<div class="panel-login">
+		                    <form class="form-horizontal" role="form">
+		                        <div class="form-group">
+		                            <label for="inputEmail3" class="col-sm-2 col-sm-offset-1 control-label">Name:</label>
+		                            <div class="col-sm-9">
+		                                <input type="text" class="form-control" id="username"  name="username" required="">
+		                                <p id="error_fname"></p>
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <label for="inputPassword3" class="col-sm-2 col-sm-offset-1 control-label">Email:</label>
+		                            <div class="col-sm-9">
+		                                <input type="email" class="form-control" id="email" name="email" required="">
+		                                <p id="error_email"></p>
+		                            </div>
+		                        </div>
+		                        <div class="form-group">
+		                            <label for="inputNumber" class="col-sm-2 col-sm-offset-1 control-label">Password:</label>
+		                            <div class="col-sm-9">
+		                                <input type="password" class="form-control" id="password" name="password" required="">
+		                                <p id="error_pass"></p>
+		                            </div>
+		                        </div>
+		                    </form> <!-- form-horizontal -->
+		                </div> <!-- panel-login -->
+		                <div class="cont-validate">
+		                	<button class="btn-sm btn-black col-md-6 col-sm-6 col-xs-6 col-xs-offset-3 col-sm-offset-3 col-md-offset-3" id="register" type="button">Validate</button>
+		                </div> <!-- cont-validate -->
+					</div>
+				</div> <!-- col-xs-12 col-sm-12 col-md-12 col-lg-12 -->
+			</div> <!-- row -->
+		</div> <!-- container -->
+	</section>
+</template>
