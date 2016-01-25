@@ -4,14 +4,26 @@
 			<div class="col-md-12">
 				<h1 class="text-content">Content</h1>
 				<div class="download col-md-12">
-					<img src="/uploads/{{getImage}}" width="94px" height="100%">
+					{{#if haveImage}}
+						<img src="/uploads/{{getImage}}" width="94px" height="100%">
+					{{else}}
+						<img src="/images/img-1.png" width="94px" height="100%">
+					{{/if}}
 				</div>
 				<div class="col-md-12 row">
 					<div class="space-top-content">
 				    	<input type="file" id="img">
 					</div>
 			    </div>
+			    <br/><br/>
 				<div class="col-md-12 row">
+					{{#if PostError}}
+	                    <div class="alert alert-danger" style="padding:15px;" role="alert">
+	                        <span style="display:inline-block" class="" aria-hidden="true"></span>
+	                        <span style="display:inline-block" class="sr-only">Error:</span>
+	                        {{PostErrormsg}}
+	                    </div>
+                	{{/if}}
 				    <h3>Title</h3>
 					<input class="form-control title" id="style_login_a">
 			    </div>

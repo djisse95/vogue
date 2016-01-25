@@ -2,6 +2,13 @@
 	<div class="section">
 		<div class="container">
 			<div class="col-md-12">
+                {{#if PostError}}
+                    <div class="alert alert-danger" style="padding:15px;" role="alert">
+                        <span style="display:inline-block" class="" aria-hidden="true"></span>
+                        <span style="display:inline-block" class="sr-only">Error:</span>
+                        {{PostErrormsg}}
+                    </div>
+                {{/if}}
 				<div class="col-md-12 row">
 				    <h3>Title</h3>
 					<input class="form-control" id="title">

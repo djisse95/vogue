@@ -2,6 +2,9 @@ Session.setDefault('LAYOUT','');
 Session.setDefault('tagId','');
 Session.setDefault("myimage",'');
 Session.setDefault("tagId","");
+Session.set('img_pro','');
+Session.set("PostError", "" );
+Session.set('page_msg',"");
 
 Template.addContent.helpers({
 	getCategory:function(){
@@ -32,8 +35,23 @@ Template.addContent.helpers({
         }else{
             return;
         }
+    },
+    haveImage: function(){
+        var haveimage = Session.get('ADDIMAGEID');
+        console.log('img id:'+haveimage);
+        if( haveimage )
+            return true;
+        else 
+            return false;
+    },
+    PostError:function(){
+        var msg = Session.get("PostError");
+        if(msg) return true;
+        else return false;
+    },
+    PostErrormsg: function(){
+        return Session.get("PostError");
     }
-
 });
 Template.addContent.events({
 	'click #btn-content':function(e){
@@ -45,18 +63,34 @@ Template.addContent.events({
 		var catId = Session.get("catId");
 		var layout = Session.get("LAYOUT");
 		var alltags=Session.get('tagId');
-        	alltags=alltags.split(';');
+        var msg="";
+        alltags=alltags.split(';');
         tagsjson=[];
         for(var i=0;i<alltags.length;i++){
         	if(alltags[i]!=""){
             	tagsjson.push(alltags[i]);
         	}
        	}
-	    //alert("hello"+layout);
-		Meteor.call('addContent',img,title,text,text2,catId,layout,tagsjson);	
-		Router.go('/disContent');
-		
+        if(title == "" || text == ""){
+            if(title == "")
+                msg+= "Title is required! ";
+            if(text == "")
+                msg+=" Text is required!";
+
+            Session.set("PostError", msg );
+            Session.set('page_msg',msg);
+        }else{
+    	    //alert("hello"+layout);
+    		Meteor.call('addContent',img,title,text,text2,catId,layout,tagsjson);	
+    		Router.go('/managecontent');
+		}
 	},
+    'keypress input': function(event) {
+        event = event || window.event;
+        var keyCode = event.which || event.keyCode;
+        Session.set("PostError","");
+        Session.set("page_msg","");
+    },
 	'change #img': function(event, template) {
         var files = event.target.files;
         for (var i = 0, ln = files.length; i < ln; i++) {
@@ -188,6 +222,7 @@ Template.editContent.events({
         var oldCate = $('#oldCate').val();
         var layout = Session.get("LAYOUT");
         var alltags=Session.get('tagId');
+        var msg="";
         alltags=alltags.split(';');
         tagsjson=[];
         for(var i=0;i<alltags.length;i++){
@@ -201,16 +236,32 @@ Template.editContent.events({
         if(typeof catId == "undefined"){
             catId=oldCate;
         }
+        if(title == "" || text == ""){
+            if(title == "")
+                msg+= "Title is required! ";
+            if(text=="")
+                msg+=" Text is required!";
+            
+            Session.set("PostError", msg );
+            Session.set('page_msg',msg);
+        }else{
         //alert(layout);
-       	Meteor.call("editContent",id,img,title,text,text2,catId,layout,tagsjson,function(error,result){
-            if(error){console.log("edit content has problem!!!")}
-            else{
-                Session.set('ADDIMAGEID',undefined);
-                Session.set('catId',undefined);
-                Router.go('/managecontent');
-            }
-        });
+           	Meteor.call("editContent",id,img,title,text,text2,catId,layout,tagsjson,function(error,result){
+                if(error){console.log("edit content has problem!!!")}
+                else{
+                    Session.set('ADDIMAGEID',undefined);
+                    Session.set('catId',undefined);
+                    Router.go('/managecontent');
+                }
+            });
+        }
 	},
+    'keypress input': function(event) {
+        event = event || window.event;
+        var keyCode = event.which || event.keyCode;
+        Session.set("PostError","");
+        Session.set("page_msg","");
+    },
 	'change #img': function(event, template) {
         var files = event.target.files;
         for (var i = 0, ln = files.length; i < ln; i++) {
@@ -268,15 +319,28 @@ Template.editContent.events({
 });
 Template.editContent.helpers({
     getImage:function(){
-        var image = $("#currentImage").val();
-        console.log("MYIMAGES="+image);
+        var image = Session.get('ADDIMAGEID');
         var img = images.findOne({_id:image});
         if(img){
-            //console.log(img.copies.images.key);
+            console.log(img.copies.images.key);
             return img.copies.images.key;
         }else{
             return;
         }
+    },
+    getcatimageId: function(imageId){
+       // var catimageId = Session.get('ADDIMAGEID');
+        var img = images.findOne({_id:imageId});
+        return img.copies.images.key;
+    },
+    haveImage: function(){
+        var haveimage = Session.get('ADDIMAGEID');
+        //var img = images.findOne({_id:image});
+        console.log('img id:'+haveimage);
+        if( haveimage )
+            return true;
+        else 
+            return false;
     },
 	getCategory:function(){
         return categories.find();
@@ -296,7 +360,15 @@ Template.editContent.helpers({
        }
         //console.log('MYJSONTAGS:'+tagsjson);
         return tagsjson;
-	}
+	},
+    PostError:function(){
+        var msg = Session.get("PostError");
+        if(msg) return true;
+        else return false;
+    },
+    PostErrormsg: function(){
+        return Session.get("PostError");
+    }
 });
 Template.editContent.oncreate=function(){
      var image = $('#currentImage').val();
