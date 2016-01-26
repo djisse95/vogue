@@ -58,7 +58,7 @@ Template.addContent.events({
 		e.preventDefault();
 		var img = Session.get('ADDIMAGEID');
 		var title = $('.title').val();
-		var text = $('#editor1').val();
+		var text = CKEDITOR.instances.editor1.getData();
         //var text = $('.title').ckeditor();
 		var text2 = $('.text2').val();
 		var catId = Session.get("catId");
@@ -221,7 +221,7 @@ Template.editContent.events({
 		var id = this._id;
 		var img = Session.get('ADDIMAGEID');
 		var title = $('.title').val();
-		var text = $('#editor1').val();
+		var text = CKEDITOR.instances.editor1.getData();
 		var text2 = $('.text2').val();
 		var catId = Session.get("catId");
         var currentImage = $('#currentImage').val();
