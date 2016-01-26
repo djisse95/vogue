@@ -19,9 +19,9 @@ Template.login.events({
           Meteor.loginWithPassword(email, password, function(error){
            if(error){
             console.log(error.reason);
-            Bert.alert(error.reason, 'danger', 'fixed-top', 'fa-frown-o');
+            Bert.alert(error.reason, 'danger','growl-top-left');
            } else {
-             Bert.alert("login successful!", 'success', 'fixed-top', 'fa-frown-o');
+             Bert.alert("login successful!", 'success', 'growl-top-left');
              var loggedInUser = Meteor.user();
              var group = 'mygroup';
             if (Roles.userIsInRole(loggedInUser, ['Admin'], group)) {
@@ -144,11 +144,9 @@ Template.manageuser.events({
                 Bert.alert('please check input again','danger','growl-top-right');
         //alert("It working: "+username+" "+fname+" "+lname+" "+pays+" "+ville+" "+email+" "+password);
         }else{
-            Session.set("registerError","");
-            delete Session.keys['registerError'];
             Meteor.call('registerUser',username,fname,lname,pays,ville,email,password,mySelect, function(err){
                 if(err){
-                    console.log(err.reason);
+                    Bert.alert(err.reason,'danger', 'growl-top-right' );
                     Session.set("registerError",err.reason);
                 }else{
                     Session.set("registerError","");
@@ -156,10 +154,6 @@ Template.manageuser.events({
                 }  
             }); 
         }         
-    },
-    "click #edituser":function(event,tpl){
-        Session.set("registerError","");
-        delete Session.keys['registerError'];
     }
 });
 Template.manageuser.helpers({
@@ -192,32 +186,29 @@ Template.edituser.events({
         var msg = '';
         if( result.count() > 0 || username == '' || fname == '' || lname == '' || pays == '' || email == ''  || mySelect == ''){
             if( username == '' )
-                msg += 'User Name is required.';
-            if( fname == '' )
-                msg += 'First Name is required.';
-            if( lname == '' )
-                msg += 'last NameL is required.';
-            if( pays == '' )
-                msg += 'pays is required.';
-            if( email == '' )
-                msg += 'email is required.';
-            // if( password == '' )
-            //     msg += 'password is required.';
-            if( mySelect == '' )
-                msg += 'Myselect is required.';
+                Bert.alert( 'username is required', 'danger', 'growl-top-right' );
+            else if( fname == '' )
+                Bert.alert( 'firstname is required', 'danger', 'growl-top-right' );
+            else if( lname == '' )
+                Bert.alert( 'lastname is required', 'danger', 'growl-top-right' );
+            else if( pays == '' )
+                Bert.alert( 'pays is required', 'danger', 'growl-top-right' );
+            else if( email == '' )
+                Bert.alert( 'email is required', 'danger', 'growl-top-right' );
+            else if( mySelect == '' )
+                Bert.alert( 'mySelect is required', 'danger', 'growl-top-right' );
+            else if( result.count() > 0 )
+                Bert.alert( 'Email name is already exist.', 'danger', 'growl-top-right' );
+            else
+                Bert.alert('please check input again','danger','growl-top-right');
+
             
-            if( result.count() > 0 )
-                msg = " Email name is already exist. ";
-            
-            //console.log("required");
-            Session.set("registerError", msg );
-            Session.set('page_msg',msg);
-        //alert("It working: "+username+" "+fname+" "+lname+" "+pays+" "+ville+" "+email+" "+password);
         }else{
         Session.set("registerError","");
         delete Session.keys['registerError'];
         Meteor.call('edituser',id,username,fname,lname,pays,ville,email,mySelect, function(err) {
-            Meteor.call('updateroles',id,mySelect,function(err){  
+            Meteor.call('updateroles',id,mySelect,function(err){
+            Bert.alert('Update success!','success', 'growl-top-left' );  
             Router.go('/manageuser');
             });
         });

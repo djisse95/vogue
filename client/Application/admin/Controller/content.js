@@ -58,7 +58,8 @@ Template.addContent.events({
 		e.preventDefault();
 		var img = Session.get('ADDIMAGEID');
 		var title = $('.title').val();
-		var text = $('.text').val();
+		var text = $('#editor1').val();
+        //var text = $('.title').ckeditor();
 		var text2 = $('.text2').val();
 		var catId = Session.get("catId");
 		var layout = Session.get("LAYOUT");
@@ -168,6 +169,7 @@ Template.addContent.events({
                 tagsjson.push(alltags[i]);
             }
         }
+
         var obj = {
             img:img,
             title:title,
@@ -219,7 +221,7 @@ Template.editContent.events({
 		var id = this._id;
 		var img = Session.get('ADDIMAGEID');
 		var title = $('.title').val();
-		var text = $('.text').val();
+		var text = $('#editor1').val();
 		var text2 = $('.text2').val();
 		var catId = Session.get("catId");
         var currentImage = $('#currentImage').val();
