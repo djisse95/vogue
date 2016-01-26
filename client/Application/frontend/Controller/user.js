@@ -4,17 +4,39 @@ Session.set("loginError","");
 Template.login.events({
     'click #login': function(e, tpl){
         event.preventDefault();
-        var email1 = $('[name=email1]').val();
-        var password1 = $('[name=password1]').val();
+        var email = $('[name=email1]').val();
+        var password = $('[name=password1]').val();
       //  alert('!!! '+email1+password1);
-        Meteor.loginWithPassword(email1, password1, function(error){
+       /* Meteor.loginWithPassword(email1, password1, function(error){
             if(error){
-            console.log(error.reason);
+            Bert.alert(error.reason,'danger', 'growl-top-left' );
             Session.set("loginError",error.reason);
             }else{
+                Bert.alert('login success!','success', 'growl-top-left' );
                 Router.go('/');
             }
-        }); 
+        }); */
+          Meteor.loginWithPassword(email, password, function(error){
+           if(error){
+            console.log(error.reason);
+            Bert.alert(error.reason, 'danger', 'fixed-top', 'fa-frown-o');
+           } else {
+             Bert.alert("login successful!", 'success', 'fixed-top', 'fa-frown-o');
+             var loggedInUser = Meteor.user();
+             var group = 'mygroup';
+            if (Roles.userIsInRole(loggedInUser, ['Admin'], group)) {
+             Router.go('/manageuser');
+             $('.close').click();
+            }
+            else if (Roles.userIsInRole(loggedInUser, ['member'], group)) { 
+             Router.go('/');
+              $('.close').click();
+            }else{
+             Router.go('/');
+              $('.close').click();
+            }
+           }
+          });
     },
     'click #register': function(e, tpl){
         event.preventDefault();
@@ -33,32 +55,34 @@ Template.login.events({
         var msg = '';
         if( result.count() > 0 || username == '' || fname == '' || lname == '' || pays == '' || email == '' || password == ''){
             if( username == '' )
-                msg += 'User Name is required.';
-            if( fname == '' )
-                msg += 'First Name is required.';
-            if( lname == '' )
-                msg += 'last NameL is required.';
-            if( pays == '' )
-                msg += 'pays is required.';
-            if( email == '' )
-                msg += 'email is required.';
-            if( password == '' )
-                msg += 'password is required.';
-            
-            if( result.count() > 0 ){
-                msg = " Email name is already exist. ";
-            }
+                Bert.alert( 'username is required', 'danger', 'growl-top-right' );
+            else if( fname == '' )
+                Bert.alert( 'firstname is required', 'danger', 'growl-top-right' );
+            else if( lname == '' )
+                Bert.alert( 'lastname is required', 'danger', 'growl-top-right' );
+            else if( pays == '' )
+                Bert.alert( 'pays is required', 'danger', 'growl-top-right' );
+            else if( email == '' )
+                Bert.alert( 'email is required', 'danger', 'growl-top-right' );
+            else if( password == '' )
+                Bert.alert( 'password is required', 'danger', 'growl-top-right' );
+            else if( result.count() > 0 )
+                Bert.alert( 'Email name is already exist.', 'danger', 'growl-top-right' );
+            else
+                Bert.alert('please check input again','danger','growl-top-right');
             //console.log("required");
-            Session.set("registerError", msg );
-            Session.set('page_msg',msg);
+            // Session.set("registerError", msg );
+            // Session.set('page_msg',msg);
         //alert("It working: "+username+" "+fname+" "+lname+" "+pays+" "+ville+" "+email+" "+password);
         }else{
             Meteor.call('registerUser',username,fname,lname,pays,ville,email,password, function(err){
                 if(err){
-                    console.log(err.reason);
-                    Session.set("registerError",err.reason);
+                    // console.log(err.reason);
+                    // Session.set("registerError",err.reason);
+                    Bert.alert( err.reason, 'danger', 'growl-top-right' );
                 }else{
-                    Session.set("registerError","");
+                   // Session.set("registerError","");
+                    Bert.alert('Register success!','success', 'growl-top-right' );
                     Router.go('login'); 
                 }  
             }); 
@@ -103,26 +127,21 @@ Template.manageuser.events({
         var msg = '';
         if( result.count() > 0 || username == '' || fname == '' || lname == '' || pays == '' || email == '' || password == '' || mySelect == ''){
             if( username == '' )
-                msg += 'User Name is required.';
-            if( fname == '' )
-                msg += 'First Name is required.';
-            if( lname == '' )
-                msg += 'last NameL is required.';
-            if( pays == '' )
-                msg += 'pays is required.';
-            if( email == '' )
-                msg += 'email is required.';
-            if( password == '' )
-                msg += 'password is required.';
-            if( mySelect == '' )
-                msg += 'Myselect is required.';
-            
-            if( result.count() > 0 ){
-                msg = " Email name is already exist. ";
-            }
-            //console.log("required");
-            Session.set("registerError", msg );
-            Session.set('page_msg',msg);
+                Bert.alert( 'username is required', 'danger', 'growl-top-right' );
+            else if( fname == '' )
+                Bert.alert( 'firstname is required', 'danger', 'growl-top-right' );
+            else if( lname == '' )
+                Bert.alert( 'lastname is required', 'danger', 'growl-top-right' );
+            else if( pays == '' )
+                Bert.alert( 'pays is required', 'danger', 'growl-top-right' );
+            else if( email == '' )
+                Bert.alert( 'email is required', 'danger', 'growl-top-right' );
+            else if( password == '' )
+                Bert.alert( 'password is required', 'danger', 'growl-top-right' );
+            else if( result.count() > 0 )
+                Bert.alert( 'Email name is already exist.', 'danger', 'growl-top-right' );
+            else
+                Bert.alert('please check input again','danger','growl-top-right');
         //alert("It working: "+username+" "+fname+" "+lname+" "+pays+" "+ville+" "+email+" "+password);
         }else{
             Session.set("registerError","");
@@ -213,61 +232,61 @@ Template.edituser.helpers({
         return Meteor.roles.find({});
      }
 });
-Template.login.helpers({
-    loginError:function(){
-        var msg = Session.get("loginError");
-        if( msg ) return true;
-        else return false;
-    },
-    loginErrormsg: function(){
-        return Session.get("loginError");
-    }
-});
-Template.login.helpers({
+// Template.login.helpers({
+//     loginError:function(){
+//         var msg = Session.get("loginError");
+//         if( msg ) return true;
+//         else return false;
+//     },
+//     loginErrormsg: function(){
+//         return Session.get("loginError");
+//     }
+// });
+// Template.login.helpers({
     
-    getmsg: function(){
-        var msg = Session.get('page_msg',msg);
-        if( msg !="" ) return msg;
-        else msg ='';
-    },
-    registerError:function(){
-        var msg = Session.get("registerError");
-        if( msg ) return true;
-        else return false;
-    },
-    registerErrormsg: function(){
-        return Session.get("registerError");
-    }
-});
-Template.manageuser.helpers({
+//     getmsg: function(){
+//         var msg = Session.get('page_msg',msg);
+//         if( msg !="" ) return msg;
+//         else msg ='';
+//     },
+//     registerError:function(){
+//         var msg = Session.get("registerError");
+//         if( msg ) return true;
+//         else return false;
+//     },
+//     registerErrormsg: function(){
+//         return Session.get("registerError");
+//     }
+// });
+// Template.manageuser.helpers({
     
-    getmsg: function(){
-        var msg = Session.get('page_msg',msg);
-        if( msg !="" ) return msg;
-        else msg ='';
-    },
-    registerError:function(){
-        var msg = Session.get("registerError");
-        if( msg ) return true;
-        else return false;
-    },
-    registerErrormsg: function(){
-        return Session.get("registerError");
-    }
-});
-Template.edituser.helpers({
+//     getmsg: function(){
+//         var msg = Session.get('page_msg',msg);
+//         if( msg !="" ) return msg;
+//         else msg ='';
+//     },
+//     registerError:function(){
+//         var msg = Session.get("registerError");
+//         if( msg ) return true;
+//         else return false;
+//     },
+//     registerErrormsg: function(){
+//         return Session.get("registerError");
+//     }
+// });
+// Template.edituser.helpers({
     
-    getmsg: function(){
-        var msg = Session.get('page_msg',msg);
-        if( msg !="" ) return msg;
-        else msg ='';
-    },
-    registerError:function(){
-        var msg = Session.get("registerError");
-        if( msg ) return true;
-        else return false;
-    },
-    registerErrormsg: function(){
-        return Session.get("registerError");
-    }
-});
+//     getmsg: function(){
+//         var msg = Session.get('page_msg',msg);
+//         if( msg !="" ) return msg;
+//         else msg ='';
+//     },
+//     registerError:function(){
+//         var msg = Session.get("registerError");
+//         if( msg ) return true;
+//         else return false;
+//     },
+//     registerErrormsg: function(){
+//         return Session.get("registerError");
+//     }
+// });
