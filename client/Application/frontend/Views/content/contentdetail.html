@@ -13,20 +13,20 @@
 						</div>
 						<div class="col-lg-6">
 						    <div class="center-text-fashion-a">
-							  <p class="text-fashion-p">{{description.text1}}
+							  <p class="text-fashion-p">{{{description.text1}}}
 							</p>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-12">
 						<p>{{description.text2}}</p>
-						<p class="space-top-fashion">{{description.text2}}</p>
+						<p class="space-top-fashion">{{{description.text2}}}</p>
 				    </div>
 				    <h2 class="text-center">Related Contents</h2>
 				    {{#each relateContent}}
 				    	<div class="col-md-6">
 							<h3>{{title}}</h3>
-							<a href="/contentdetail/{{_id}}"><img src="/uploads/{{getImageRelated imageId}}" class="img-thumbnail big-img" alt="Cinque Terre" width="100%"></a>
+							<a href="/contentdetail/{{_id}}"><img src="/uploads/{{getImageRelated imageId}}" class="img-thumbnail big-img" alt="Cinque Terre" width="80%" height="80%"></a>
 						</div>
 					{{/each}}
 				</div>
@@ -48,9 +48,9 @@
 						</div>
 					</div>
 					<div class="col-md-12">
-						<p>{{description.text1}}</p>
+						<p>{{{description.text1}}}</p>
 
-						<p class="space-top-fashion">{{description.text2}}</p>
+						<p class="space-top-fashion">{{{description.text2}}}</p>
 				    </div>
 				</div>
 			</div>
@@ -63,7 +63,7 @@
 		  <div class="row">
 			<div class="col-md-12">
 			  <h1 class="text-fashion-a text-center">{{title}}</h1>
-			  <p class="text-slider-fashion">{{description.text1}}</p> 
+			  <p class="text-slider-fashion">{{{description.text1}}}</p> 
 			</div>
 			 <div class="col-md-12">
 			   <div class="slider"> 
@@ -79,7 +79,7 @@
 			   </div>
 			 </div>
 			  <div class="col-md-12">
-			     <p class="text-slider-fashion">{{description.text2}}</p> 
+			     <p class="text-slider-fashion">{{{description.text2}}}</p> 
 			 </div>
 		</div>
 	  </div>

@@ -1,4 +1,5 @@
 Template.home.helpers({
+   
     //==========Start Query paginatoin============
     discontent:function(){
         var arr=[];
@@ -77,4 +78,3 @@ Template.home.helpers({
         }
     }
 });
-
