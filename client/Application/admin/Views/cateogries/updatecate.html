@@ -10,10 +10,17 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
+                {{#if postError}}
+                 <div class="alert alert-danger" role="alert">
+                    <span style="display:inline-block" class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span style="display:inline-block" class="sr-only">Error:</span>
+                 {{postErrormsg}}
+                 </div>
+                 {{/if}}
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Edit Categories
-                            <a href="/managecategories" class="pull-right"><button class="btn-black">Back</button></a>
+                            <a href="/managecategories" class="pull-right"><button class="btn-black" id="back">Back</button></a>
                         </div>
                         <div class="panel-body">
                             <div class="row">

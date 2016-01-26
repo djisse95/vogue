@@ -1,10 +1,6 @@
 
 Meteor.methods({
-    categories: function(title,image){
-        var attr = {
-            title : title,
-            image: image
-        }
+    categories: function(attr){
         return categories.insert(attr);
     },
     editcategories: function(id,title,image){

@@ -1,12 +1,48 @@
-
+Session.set("img_con","");
+Session.set("error_message","");
+Template.categories.helpers({
+  baseUrl: function(){
+     return Session.get('baseurl');
+   },
+   getImage: function(id){
+    var img = images.findOne({_id:id});
+    if(img){
+     console.log(img.copies.images.key);
+     return img.copies.images.key;
+    }else{
+     return;
+    }
+  },
+  postError:function(){
+   var msg = Session.get("error_message");
+   if( msg ) return true;
+   else return false;
+  },
+  postErrormsg: function(){
+   return Session.get("error_message");
+  }
+});
 Template.categories.events({
     "click #save":function(event){
         event.preventDefault();
         var title = $("#title").val();
         var image = Session.get('ADDIMAGEID');
         //var image = $("#image").val();
-        alert("test"+ title);
-    Meteor.call('categories',title,image);
+      //  alert("test"+ title);
+      var error_message = "";
+    if( title == ""){
+        error_message +="Please fill title name";
+     return Session.set("error_message",error_message);
+    }else{
+      Session.set("error_message","");
+      delete Session.keys['error_message'];
+      var attr={
+          title:title,
+          image:image
+      }
+    Meteor.call('categories',attr);
+    Router.go('/managecategories');
+}
     },
     'change #upload': function(event, template) {
         var files = event.target.files;
@@ -38,23 +74,39 @@ Template.discategories.helpers({
 //=========== update ============= //
 
 Template.updatecate.events({
-    "click #update":function(event){
+    "click #update":function(event,tpl){
         event.preventDefault();
         var id = this._id;
         var title = $("#title").val();
         var image = Session.get('ADDIMAGEID');
         var currentImage = $('#currentImage').val();
-        if(typeof image == "undefined"){
+
+         var error_message = "";
+         if( title == ""){            
+             error_message +="Please fill title name";
+            return Session.set("error_message",error_message);
+          }else{
+          Session.set("error_message","");
+          delete Session.keys['error_message'];
+         
+          if(typeof image == "undefined")
             image = currentImage;
+          Meteor.call('editcategories',id,title,image,function(error,result){
+                if(error){
+                    return Session.set("error_message",error); 
+                }
+                else{
+                   Session.set('ADDIMAGEID',undefined); 
+                   Router.go('/managecategories');
+                }
+            });
         }
-        Meteor.call('editcategories',id,title,image,function(error,result){
-            if(error){}
-            else{
-               Session.set('ADDIMAGEID',undefined); 
-               Router.go('/managecategories');
-            }
-        });
     },
+      "click #back":function(event,tpl){
+        Session.set("error_message","");
+        delete Session.keys['error_message'];
+    },
+
     'change #upload': function(event, template) {
         var files = event.target.files;
         for (var i = 0, ln = files.length; i < ln; i++) {
@@ -65,6 +117,16 @@ Template.updatecate.events({
           });
         }
     }
+});
+Template.updatecate.helpers({
+     postError:function(){
+       var msg = Session.get("error_message");
+       if( msg ) return true;
+       else return false;
+      },
+      postErrormsg: function(){
+       return Session.get("error_message");
+      }
 });
 Template.discategories.events({
     'click #delete':function(){

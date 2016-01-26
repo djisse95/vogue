@@ -52,6 +52,13 @@
                 </div>
             </div>
                 <div class="col-lg-4">
+                {{#if registerError}}
+                    <div class="alert alert-danger" style="padding:15px;" role="alert">
+                      <span style="display:inline-block" class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                      <span style="display:inline-block" class="sr-only">Error:</span>
+                    {{registerErrormsg}}
+                    </div>
+                {{/if}}
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Add New User
