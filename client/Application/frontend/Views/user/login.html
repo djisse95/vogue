@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <template name="login">
 	<div class="section" >
 		<div class="container">
@@ -80,4 +81,102 @@
 			</div>	
 		</div>
 	</div>
+=======
+<template name="login">
+	<div class="section" >
+		<div class="container">
+			<div class="col-md-12 col-lg-12">
+				<div class="col-md-5 wrapper-top-login">
+					<form class="form-horizontal pull-right" method="post">
+						<div class="col-xs-12 col-md-12 col-lg-12 row">
+							<h3 class="text-login">Login for add content</h3>
+						</div>
+						
+						<div class="col-xs-12 col-md-8 col-lg-12 form-group">
+						{{#if loginError}}
+							<div class="alert alert-danger" role="alert">
+								<span style="display:inline-block" class="" aria-hidden="true"></span>
+								<span style="display:inline-block" class="sr-only">Error:</span>
+							{{loginErrormsg}}
+							</div>
+						{{/if}}
+							<label>Email</label>
+								<input class="form-control" id="style_login" name="email1" required="">
+								<p class="error_email"></p>
+						</div>
+						<div class="col-xs-12 col-md-8 col-lg-12 form-group">
+							<label>Password</label>
+								<input class="form-control" type="password" id="style_login" name="password1" required="">
+		                        <p id="error_pass"></p>
+						</div>
+						<div class="col-xs-12 col-md-8 col-lg-12 form-group">
+							<button class="btn_login" id="login" >LOGIN</button>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-2">
+					<div class="hidden-xs hidden-md hidden-sm col-lg-1 border_login">
+					</div>
+				</div>
+				<div class="col-md-5">
+					<form role="form">
+						<div class="col-xs-12 col-md-12 col-lg-12 row">
+						{{#if registerError}}
+								<div class="alert alert-danger" style="padding:15px;" role="alert">
+								  <span style="display:inline-block" class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+								  <span style="display:inline-block" class="sr-only">Error:</span>
+								{{registerErrormsg}}
+								</div>
+							{{/if}}
+								<h3 class="text-login">Register</h3>
+						</div>
+						<div class="form-group">
+							<label>Username</label>
+							<input class="form-controls" id="username"  name="username" required="">
+		                    <p id="error_fname"></p>
+						</div>
+						<div class="row">
+							<div class="col-xs-6 col-sm-6 col-md-6">
+								<div class="form-group">
+									<label>First name</label>
+									<input type="text" class="form-control input-sm" id="style_login firstname" name="firstname" required="">
+								</div>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6">
+								<label>Last name</label>
+								<div class="form-group">
+									<input type="text" class="form-control input-sm" id="style_login lastname" name="lastname" required="">
+								</div>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6">
+								<div class="form-group">
+									<label>Pays</label>
+									<input type="text" class="form-control input-sm" id="style_login" name="country">
+								</div>
+							</div>
+							<div class="col-xs-6 col-sm-6 col-md-6">
+								<label>Ville</label>
+								<div class="form-group">
+									<input type="text" class="form-control input-sm" id="style_login" name="city">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Email</label>
+							<input class="form-controls" id="style_login email" name="email" required="">
+		                    <p id="error_email"></p>
+						</div>
+						<div class="form-group">
+							<label>Password</label>
+							<input class="form-controls" type="password" id="style_login password" name="password" required="">
+		                    <p id="error_pass"></p>
+						</div>
+						<button class="btn_register" id="register">REGISTER</button>
+					</form>
+					<br><br>
+				</div>
+			</div>	
+		</div>
+	</div>
+>>>>>>> e87e9e00260aaa3a205c72f18267d1b062caa1f3
 </template>

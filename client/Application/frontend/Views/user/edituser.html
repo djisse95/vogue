@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <template name="edituser"> 
     <div class="container"> 
         <div class="row">
@@ -54,4 +55,69 @@
             </div>
         </div>
     </div>
+=======
+<template name="edituser"> 
+    <div class="container"> 
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Edit Users</h1>
+            </div>
+        </div>    
+        <div class="col-lg-12">
+        {{#if registerError}}
+            <div class="alert alert-danger" style="padding:15px;" role="alert">
+              <span style="display:inline-block" class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span style="display:inline-block" class="sr-only">Error:</span>
+            {{registerErrormsg}}
+            </div>
+        {{/if}}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Edit User
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label>username</label>
+                            <input class="form-control" type="text" name="username" id="username" value="{{profile.username}}">
+                        </div> 
+                         <div class="form-group">
+                            <label>Firstname</label>
+                            <input class="form-control" type="text" name="firstname" id="firstname" value="{{profile.firstname}}">
+                        </div> 
+                         <div class="form-group">
+                            <label>Lastname</label>
+                            <input class="form-control" type="text" name="lastname" id="lastname" value="{{profile.lastname}}">
+                        </div> 
+                         <div class="form-group">
+                            <label>Pays</label>
+                            <input class="form-control" type="text" name="country" id="country" value="{{profile.pays}}">
+                        </div> 
+                         <div class="form-group">
+                            <label>Ville</label>
+                            <input class="form-control" type="text" name="city" id="city" value="{{profile.ville}}">
+                        </div> 
+                        {{#each emails}}
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input class="form-control" name="email" id="email" value="{{address}}">
+                        </div> 
+                        {{/each}}
+                        <div class="form-group">
+                             <label>Permission</label>
+                            <select name="language" id="mySelect" class="form-control">
+                                <option value="{{name}}" style="display:none">{{position roles}}</option>
+                                {{#each displayuser}}
+                                     <option value="{{name}}">{{name}}</option>
+                                {{/each}}
+                            </select>
+                        </div> 
+                        <a href="/manageuser"><button type="submit" id="edituser" class="btn btn-default">Edit User</button></a>
+                        <button type="reset" class="btn btn-default">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+>>>>>>> e87e9e00260aaa3a205c72f18267d1b062caa1f3
 </template>
