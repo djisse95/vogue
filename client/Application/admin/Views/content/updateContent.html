@@ -60,8 +60,20 @@
 						<div class="hold_menu_selete_category">
 				      		<ul class="nav navbar-nav">
 					      		{{#each getCategory}}
-					      			<li id="cate" value="{{_id}}"><a href="#">{{title}}</a></li>
+				      				<li value="{{_id}}" id="cate"><a href="#">{{title}}</a></li>
 					      		{{/each}}
+					      		{{#if iscatId}}
+					      			{{#each getCatsname}}
+										<li class="">
+											<a href="" >| Selected:<b style="color:#FAEB1E;">{{title}}</b></a>
+										</li>
+									{{/each}}
+				      			{{else}}
+						      		{{#if catId}}
+				      				<li value="{{catId}}" id="cate"><a href="" >| Selected:<b style="color:#FAEB1E;">{{getcat_title catId}}</b></a></li>
+				      				{{/if}}
+					      		{{/if}}
+					      		
 				      		</ul>
 				      	</div>
 						<div class="clearfix"></div>

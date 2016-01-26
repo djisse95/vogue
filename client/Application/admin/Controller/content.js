@@ -24,6 +24,19 @@ Template.addContent.helpers({
         //console.log('MYJSONTAGS:'+tagsjson);
         return tagsjson;
 	},
+    getCatsname:function(){
+        var allcats=Session.get('catId');
+        allcats=allcats.split(';');
+        catsjson=[];
+        for(var i=0;i<allcats.length;i++){
+            if(allcats[i]!=""){
+                var catsname=categories.findOne({_id:allcats[i]});
+                catsjson.push(catsname);
+            }
+       }
+        //console.log('MYJSONTAGS:'+catsjson);
+        return catsjson;
+    },
 	getImage: function(){
 		var image = Session.get('ADDIMAGEID');
         var img = images.findOne({_id:image});
@@ -114,15 +127,27 @@ Template.addContent.events({
     	Session.set("catId",id);
         $("#wrapper").addClass('app');
     },
-    'click #tag':function(e){
+    'click .tag':function(e){
     	e.preventDefault();
     	var id = this._id;
-		if(Session.get("tagId")){
-			var listTags=Session.get("tagId")+";"+id;
+        //var listTags;
+        var Tags=Session.get("tagId");
+       // console.log("tags "+Tags);
+        if(Tags){
+			
+            if(!Tags.match(id)){
+                var listTags=Session.get("tagId")+";"+id;
+                Session.set("tagId",listTags);
+            }else{
+                //console.log("tag: "+Tags);
+                Session.set("tagId",Tags);
+            }
+            
 		}else{
 			var listTags=id;
+            Session.set("tagId",listTags);
 		}
-    	Session.set("tagId",listTags);
+    	
     },
     'click #remove':function(e){
 		e.preventDefault();
@@ -290,13 +315,24 @@ Template.editContent.events({
     },
     'click #tag':function(e){
     	e.preventDefault();
-    	var id = this._id;
-		if(Session.get("tagId")){
-			var listTags=Session.get("tagId")+";"+id;
-		}else{
-			var listTags=id;
-		}
-    	Session.set("tagId",listTags);
+        var id = this._id;
+        //var listTags;
+        var Tags=Session.get("tagId");
+       // console.log("tags "+Tags);
+        if(Tags){
+            
+            if(!Tags.match(id)){
+                var listTags=Session.get("tagId")+";"+id;
+                Session.set("tagId",listTags);
+            }else{
+                //console.log("tag: "+Tags);
+                Session.set("tagId",Tags);
+            }
+            
+        }else{
+            var listTags=id;
+            Session.set("tagId",listTags);
+        }
     },
     'click #remove':function(e){
 		e.preventDefault();
@@ -357,6 +393,10 @@ Template.editContent.helpers({
 	getCategory:function(){
         return categories.find();
     },
+    getcat_title:function(catId){
+        var title = categories.findOne({_id:catId});
+        return title.title;
+    },
     gettags:function(){
         return tags.find();
     },
@@ -372,7 +412,27 @@ Template.editContent.helpers({
        }
         //console.log('MYJSONTAGS:'+tagsjson);
         return tagsjson;
-	},
+	},   
+    getCatsname:function(){
+        var allcats=Session.get('catId');
+        allcats=allcats.split(';');
+        catsjson=[];
+        for(var i=0;i<allcats.length;i++){
+            if(allcats[i]!=""){
+                var catsname=categories.findOne({_id:allcats[i]});
+                catsjson.push(catsname);
+            }
+        }
+        //console.log('MYJSONTAGS:'+catsjson);
+        return catsjson;
+    },
+    iscatId:function(){
+        var allcats=Session.get('catId');
+        if(allcats)
+            return true;
+        else
+            return false;
+    },
     PostError:function(){
         var msg = Session.get("PostError");
         if(msg) return true;

@@ -47,10 +47,15 @@
 			      		{{#each getCategory}}
 			      			<li value="{{_id}}" id="cate"><a href="#">{{title}}</a></li>
 			      		{{/each}}
+			      		{{#each getCatsname}}
+									<li class="">
+										<a href="" >| Selected:<b style="color:#FAEB1E;">{{title}}</b></a>
+									</li>
+						{{/each}}
 			      		</ul>
+								
 			      	</div>
-						<div class="clearfix"></div>
-						<div class="hold_selected_tag">
+			      		<div class="hold_selected_tag">
 							<ul class="list-inline">
 								<li class="selecteTage">Select Tag</li>
 								{{#each getTagsname}}
@@ -67,10 +72,11 @@
 						<div class="hold_tag">
 							<ul class="list-inline">
 								{{#each gettags}}
-									<li><a href="#" id="tag" value="{{_id}}">{{title}}</a></li>
+									<li><a href="#" class="tag" value="{{_id}}">{{title}}</a></li>
 								{{/each}}
 							</ul>
 						</div>
+						
 					</div>
 				</div>
 			     <div class="col-md-12 row">
