@@ -1,7 +1,7 @@
 Session.setDefault('LAYOUT','');
 Session.setDefault('tagId','');
 Session.setDefault("myimage",'');
-Session.setDefault("tagId","");
+Session.setDefault("catId","");
 Session.set('img_pro','');
 Session.set("PostError", "" );
 Session.set('page_msg',"");
@@ -71,11 +71,15 @@ Template.addContent.events({
             	tagsjson.push(alltags[i]);
         	}
        	}
-        if(title == "" || text == ""){
+        if(title == "" || text == "" || layout == "" || catId == ""){
             if(title == "")
                 msg+= "Title is required! ";
             if(text == "")
                 msg+=" Text is required!";
+            if(layout == "")
+                msg+=" Select Layout is required!";
+            if(catId == "")
+                msg+=" Select Category is required!";
 
             Session.set("PostError", msg );
             Session.set('page_msg',msg);
@@ -236,19 +240,24 @@ Template.editContent.events({
         if(typeof catId == "undefined"){
             catId=oldCate;
         }
-        if(title == "" || text == ""){
+        if(title == "" || text == "" || layout == "" || catId == ""){
             if(title == "")
                 msg+= "Title is required! ";
             if(text=="")
                 msg+=" Text is required!";
-            
+            if(layout == "")
+                msg+=" Select Layout is required!";
+            if(catId == "")
+                msg+=" Select Category is required!";
+
             Session.set("PostError", msg );
             Session.set('page_msg',msg);
         }else{
         //alert(layout);
            	Meteor.call("editContent",id,img,title,text,text2,catId,layout,tagsjson,function(error,result){
-                if(error){console.log("edit content has problem!!!")}
-                else{
+                if(error){
+                    console.log("edit content has problem!!!")
+                }else{
                     Session.set('ADDIMAGEID',undefined);
                     Session.set('catId',undefined);
                     Router.go('/managecontent');
