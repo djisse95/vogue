@@ -1,6 +1,6 @@
 Session.set('page_msg','');
 Template.login.events({
-    'click #login': function(e, tpl){
+    'click #login': function(event, tpl){
         event.preventDefault();
         var email = $('[name=email1]').val();
         var password = $('[name=password1]').val();
@@ -36,7 +36,7 @@ Template.login.events({
            }
           });
     },
-    'click #register': function(e, tpl){
+    'click #register': function(event, tpl){
         event.preventDefault();
         var username = $('#username').val();
         var fname= $('[name=firstname]').val();
@@ -109,6 +109,7 @@ Template.manageuser.events({
         if (confirm("Are you sure you want to delete this?")) {
             Meteor.call("deleteUser",id);
         }
+        
     },
     'click #adduser': function(e){
         e.preventDefault();
@@ -136,18 +137,20 @@ Template.manageuser.events({
                 Bert.alert( 'email is required', 'danger', 'growl-top-right' );
             else if( password == '' )
                 Bert.alert( 'password is required', 'danger', 'growl-top-right' );
+            else if( mySelect == '' )
+                Bert.alert( 'mySelect is required', 'danger', 'growl-top-right' );
             else if( result.count() > 0 )
                 Bert.alert( 'Email name is already exist.', 'danger', 'growl-top-right' );
             else
                 Bert.alert('please check input again','danger','growl-top-right');
-        //alert("It working: "+username+" "+fname+" "+lname+" "+pays+" "+ville+" "+email+" "+password);
         }else{
-            Meteor.call('registerUser',username,fname,lname,pays,ville,email,password,mySelect, function(err){
+            Meteor.call('addUser',username,fname,lname,pays,ville,email,password,mySelect, function(err){
                 if(err){
                     Bert.alert(err.reason,'danger', 'growl-top-right' );
                     Session.set("registerError",err.reason);
                 }else{
                     Session.set("registerError","");
+                    Bert.alert('Register success','success', 'growl-top-right' );
                     Router.go('manageuser'); 
                 }  
             }); 
