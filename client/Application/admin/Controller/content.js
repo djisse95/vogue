@@ -3,8 +3,6 @@ Session.setDefault('tagId','');
 Session.setDefault("myimage",'');
 Session.setDefault("catId","");
 Session.set('img_pro','');
-Session.set("PostError", "" );
-Session.set('page_msg',"");
 
 Template.addContent.helpers({
 	getCategory:function(){
@@ -73,19 +71,22 @@ Template.addContent.events({
         	}
        	}
         if(title == "" || text == "" || layout == "" || catId == ""){
-            if(title == "")
-                msg+= "Title is required! ";
-            if(text == "")
-                msg+=" Text is required!";
-            if(layout == "")
-                msg+=" Select Layout is required!";
-            if(catId == "")
-                msg+=" Select Category is required!";
-
-            Session.set("PostError", msg );
-            Session.set('page_msg',msg);
+            
+            if( title == '' )
+                Bert.alert( 'title is required', 'danger', 'growl-top-right' );
+            else if( text == '' )
+                Bert.alert( 'text is required', 'danger', 'growl-top-right' );
+            else if( layout == '' )
+                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
+            else if( catId == '' )
+                Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
+        
         }else{
     	    //alert("hello"+layout);
+            Session.set("ADDIMAGEID","");
+            delete Session.keys['ADDIMAGEID'];
+            Session.set("tagId","");
+            delete Session.keys['tagId'];
     		Meteor.call('addContent',img,title,text,text2,catId,layout,tagsjson);	
     		Router.go('/managecontent');
 		}
