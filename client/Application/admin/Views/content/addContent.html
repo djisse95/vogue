@@ -43,18 +43,18 @@
 					<div class="col-md-12">
 						<h2>Select Category</h2>
 						<div class="hold_menu_selete_category">
-			      		<ul class="nav navbar-nav">
-			      		{{#each getCategory}}
-			      			<li value="{{_id}}" id="cate"><a href="#">{{title}}</a></li>
-			      		{{/each}}
-			      		{{#each getCatsname}}
-									<li class="">
-										<a href="" >| Selected:<b style="color:#FAEB1E;">{{title}}</b></a>
-									</li>
-						{{/each}}
-			      		</ul>
+				      		<ul class="nav navbar-nav">
+				      		{{#each getCategory}}
+				      			<li value="{{_id}}" id="cate"><a href="#">{{title}}</a></li>
+				      		{{/each}}
+				      		{{#each getCatsname}}
+										<li class="">
+											<a href="" >| Selected:<b style="color:#FAEB1E;">{{title}}</b></a>
+										</li>
+							{{/each}}
+				      		</ul>
 								
-			      	</div>
+			      		</div>
 			      		<div class="hold_selected_tag">
 							<ul class="list-inline">
 								<li class="selecteTage">Select Tag</li>

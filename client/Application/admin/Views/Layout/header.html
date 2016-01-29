@@ -37,7 +37,8 @@
 								{{/if}}
 								<li><a href="/" class="changelist">Home</a></li>
 								{{#each dismenu}}
-									<li><a href="/category/{{_id}}" id="listCate changelist">{{title}}</a></li>
+									<!-- <li><a href="/category/{{_id}}" id="listCate changelist">{{title}}</a></li> -->
+									<li><a href="/category/{{_id}}">{{title}}</a></li>
 								{{/each}}
 							</ul>
 						</div>
@@ -46,7 +47,7 @@
 						<div class="swiper-container">
 					        <div class="swiper-wrapper">
 					        	{{#each getNumberPag}}
-					            <div class="swiper-slide"><h1 class="h1linheight">{{this}}</h1></div>
+					            <div class="swiper-slide"><h1 class="h1linheight">{{page}}</h1></div>
 					       
 					            {{/each}}
 					            

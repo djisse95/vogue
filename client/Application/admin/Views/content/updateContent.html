@@ -64,13 +64,11 @@
 					      		{{/each}}
 					      		{{#if iscatId}}
 					      			{{#each getCatsname}}
-										<li class="">
-											<a href="" >| Selected:<b style="color:#FAEB1E;">{{title}}</b></a>
-										</li>
+										<li><a href="" >| Selected:<b style="color:#FAEB1E;">{{title}}</b></a></li>
 									{{/each}}
 				      			{{else}}
 						      		{{#if catId}}
-				      				<li value="{{catId}}" id="cate"><a href="" >| Selected:<b style="color:#FAEB1E;">{{getcat_title catId}}</b></a></li>
+				      					<li><a href="" >| Selected:<b style="color:#FAEB1E;">{{getcat_title catId}}</b></a></li>
 				      				{{/if}}
 					      		{{/if}}
 					      		
@@ -80,12 +78,23 @@
 						<div class="hold_selected_tag">
 							<ul class="list-inline">
 								<li class="selecteTage">Select Tag</li>
-								{{#each getTagsname}}
-									<li class="">
-										<a href="#" id="remove">x</a>
-										<a href="#" id="tag"><div class="add_tag">{{title}}</div></a>
-									</li>
-								{{/each}}
+								{{#if istagId}}
+									{{#each getTagsname}}
+										<li class="">
+											<a href="#" id="remove">x</a>
+											<a href="#" id="tag"><div class="add_tag">{{title}}</div></a>
+										</li>
+									{{/each}}
+								{{else}}
+									{{#if tags}}
+										{{#each tags}}
+										<li class="">
+											<a href="#" id="remove">x</a>
+											<a href="#" id="tag"><div class="add_tag">{{gettags_titlel this}}</div></a>
+										</li>
+										{{/each}}
+									{{/if}}
+								{{/if}}
 							</ul>
 						</div>
 						<div class="clearfix"></div>
@@ -100,7 +109,7 @@
 				</div>
 			     <div class="col-md-12 row">
 			      <div class="space-top-content">
-			        <h1 class="text-content">Selected layout</h1>
+			        <h1 class="text-content">Selected layout<input type="hidden" id="oldLay" value="{{layout}}"></h1>
 			        <div class="row">
 			          <div class="col-md-4 lay1">
 					      <img src="/images/layout1.png" id="layout1" class="img-thumbnail img-layout" alt="Cinque Terre">

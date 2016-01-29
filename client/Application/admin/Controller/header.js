@@ -3,21 +3,19 @@ Template.header.events({
 	'click .changelist':function(e,tpl){
 		Session.set('currentPage',0);
 	},
-	'click #listCate':function(e){
+	/*'click #listCate':function(e){
 		e.preventDefault();
 		var id = this._id;
 		console.log('going to '+id);
 		Session.set("categoriesId",id);
 		Router.go("list");
 		//alert(id);
-	},
+	},*/
 	//=============Start Click next prev pagination=============
 	'click .swiper-button-next':function(e){
 		e.preventDefault();
 		//alert('next');
-		
-			var i=Session.get('currentPage')+1;
-		
+		var i=Session.get('currentPage')+1;		
 		Session.set('currentPage',i);
 		console.log('currentPage: '+Session.get('currentPage'));
 	},
@@ -38,10 +36,31 @@ Template.header.helpers({
     dismenu : function(){
         return categories.find();
     },
-    getNumberPag:function(){
+   /* getNumberPag:function(){
     		console.log('arrayPage'+Session.get('arrayPage'));
     		return Session.get('arrayPage');
-    },
+    		return Session.get('currentPage');
+    },*/
+    getNumberPag:function(){
+    	var arr=[];
+    	//var num=Session.get('next');
+    	var num=Number(content.find().count());
+    	if(num<=12){
+    		var perpage=1;
+    	}else{
+    		var perpage=num/12;
+    	}
+		for(var i=0;i<perpage;i++){
+			var page=i+1;
+			var obj={
+				page:page.toString()
+			}
+			arr.push(obj);
+		}
+		//console.log('page:'+arr);
+		// alert('page='+arr);
+		return arr;
+    }
 
 });
 

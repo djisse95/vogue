@@ -100,6 +100,8 @@ Template.addContent.events({
             delete Session.keys['ADDIMAGEID'];
             Session.set("tagId","");
             delete Session.keys['tagId'];
+            Session.set("LAYOUT","");
+            delete Session.keys['LAYOUT'];
     		Meteor.call('addContent',img,title,text,text2,catId,layout,tagsjson);	
     		Router.go('/managecontent');
 		}
@@ -246,13 +248,18 @@ Template.editContent.events({
 		e.preventDefault();
 		var id = this._id;
 		var img = Session.get('ADDIMAGEID');
+        
 		var title = $('.title').val();
 		var text = CKEDITOR.instances.editor1.getData();
 		var text2 = $('.text2').val();
 		var catId = Session.get("catId");
         var currentImage = $('#currentImage').val();
+               
+
         var oldCate = $('#oldCate').val();
+        var oldLay = $('#oldLay').val();
         var layout = Session.get("LAYOUT");
+
         var alltags=Session.get('tagId');
         var msg="";
         alltags=alltags.split(';');
@@ -268,24 +275,28 @@ Template.editContent.events({
         if(typeof catId == "undefined"){
             catId=oldCate;
         }
+        if( typeof layout == "undefined"){
+            layout=oldLay;
+        }
+        
         if(title == "" || text == "" || layout == "" || catId == ""){
             if(title == "")
-                msg+= "Title is required! ";
-            if(text=="")
-                msg+=" Text is required!";
-            if(layout == "")
-                msg+=" Select Layout is required!";
-            if(catId == "")
-                msg+=" Select Category is required!";
-
-            Session.set("PostError", msg );
+                Bert.alert( 'title is required', 'danger', 'growl-top-right' );
+            else if(text=="")
+                Bert.alert( 'text is required', 'danger', 'growl-top-right' );
+            else if(catId == "")
+                Bert.alert( 'Select Category is required!', 'danger', 'growl-top-right' );
+            else
+                Bert.alert( 'Select Layout is required!', 'danger', 'growl-top-right' );
             Session.set('page_msg',msg);
         }else{
-        //alert(layout);
            	Meteor.call("editContent",id,img,title,text,text2,catId,layout,tagsjson,function(error,result){
                 if(error){
                     console.log("edit content has problem!!!")
                 }else{
+                    Bert.alert( 'Update Successful!', 'success', 'growl-top-right' );
+                    Session.set("tagId","");
+                    delete Session.keys['tagId'];
                     Session.set('ADDIMAGEID',undefined);
                     Session.set('catId',undefined);
                     Router.go('/managecontent');
@@ -358,8 +369,6 @@ Template.editContent.events({
     'click #layout3':function(e){
         e.preventDefault();
         Session.set('LAYOUT',3);
-        e.preventDefault();
-        Session.set('LAYOUT',3);
         $(".lay3").addClass('img-lay');
         $(".lay2").removeClass('img-lay');
         $(".lay1").removeClass('img-lay');
@@ -397,6 +406,10 @@ Template.editContent.helpers({
         var title = categories.findOne({_id:catId});
         return title.title;
     },
+    gettags_titlel:function(tagId){
+        var title = tags.findOne({_id:tagId});
+        return title.title;
+    },
     gettags:function(){
         return tags.find();
     },
@@ -432,6 +445,13 @@ Template.editContent.helpers({
             return true;
         else
             return false;
+    },
+    istagId:function(){
+        var istagId = Session.get('tagId');
+        if(istagId)
+            return true;
+        else
+            return false
     },
     PostError:function(){
         var msg = Session.get("PostError");
