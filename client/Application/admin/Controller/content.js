@@ -1,5 +1,7 @@
 Session.setDefault('LAYOUT','');
 Session.setDefault('tagId','');
+Session.setDefault('text','');
+Session.setDefault('text2','');
 Session.setDefault("myimage",'');
 Session.setDefault("catId","");
 Session.set('img_pro','');
@@ -185,7 +187,7 @@ Template.addContent.events({
         console.log('array: '+result);
         var img = Session.get('ADDIMAGEID');
         var title = $('.title').val();
-        var text = $('.text').val();
+        var text = CKEDITOR.instances.editor1.getData();
         var text2 = $('.text2').val();
         var catId = Session.get("catId");
         var layout = Session.get("LAYOUT");
@@ -197,21 +199,38 @@ Template.addContent.events({
                 tagsjson.push(alltags[i]);
             }
         }
-
-        var obj = {
-            img:img,
-            title:title,
-            text:text,
-            text2:text2,
-            catId:catId,
-            layout:layout,
-            alltags:tagsjson
+         if(typeof img == "undefined" || title == "" || text == "" || layout == "" || catId == ""){
+            
+            if(typeof img == "undefined")
+                Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
+            else if( title == '' )
+                Bert.alert( 'title is required', 'danger', 'growl-top-right' );
+            else if( text == '' )
+                Bert.alert( 'text is required', 'danger', 'growl-top-right' );
+            else if( layout == '' )
+                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
+            else if( catId == '' )
+                Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
+            else 
+                 Bert.alert( 'Please Check you input again', 'danger', 'growl-top-right' );
+        
+        }else{
+            var obj = {
+                img:img,
+                title:title,
+                text:text,
+                text2:text2,
+                catId:catId,
+                layout:layout,
+                alltags:tagsjson
+            }
+            result.push(obj);
+            Session.set('text',text);
+            Session.set('text2',text2);
+            Session.set('PREVIEWS',result);
+            console.log("preview: "+JSON.stringify(Session.get('PREVIEWS')));
+            Router.go('preview');
         }
-        result.push(obj);
-        Session.set('PREVIEWS',result);
-        console.log("preview: "+JSON.stringify(Session.get('PREVIEWS')));
-        Router.go('preview');
-
     }
 });
 
@@ -231,7 +250,8 @@ Template.disContent.helpers({
         }else{
             return;
         }
-	}
+	},
+   // hastext:function()
 });
 Template.disContent.events({
     "click #remove-con":function(e){
