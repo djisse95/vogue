@@ -1,7 +1,9 @@
 Session.setDefault('currentPage',0);
+Session.set('arrayPage',undefined);
 Template.header.events({
 	'click .changelist':function(e,tpl){
 		Session.set('currentPage',0);
+		Session.set("param", undefined);
 	},
 	/*'click #listCate':function(e){
 		e.preventDefault();
