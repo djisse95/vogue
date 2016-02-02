@@ -32,10 +32,13 @@ Template.header.helpers({
         return categories.find();
     },
     getNumberPag:function(){
-    		if(Session.get('currentPage'))
-    			return Session.get('currentPage');
-    		else
+    	console.log("cuurnt page "+Session.get('currentPage'));
+    		// if(Session.get('currentPage') == 0)
+    			// console.log(" array page ff"+Session.get('arrayPage'));
     			return Session.get('arrayPage');
+    		// else
+    		// 	return Session.get('currentPage');
+    			
     }
 
 });
