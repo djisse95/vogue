@@ -42,6 +42,9 @@ Template.list.helpers({
         }
         return array;
     },
+     getcatename:function(catId){
+        return categories.find({_id:catId});
+    },
 	morearticle:function(){
 		var catId = Session.get("categoriesId");
 		var items = article.find({catId:catId}, {sort: {name: 1},limit:Session.get('limit')}).fetch();
@@ -89,5 +92,29 @@ Template.list.helpers({
             console.log("MYBEAUTY="+item);
             return item;    
         }
+    },
+
+    getTitle: function(title){
+
+        var s = title;
+        var max_length = 25;
+
+        if (s.length > max_length)
+        {
+           s = s.substr(0, 25) + '...';
+         
+        }
+        return s;
+    },
+    getText: function(text){
+
+        var c = text;
+        var max_length = 50;
+
+        if (c.length > max_length)
+        {
+          c = c.substr(0, 50) + '...';
+        }
+        return c;
     }
 });

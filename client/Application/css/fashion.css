@@ -7,7 +7,7 @@
 }
 .bg-fashion-a{
   background: url("../images/bg-fashion2.png") no-repeat;
-  height: 361px;
+  overflow: hidden;
   background-position: top;
 }
 .center-text-fashion{

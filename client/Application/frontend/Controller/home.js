@@ -76,5 +76,29 @@ Template.home.helpers({
             console.log("MYBEAUTY="+item);
             return item;    
         }
+    },
+    getTitle: function(title){
+
+        var s = title;
+        var max_length = 25;
+
+        if (s.length > max_length)
+        {
+           s = s.substr(0, 25) + '...';
+         
+        }
+        return s;
+    },
+    getText: function(text){
+
+        var c = text;
+        var max_length = 50;
+
+        if (c.length > max_length)
+        {
+          c = c.substr(0, 50) + '...';
+        }
+        return c;
     }
+
 });

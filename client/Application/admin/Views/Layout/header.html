@@ -26,39 +26,45 @@
 		<div class="header_top">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-8">
-						<div class="logo">
-							<h1><a href="/"><img src="/images/logo_zippamode.png" style="width:230px;"></a></h1>
+					<div class="col-md-4 col-sm-4">
+						<div class="hold_swiper">
+							<!-- slide swiper -->
+								<div class="swiper-container swiper-container-horizontal">
+									<div style="transition-duration: 0ms; transform: translate3d(90px, 0px, 0px);" class="swiper-wrapper">
+										<div  class="swiper-slide swiper-slide-prev"><h1 class="center-block h1">1</h1></div>
+										<div class="swiper-slide swiper-slide-active"><h1  class="center-block h1">2</h1></div>
+										<div class="swiper-slide swiper-slide-next"><h1  class="center-block h1">3</h1></div>
+										<!--<div class="swiper-slide"><h1  class="center-block">4</h1></div>-->
+									</div>
+									<div class="swiper-button-next"></div>
+									<div class="swiper-button-prev"></div>
+								</div>										
+							<!-- /slide swiper -->
 						</div>
-						<div class="main_menu">
+					</div>
+					<div class="col-md-8 col-sm-8">
+						<div class="logo">
+							<!-- <h1 class="pull-right"><img width="" height="150" src="/images/logo_zippamode.png"></h1> -->
+							<h1 class="pull-right"><a href="/"><img src="/images/logo-zibamode.svg" height="150"></a></h1>
+						</div>
+						<div class="main_menu pull-right">
 							<ul class="nav navbar-nav">
 								{{#if currentUser}}
-									<li class="add-content"><a href="/addContent">Add Content</a></li>
+								<li><a href="content.html" class="add-content">Add Content</a></li>
 								{{/if}}
 								<li><a href="/" class="changelist">Home</a></li>
 								{{#each dismenu}}
 									<!-- <li><a href="/category/{{_id}}" id="listCate changelist">{{title}}</a></li> -->
 									<li><a href="/category/{{_id}}">{{title}}</a></li>
 								{{/each}}
+								<!-- {{#each dismenu}}
+								<li><a href="lifestyle.html" class="lifestyle">Lifestyle</a></li>
+								<li><a href="beauty.html" class="beauty">Beauty</a></li>
+								<li ><a href="fashion.html" class="fashion">Fashion</a></li> -->
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-4" style="padding-top:35px;">
-						<div class="swiper-container">
-					        <div class="swiper-wrapper">
-					        	{{#each getNumberPag}}
-					            <div class="swiper-slide"><h1 class="h1linheight">{{this}}</h1></div>
-					       
-					            {{/each}}
-					            
-					        </div>
-					        <!-- Add Pagination -->
-					        <!-- <div class="swiper-pagination"></div> -->
-					        <!-- Add Arrows -->
-					        <div class="swiper-button-next"></div>
-					        <div class="swiper-button-prev"></div>
-					    </div>
-					</div>
+					
 				</div>	
 			</div>
 		</div><!--end header top-->

@@ -32,8 +32,10 @@ Template.header.helpers({
         return categories.find();
     },
     getNumberPag:function(){
-    		return Session.get('arrayPage');
-    		//return Session.get('currentPage');
+    		if(Session.get('currentPage'))
+    			return Session.get('currentPage');
+    		else
+    			return Session.get('arrayPage');
     }
 
 });
