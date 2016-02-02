@@ -21,8 +21,12 @@ Template.login.events({
            } else {
              Bert.alert("login successful!", 'success', 'growl-top-left');
              var loggedInUser = Meteor.user();
+             var addContent = Session.get('addContent');
              var group = 'mygroup';
-            if (Roles.userIsInRole(loggedInUser, ['Admin'], group)) {
+            if(addContent == 1){
+                Router.go('/addContent');
+            }
+            else if (Roles.userIsInRole(loggedInUser, ['Admin'], group)) {
              Router.go('/manageuser');
              $('.close').click();
             }
@@ -96,7 +100,17 @@ Template.header.events({
     },
     'click #login': function(event){
         event.preventDefault();
-        Router.go('/');
+        var email = $('[name=email]').val();
+        var password = $('[name=password]').val();
+        Meteor.loginWithPassword(email, password, function(error){
+            if(error){
+                console.log(error.reason);
+            } else {
+                alert("successfully");
+                Router.go('home');
+            }
+        });
+        // Router.go('/');
     }
 });
 // ================ Manage User =================== //
