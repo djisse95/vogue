@@ -1,9 +1,8 @@
 Session.setDefault('currentPage',0);
-Session.set('arrayPage',undefined);
+// Session.set('arrayPage',undefined);
 Template.header.events({
 	'click .changelist':function(e,tpl){
 		Session.set('currentPage',0);
-		Session.set("param", undefined);
 	},
 	/*'click #listCate':function(e){
 		e.preventDefault();
@@ -16,7 +15,7 @@ Template.header.events({
 	//=============Start Click next prev pagination=============
 	'click .swiper-button-next':function(e){
 		e.preventDefault();
-		var i=Session.get('currentPage')+1;		
+		var i=Session.get('currentPage')+1;	
 		Session.set('currentPage',i);
 	},
 	'click .swiper-button-prev':function(e){
@@ -25,7 +24,6 @@ Template.header.events({
 			return;
 		var prev=Session.get('currentPage')-1;
 		Session.set('currentPage',prev);
-
 	}
 	//=============End Click next prev pagination===============
 });
@@ -35,11 +33,10 @@ Template.header.helpers({
     },
     getNumberPag:function(){
     		if(Session.get('currentPage'))
-    			return Session.get('currentPage');
+    			return Session.get('arrayPage');
     		else
     			return Session.get('arrayPage');
-    }
-
+	}
 });
 
 Template.header.rendered = function(){ // event use to 
