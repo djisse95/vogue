@@ -67,47 +67,50 @@ Template.addContent.helpers({
     }
 });
 Template.addContent.events({
-       
-	'click #btn-content':function(e,tpl){
-		e.preventDefault();
-		var img = Session.get('ADDIMAGEID');
-		var title = tpl.$('.title').val();
-		var text = tpl.CKEDITOR.instances.editor1.getData();
-		var text2 = tpl.$('.text2').val();
-		var catId = Session.get("catId");
-		var layout = Session.get("LAYOUT");
-		var alltags=Session.get('tagId');
+    'click #btn-content':function(e,tpl){
+        e.preventDefault();
+        var img = Session.get('ADDIMAGEID');
+        var title = tpl.$('.title').val();
+        //var text = tpl.CKEDITOR.instances.editor1.getData();
+        var text = tpl.$('#editor1').val();
+        var text2 = tpl.$('.text2').val();
+        var catId = Session.get("catId");
+        var layout = Session.get("LAYOUT");
+        var alltags=Session.get('tagId');
         var msg="";
+        //console.log("Hello Sophy: "+title+"<br> text1: "+text+"<br> text2: "+text2+"<br> catId: "+catId+"<br> layout: "+layout+"<br> alltags: "+alltags);
         alltags=alltags.split(';');
         tagsjson=[];
         for(var i=0;i<alltags.length;i++){
-        	if(alltags[i]!=""){
-            	tagsjson.push(alltags[i]);
-        	}
-       	}
-        if(title == "" || text == "" || layout == "" || catId == ""){
-            
-            if( title == '' )
+            if(alltags[i]!=""){
+                tagsjson.push(alltags[i]);
+            }
+        }
+        if(typeof img == "undefined" || title == "" || text == "" || catId == "" || layout == ""){
+            if(typeof img == "undefined")
+                Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
+            else if( title == '' )
                 Bert.alert( 'title is required', 'danger', 'growl-top-right' );
             else if( text == '' )
                 Bert.alert( 'text is required', 'danger', 'growl-top-right' );
-            else if( layout == '' )
-                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
             else if( catId == '' )
                 Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
-        
+            else if( layout == '' )
+                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
+            else 
+                 Bert.alert( 'Please Check you input again', 'danger', 'growl-top-right' );
         }else{
-    	    //alert("hello"+layout);
-            //Session.set("ADDIMAGEID","");
+            //alert("hello"+layout);
+            Session.set("ADDIMAGEID","");
             delete Session.keys['ADDIMAGEID'];
             Session.set("tagId","");
             delete Session.keys['tagId'];
             Session.set("LAYOUT","");
             delete Session.keys['LAYOUT'];
-    		Meteor.call('addContent',img,title,text,text2,catId,layout,tagsjson);	
-    		Router.go('/managecontent');
-		}
-	},
+            Meteor.call('addContent',img,title,text,text2,catId,layout,tagsjson);   
+            Router.go('/managecontent');
+        }
+    },
     'keypress input': function(event) {
         event = event || window.event;
         var keyCode = event.which || event.keyCode;
@@ -181,14 +184,16 @@ Template.addContent.events({
         $(".lay2").removeClass('img-lay');
         $(".lay1").removeClass('img-lay');
     },
-    'click #preview':function(e){
+    'click #preview':function(e,tpl){
         e.preventDefault();
+        //alert("bong nhom sur 1");
         var result = [];
         //console.log('array: '+result);
         var img = Session.get('ADDIMAGEID');
-        var title = $('.title').val();
-        var text = CKEDITOR.instances.editor1.getData();
-        var text2 = $('.text2').val();
+        var title = tpl.$('.title').val();
+        //var text = CKEDITOR.instances.editor1.getData();
+        var text = tpl.$('#editor1').val();
+        var text2 = tpl.$('.text2').val();
         var catId = Session.get("catId");
         var layout = Session.get("LAYOUT");
         var alltags=Session.get('tagId');
@@ -199,7 +204,7 @@ Template.addContent.events({
                 tagsjson.push(alltags[i]);
             }
         }
-         if(typeof img == "undefined" || title == "" || text == "" || layout == "" || catId == ""){
+         if(typeof img == "undefined" || title == "" || text == "" || catId == "" || layout == ""){
             
             if(typeof img == "undefined")
                 Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
@@ -207,10 +212,10 @@ Template.addContent.events({
                 Bert.alert( 'title is required', 'danger', 'growl-top-right' );
             else if( text == '' )
                 Bert.alert( 'text is required', 'danger', 'growl-top-right' );
-            else if( layout == '' )
-                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
             else if( catId == '' )
                 Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
+             else if( layout == '' )
+                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
             else 
                  Bert.alert( 'Please Check you input again', 'danger', 'growl-top-right' );
         
@@ -228,7 +233,7 @@ Template.addContent.events({
             Session.set('text',text);
             Session.set('text2',text2);
             Session.set('PREVIEWS',result);
-            //console.log("preview: "+JSON.stringify(Session.get('PREVIEWS')));
+            console.log("preview: "+JSON.stringify(Session.get('PREVIEWS')));
             Router.go('preview');
         }
     }
@@ -275,20 +280,22 @@ Template.disContent.events({
 });
 
 Template.editContent.events({
-	'click #btn-content':function(e){
-		e.preventDefault();
-		var id = this._id;
-		var img = Session.get('ADDIMAGEID');
+	'click #btn-content':function(e,tpl){
+        alert(" helo ");
+        e.preventDefault();
+        var id = this._id;
+        var img = Session.get('ADDIMAGEID');
         
-		var title = $('.title').val();
-		var text = CKEDITOR.instances.editor1.getData();
-		var text2 = $('.text2').val();
-		var catId = Session.get("catId");
-        var currentImage = $('#currentImage').val();
+        var title = tpl.$('.title').val();
+        //var text = CKEDITOR.instances.editor1.getData();
+        var text2 = tpl.$('.text2').val();
+        var text = tpl.$('#editor1').val();
+        var catId = Session.get("catId");
+        var currentImage = tpl.$('#currentImage').val();
                
 
-        var oldCate = $('#oldCate').val();
-        var oldLay = $('#oldLay').val();
+        var oldCate = tpl.$('#oldCate').val();
+        var oldLay = tpl.$('#oldLay').val();
         var layout = Session.get("LAYOUT");
 
         var alltags=Session.get('tagId');
@@ -296,10 +303,10 @@ Template.editContent.events({
         alltags=alltags.split(';');
         tagsjson=[];
         for(var i=0;i<alltags.length;i++){
-        	if(alltags[i]!=""){
-            	tagsjson.push(alltags[i]);
-        	}
-       	}
+            if(alltags[i]!=""){
+                tagsjson.push(alltags[i]);
+            }
+        }
         if(typeof img == "undefined"){
             img = currentImage;
         }
@@ -310,18 +317,22 @@ Template.editContent.events({
             layout=oldLay;
         }
         
-        if(title == "" || text == "" || layout == "" || catId == ""){
-            if(title == "")
+        if(typeof img == "undefined" || title == "" || text == "" || catId == "" || layout == ""){
+            if(typeof img == "undefined")
+                Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
+            else if(title=="")
                 Bert.alert( 'title is required', 'danger', 'growl-top-right' );
             else if(text=="")
                 Bert.alert( 'text is required', 'danger', 'growl-top-right' );
-            else if(catId == "")
-                Bert.alert( 'Select Category is required!', 'danger', 'growl-top-right' );
-            else
-                Bert.alert( 'Select Layout is required!', 'danger', 'growl-top-right' );
+            else if( catId == '' )
+                Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
+             else if( layout == '' )
+                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
+            else 
+                 Bert.alert( 'Please Check you input again', 'danger', 'growl-top-right' );
             Session.set('page_msg',msg);
         }else{
-           	Meteor.call("editContent",id,img,title,text,text2,catId,layout,tagsjson,function(error,result){
+            Meteor.call("editContent",id,img,title,text,text2,catId,layout,tagsjson,function(error,result){
                 if(error){
                     console.log("edit content has problem!!!")
                 }else{
@@ -334,7 +345,7 @@ Template.editContent.events({
                 }
             });
         }
-	},
+    },
     'keypress input': function(event) {
         event = event || window.event;
         var keyCode = event.which || event.keyCode;
