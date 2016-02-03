@@ -322,17 +322,17 @@ Template.editContent.onRendered(function () {
 });
 
 Template.editContent.events({
-	'click #btn-content':function(e){
-		e.preventDefault();
-		var id = this._id;
-		var img = Session.get('ADDIMAGEID');
-		var title = $('.title').val();
+    'click #btn-content':function(e){
+        e.preventDefault();
+        var id = this._id;
+        var img = Session.get('ADDIMAGEID');
+        var title = $('.title').val();
       
-		//var text = CKEDITOR.instances.editor1.getData();
-		var text = $('#editor1').val();
+        //var text = CKEDITOR.instances.editor1.getData();
+        var text = $('#editor1').val();
         var text2 =$('.text2').val();
         alert("www"+text2 + text);
-		var catId = Session.get("catId");
+        var catId = Session.get("catId");
         //var cat = $("#categoryId").val();
         //alert("currentcatId="+cat);
         var currentImage = $('#currentImage').val();
@@ -345,14 +345,13 @@ Template.editContent.events({
         /*var alltags=Session.get('tagId');
         var msg="";
         tagsjson=[];
-<<<<<<< HEAD
         if(typeof alltags !="undefined"){
             alltags=alltags.split(';');
             for(var i=0;i<alltags.length;i++){
-            	if(alltags[i]!=""){
-                	tagsjson.push(alltags[i]);
-            	}
-           	}
+                if(alltags[i]!=""){
+                    tagsjson.push(alltags[i]);
+                }
+            }
         }else{
             var arrr = Session.get('tagjson');
             alert("arrr "+arrr);
@@ -365,11 +364,6 @@ Template.editContent.events({
                 tagsjson.push($(this).attr('data-id'))
             }
         })
-        for(var i=0;i<alltags.length;i++){
-            if(alltags[i]!=""){
-                tagsjson.push(alltags[i]);
-            }
-        }
         if(typeof img == "undefined"){
             img = currentImage;
         }
@@ -390,29 +384,7 @@ Template.editContent.events({
             Session.set('page_msg',msg);
         }else{
         
-           	Meteor.call("editContent",id,img,title,text,text2,catId,layout,tagsjson,function(error,result){
-/*=======
-        if( typeof layout == "undefined"){
-            layout=oldLay;
-        }
-        
-        if(typeof img == "undefined" || title == "" || text == "" || catId == "" || layout == ""){
-            if(typeof img == "undefined")
-                Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
-            else if(title=="")
-                Bert.alert( 'title is required', 'danger', 'growl-top-right' );
-            else if(text=="")
-                Bert.alert( 'text is required', 'danger', 'growl-top-right' );
-            else if( catId == '' )
-                Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
-             else if( layout == '' )
-                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
-            else 
-                 Bert.alert( 'Please Check you input again', 'danger', 'growl-top-right' );
-            Session.set('page_msg',msg);
-        }else{
             Meteor.call("editContent",id,img,title,text,text2,catId,layout,tagsjson,function(error,result){
->>>>>>> 42a6ec4496b6aa4e58ff20d967e78d9f71608c4a*/
                 if(error){
                     console.log("edit content has problem!!!"+error.reason())
                 }else{
@@ -435,23 +407,23 @@ Template.editContent.events({
         Session.set("PostError","");
         Session.set("page_msg","");
     },
-	'change #img': function(event, template) {
+    'change #img': function(event, template) {
         var files = event.target.files;
         for (var i = 0, ln = files.length; i < ln; i++) {
-          	images.insert(files[i], function (err, fileObj) {
-	            Session.set('ADDIMAGEID', fileObj._id);
-          	});
+            images.insert(files[i], function (err, fileObj) {
+                Session.set('ADDIMAGEID', fileObj._id);
+            });
         }
     },
     'click #cate':function(e){
-    	e.preventDefault();
-    	var id = this._id;
+        e.preventDefault();
+        var id = this._id;
         //alert(id);
-    	Session.set("catId",id);
-    	$('#cate').css('.active');
+        Session.set("catId",id);
+        $('#cate').css('.active');
     },
     'click #tag':function(e){
-    	e.preventDefault();
+        e.preventDefault();
         var id = this._id;
 
         var Tags = Session.get("tagId");
@@ -485,19 +457,19 @@ Template.editContent.events({
 
     },
     'click .remove':function(e){
-		e.preventDefault();
-		$(e.currentTarget).parent().remove();
+        e.preventDefault();
+        $(e.currentTarget).parent().remove();
     },
     'click #layout1':function(e){
-    	e.preventDefault();
-    	Session.set('LAYOUT',1);
+        e.preventDefault();
+        Session.set('LAYOUT',1);
         $(".lay1").addClass('img-lay');
         $(".lay2").removeClass('img-lay');
         $(".lay3").removeClass('img-lay');
     },
     'click #layout2':function(e){
-    	e.preventDefault();
-    	Session.set('LAYOUT',2);
+        e.preventDefault();
+        Session.set('LAYOUT',2);
         $(".lay2").addClass('img-lay');
         $(".lay1").removeClass('img-lay');
         $(".lay3").removeClass('img-lay');
