@@ -67,8 +67,12 @@
         transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   }
   #style_login{
-     border: 1px solid black; 
-     border-radius:0px;
+     border: 1px solid black !important; 
+     border-radius:0px !important;
+  }
+  .style_login{
+     border: 1px solid black !important; 
+     border-radius:0px !important;
   }
   label {
     display: inline-block;
