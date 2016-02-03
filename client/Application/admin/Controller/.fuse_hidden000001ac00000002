@@ -1,9 +1,5 @@
 Session.setDefault('currentPage',0);
-<<<<<<< HEAD
 // Session.set('arrayPage',undefined);
-=======
-Session.setDefault('currentClass','');
->>>>>>> 3fb98b903deec0bc2da256a435147b1804772a26
 Template.header.events({
 	'click .changelist':function(e,tpl){
 		Session.set('currentPage',0);
@@ -28,19 +24,6 @@ Template.header.events({
 			return;
 		var prev=Session.get('currentPage')-1;
 		Session.set('currentPage',prev);
-<<<<<<< HEAD
-=======
-
-	},
-	//start add style to menu====
-	'click .catstyle':function(event){	
-		//var catClass = this.title.toLowerCase();
-		//alert(catClass);
-		//alert(this._id);
-		Session.set('currentClass',this._id);
-		
-
->>>>>>> 3fb98b903deec0bc2da256a435147b1804772a26
 	}
 	//=============End Click next prev pagination===============
 });
@@ -53,30 +36,7 @@ Template.header.helpers({
     			return Session.get('arrayPage');
     		else
     			return Session.get('arrayPage');
-<<<<<<< HEAD
 	}
-=======
-    },
-    tolow:function(title){
-    	var convertowercase = title.toLowerCase();
-    	return convertowercase;
-    },
-    getClass:function(_id){
-    	var id = _id;
-    	var SessionId = Session.get('currentClass');
-    	//alert(SessionId);
-    	var cl = categories.findOne({_id:id});
-    	console.log("styleclass is"+cl.title);
-    	var css = cl.title.toLowerCase();
-    	if(id == SessionId){
-    		return css;
-    	}else{
-    		return;
-    	}
-    }
-
-
->>>>>>> 3fb98b903deec0bc2da256a435147b1804772a26
 });
 
 Template.header.rendered = function(){ // event use to 

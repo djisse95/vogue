@@ -43,7 +43,7 @@ Template.addContent.helpers({
 		var image = Session.get('ADDIMAGEID');
         var img = images.findOne({_id:image});
         if(img){
-            console.log(img.copies.images.key);
+            //console.log(img.copies.images.key);
             return img.copies.images.key;
         }else{
             return;
@@ -51,7 +51,7 @@ Template.addContent.helpers({
     },
     haveImage: function(){
         var haveimage = Session.get('ADDIMAGEID');
-        console.log('img id:'+haveimage);
+        //console.log('img id:'+haveimage);
         if( haveimage )
             return true;
         else 
@@ -67,13 +67,12 @@ Template.addContent.helpers({
     }
 });
 Template.addContent.events({
-	'click #btn-content':function(e){
+	'click #btn-content':function(e,tpl){
 		e.preventDefault();
 		var img = Session.get('ADDIMAGEID');
-		var title = $('.title').val();
-		var text = CKEDITOR.instances.editor1.getData();
-        //var text = $('.title').ckeditor();
-		var text2 = $('.text2').val();
+		var title = tpl.$('.title').val();
+		var text = tpl.CKEDITOR.instances.editor1.getData();
+		var text2 = tpl.$('.text2').val();
 		var catId = Session.get("catId");
 		var layout = Session.get("LAYOUT");
 		var alltags=Session.get('tagId');
@@ -184,7 +183,7 @@ Template.addContent.events({
     'click #preview':function(e){
         e.preventDefault();
         var result = [];
-        console.log('array: '+result);
+        //console.log('array: '+result);
         var img = Session.get('ADDIMAGEID');
         var title = $('.title').val();
         var text = CKEDITOR.instances.editor1.getData();
@@ -228,7 +227,7 @@ Template.addContent.events({
             Session.set('text',text);
             Session.set('text2',text2);
             Session.set('PREVIEWS',result);
-            console.log("preview: "+JSON.stringify(Session.get('PREVIEWS')));
+            //console.log("preview: "+JSON.stringify(Session.get('PREVIEWS')));
             Router.go('preview');
         }
     }
@@ -424,7 +423,7 @@ Template.editContent.helpers({
     haveImage: function(){
         var haveimage = Session.get('ADDIMAGEID');
         //var img = images.findOne({_id:image});
-        console.log('img id:'+haveimage);
+        //console.log('img id:'+haveimage);
         if( haveimage )
             return true;
         else 
