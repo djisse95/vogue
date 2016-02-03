@@ -88,6 +88,7 @@ Template.addContent.helpers({
     }
 });
 Template.addContent.events({
+       
 	'click #btn-content':function(e,tpl){
 		e.preventDefault();
 		var img = Session.get('ADDIMAGEID');
@@ -118,7 +119,7 @@ Template.addContent.events({
         
         }else{
     	    //alert("hello"+layout);
-            Session.set("ADDIMAGEID","");
+            //Session.set("ADDIMAGEID","");
             delete Session.keys['ADDIMAGEID'];
             Session.set("tagId","");
             delete Session.keys['tagId'];
@@ -139,7 +140,7 @@ Template.addContent.events({
         for (var i = 0, ln = files.length; i < ln; i++) {
           	images.insert(files[i], function (err, fileObj) {
 	            // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
-            	Session.set('ADDIMAGEID', fileObj._id);
+            	Session.setPersistent('ADDIMAGEID', fileObj._id);
           	});
         }
     },
