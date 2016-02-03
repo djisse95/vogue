@@ -1,4 +1,5 @@
 Session.setDefault('currentPage',0);
+Session.setDefault('currentClass','');
 Template.header.events({
 	'click .changelist':function(e,tpl){
 		Session.set('currentPage',0);
@@ -24,6 +25,15 @@ Template.header.events({
 		var prev=Session.get('currentPage')-1;
 		Session.set('currentPage',prev);
 
+	},
+	//start add style to menu====
+	'click .catstyle':function(event){	
+		//var catClass = this.title.toLowerCase();
+		//alert(catClass);
+		//alert(this._id);
+		Session.set('currentClass',this._id);
+		
+
 	}
 	//=============End Click next prev pagination===============
 });
@@ -32,14 +42,29 @@ Template.header.helpers({
         return categories.find();
     },
     getNumberPag:function(){
-    	console.log("cuurnt page "+Session.get('currentPage'));
-    		// if(Session.get('currentPage') == 0)
-    			// console.log(" array page ff"+Session.get('arrayPage'));
+    		if(Session.get('currentPage'))
+    			return Session.get('currentPage');
+    		else
     			return Session.get('arrayPage');
-    		// else
-    		// 	return Session.get('currentPage');
-    			
+    },
+    tolow:function(title){
+    	var convertowercase = title.toLowerCase();
+    	return convertowercase;
+    },
+    getClass:function(_id){
+    	var id = _id;
+    	var SessionId = Session.get('currentClass');
+    	//alert(SessionId);
+    	var cl = categories.findOne({_id:id});
+    	console.log("styleclass is"+cl.title);
+    	var css = cl.title.toLowerCase();
+    	if(id == SessionId){
+    		return css;
+    	}else{
+    		return;
+    	}
     }
+
 
 });
 
