@@ -4,6 +4,7 @@ Session.setDefault('text','');
 Session.setDefault('text2','');
 Session.setDefault("myimage",'');
 Session.setDefault("catId","");
+Session.setDefault("currentClass","");
 Session.set('img_pro','');
 
 
@@ -65,50 +66,73 @@ Template.addContent.helpers({
     },
     PostErrormsg: function(){
         return Session.get("PostError");
+    },
+    tolow:function(title){
+        var convertowercase = title.toLowerCase();
+        return convertowercase;
+    },
+
+    // add by chien
+
+    getClass:function(_id){
+        var id = _id;
+        var SessionId = Session.get('currentClass');
+        //alert(SessionId);
+        var cl = categories.findOne({_id:id});
+        console.log("styleclass is"+cl.title);
+        var css = cl.title.toLowerCase();
+        if(id == SessionId){
+            return css;
+        }else{
+            return;
+        }
     }
 });
 Template.addContent.events({
-	'click #btn-content':function(e,tpl){
-		e.preventDefault();
-		var img = Session.get('ADDIMAGEID');
-		var title = tpl.$('.title').val();
-		//var text = tpl.CKEDITOR.instances.editor1.getData();
+    'click #btn-content':function(e,tpl){
+        e.preventDefault();
+        var img = Session.get('ADDIMAGEID');
+        var title = tpl.$('.title').val();
+        //var text = tpl.CKEDITOR.instances.editor1.getData();
         var text = tpl.$('#editor1').val();
-		var text2 = tpl.$('.text2').val();
-		var catId = Session.get("catId");
-		var layout = Session.get("LAYOUT");
-		var alltags=Session.get('tagId');
+        var text2 = tpl.$('.text2').val();
+        var catId = Session.get("catId");
+        var layout = Session.get("LAYOUT");
+        var alltags=Session.get('tagId');
         var msg="";
+        //console.log("Hello Sophy: "+title+"<br> text1: "+text+"<br> text2: "+text2+"<br> catId: "+catId+"<br> layout: "+layout+"<br> alltags: "+alltags);
         alltags=alltags.split(';');
         tagsjson=[];
         for(var i=0;i<alltags.length;i++){
-        	if(alltags[i]!=""){
-            	tagsjson.push(alltags[i]);
-        	}
-       	}
-        if(title == "" || text == "" || layout == "" || catId == ""){
-            
-            if( title == '' )
+            if(alltags[i]!=""){
+                tagsjson.push(alltags[i]);
+            }
+        }
+        if(typeof img == "undefined" || title == "" || text == "" || catId == "" || layout == ""){
+            if(typeof img == "undefined")
+                Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
+            else if( title == '' )
                 Bert.alert( 'title is required', 'danger', 'growl-top-right' );
             else if( text == '' )
                 Bert.alert( 'text is required', 'danger', 'growl-top-right' );
-            else if( layout == '' )
-                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
             else if( catId == '' )
                 Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
-        
+            else if( layout == '' )
+                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
+            else 
+                 Bert.alert( 'Please Check you input again', 'danger', 'growl-top-right' );
         }else{
-    	    //alert("hello"+layout);
+            //alert("hello"+layout);
             Session.set("ADDIMAGEID","");
             delete Session.keys['ADDIMAGEID'];
             Session.set("tagId","");
             delete Session.keys['tagId'];
             Session.set("LAYOUT","");
             delete Session.keys['LAYOUT'];
-    		Meteor.call('addContent',img,title,text,text2,catId,layout,tagsjson);	
-    		Router.go('/managecontent');
-		}
-	},
+            Meteor.call('addContent',img,title,text,text2,catId,layout,tagsjson);   
+            Router.go('/managecontent');
+        }
+    },
     'keypress input': function(event) {
         event = event || window.event;
         var keyCode = event.which || event.keyCode;
@@ -120,17 +144,18 @@ Template.addContent.events({
         for (var i = 0, ln = files.length; i < ln; i++) {
           	images.insert(files[i], function (err, fileObj) {
 	            // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
-            	Session.set('ADDIMAGEID', fileObj._id);
+            	Session.setPersistent('ADDIMAGEID', fileObj._id);
           	});
         }
     },
-    'click #cate':function(e,tpl){
+    'click .cate':function(e,tpl){
     	e.preventDefault();
-        $("#cate").css("background-color:white");
+        Session.set('currentClass',this._id);
+        $(".cate").css("background-color:white");
         $(e.currentTarget).css("background-color:red");
     	var id = this._id;
     	Session.set("catId",id);
-        $("#wrapper").addClass('app');
+        $(this).addClass('fashion');
     },
     'click .tag':function(e){
     	e.preventDefault();
@@ -182,8 +207,9 @@ Template.addContent.events({
         $(".lay2").removeClass('img-lay');
         $(".lay1").removeClass('img-lay');
     },
-    'click #preview':function(e){
+    'click #preview':function(e,tpl){
         e.preventDefault();
+        //alert("bong nhom sur 1");
         var result = [];
         //console.log('array: '+result);
         var img = Session.get('ADDIMAGEID');
@@ -201,7 +227,7 @@ Template.addContent.events({
                 tagsjson.push(alltags[i]);
             }
         }
-         if(typeof img == "undefined" || title == "" || text == "" || layout == "" || catId == ""){
+         if(typeof img == "undefined" || title == "" || text == "" || catId == "" || layout == ""){
             
             if(typeof img == "undefined")
                 Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
@@ -209,10 +235,10 @@ Template.addContent.events({
                 Bert.alert( 'title is required', 'danger', 'growl-top-right' );
             else if( text == '' )
                 Bert.alert( 'text is required', 'danger', 'growl-top-right' );
-            else if( layout == '' )
-                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
             else if( catId == '' )
                 Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
+             else if( layout == '' )
+                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
             else 
                  Bert.alert( 'Please Check you input again', 'danger', 'growl-top-right' );
         
@@ -230,7 +256,7 @@ Template.addContent.events({
             Session.set('text',text);
             Session.set('text2',text2);
             Session.set('PREVIEWS',result);
-            //console.log("preview: "+JSON.stringify(Session.get('PREVIEWS')));
+            console.log("preview: "+JSON.stringify(Session.get('PREVIEWS')));
             Router.go('preview');
         }
     }
@@ -319,6 +345,7 @@ Template.editContent.events({
         /*var alltags=Session.get('tagId');
         var msg="";
         tagsjson=[];
+<<<<<<< HEAD
         if(typeof alltags !="undefined"){
             alltags=alltags.split(';');
             for(var i=0;i<alltags.length;i++){
@@ -338,6 +365,11 @@ Template.editContent.events({
                 tagsjson.push($(this).attr('data-id'))
             }
         })
+        for(var i=0;i<alltags.length;i++){
+            if(alltags[i]!=""){
+                tagsjson.push(alltags[i]);
+            }
+        }
         if(typeof img == "undefined"){
             img = currentImage;
         }
@@ -359,6 +391,28 @@ Template.editContent.events({
         }else{
         
            	Meteor.call("editContent",id,img,title,text,text2,catId,layout,tagsjson,function(error,result){
+/*=======
+        if( typeof layout == "undefined"){
+            layout=oldLay;
+        }
+        
+        if(typeof img == "undefined" || title == "" || text == "" || catId == "" || layout == ""){
+            if(typeof img == "undefined")
+                Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
+            else if(title=="")
+                Bert.alert( 'title is required', 'danger', 'growl-top-right' );
+            else if(text=="")
+                Bert.alert( 'text is required', 'danger', 'growl-top-right' );
+            else if( catId == '' )
+                Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
+             else if( layout == '' )
+                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
+            else 
+                 Bert.alert( 'Please Check you input again', 'danger', 'growl-top-right' );
+            Session.set('page_msg',msg);
+        }else{
+            Meteor.call("editContent",id,img,title,text,text2,catId,layout,tagsjson,function(error,result){
+>>>>>>> 42a6ec4496b6aa4e58ff20d967e78d9f71608c4a*/
                 if(error){
                     console.log("edit content has problem!!!"+error.reason())
                 }else{
@@ -374,7 +428,7 @@ Template.editContent.events({
             });
             Router.go('/managecontent');
         }
-	},
+    },
     'keypress input': function(event) {
         event = event || window.event;
         var keyCode = event.which || event.keyCode;
