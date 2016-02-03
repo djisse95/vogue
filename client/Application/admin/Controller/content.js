@@ -274,16 +274,25 @@ Template.disContent.events({
     }
 });
 
+Template.editContent.onRendered(function () {
+    var idContent=Router.current().params._id;
+    var myContent=content.findOne({"_id":idContent});
+    alert('CATEGORY IS '+myContent.catId);
+    Session.set('catId',myContent.catId);
+});
+
 Template.editContent.events({
 	'click #btn-content':function(e){
 		e.preventDefault();
 		var id = this._id;
 		var img = Session.get('ADDIMAGEID');
-        
 		var title = $('.title').val();
 		var text = CKEDITOR.instances.editor1.getData();
 		var text2 = $('.text2').val();
 		var catId = Session.get("catId");
+        alert("newId"+catId);
+        //var cat = $("#categoryId").val();
+        //alert("currentcatId="+cat);
         var currentImage = $('#currentImage').val();
                
 
@@ -293,13 +302,15 @@ Template.editContent.events({
 
         var alltags=Session.get('tagId');
         var msg="";
-        alltags=alltags.split(';');
-        tagsjson=[];
-        for(var i=0;i<alltags.length;i++){
-        	if(alltags[i]!=""){
-            	tagsjson.push(alltags[i]);
-        	}
-       	}
+        if(alltags){
+            alltags=alltags.split(';');
+            tagsjson=[];
+            for(var i=0;i<alltags.length;i++){
+            	if(alltags[i]!=""){
+                	tagsjson.push(alltags[i]);
+            	}
+           	}
+        }
         if(typeof img == "undefined"){
             img = currentImage;
         }
@@ -309,22 +320,20 @@ Template.editContent.events({
         if( typeof layout == "undefined"){
             layout=oldLay;
         }
-        
-        if(title == "" || text == "" || layout == "" || catId == ""){
+        if(title == "" || text == "" || layout == ""){
             if(title == "")
                 Bert.alert( 'title is required', 'danger', 'growl-top-right' );
             else if(text=="")
                 Bert.alert( 'text is required', 'danger', 'growl-top-right' );
-            else if(catId == "")
-                Bert.alert( 'Select Category is required!', 'danger', 'growl-top-right' );
             else
                 Bert.alert( 'Select Layout is required!', 'danger', 'growl-top-right' );
             Session.set('page_msg',msg);
         }else{
            	Meteor.call("editContent",id,img,title,text,text2,catId,layout,tagsjson,function(error,result){
                 if(error){
-                    console.log("edit content has problem!!!")
+                    console.log("edit content has problem!!!"+error.reason())
                 }else{
+                    console.log("edit content success")
                     Bert.alert( 'Update Successful!', 'success', 'growl-top-right' );
                     Session.set("tagId","");
                     delete Session.keys['tagId'];
@@ -352,6 +361,7 @@ Template.editContent.events({
     'click #cate':function(e){
     	e.preventDefault();
     	var id = this._id;
+        //alert(id);
     	Session.set("catId",id);
     	$('#cate').css('.active');
     },

@@ -64,11 +64,12 @@
 					      		{{/each}}
 					      		{{#if iscatId}}
 					      			{{#each getCatsname}}
-										<li><a href="" >| Selected:<b style="color:#FAEB1E;">{{title}}</b></a></li>
+										<li><a href="#">| Selected:<b style="color:#FAEB1E;" >{{title}}</b></a></li>
 									{{/each}}
 				      			{{else}}
 						      		{{#if catId}}
-				      					<li><a href="" >| Selected:<b style="color:#FAEB1E;">{{getcat_title catId}}</b></a></li>
+				      					<li><a href="#" >| Selected:<b style="color:#FAEB1E;">{{getcat_title catId}}</b></a></li>
+				      					<input type="hidden" value="{{_id}}" id="categoryId">
 				      				{{/if}}
 					      		{{/if}}
 					      		
