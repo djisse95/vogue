@@ -46,7 +46,7 @@
 				    <h3>Your text</h3>
 					<textarea class="form-control text" name="editor1" id="editor1" rows="6" value="{{description.text1}}"></textarea>
 					<script>
-		                CKEDITOR.replace( 'editor1' );
+		                //CKEDITOR.replace( 'editor1' );
 		            </script>
 			    </div>
 			    <div class="col-md-12 row">
@@ -79,7 +79,7 @@
 						<div class="hold_selected_tag">
 							<ul class="list-inline">
 								<li class="selecteTage">Select Tag</li>
-								{{#if istagId}}
+								<!--{{#if istagId}}
 									{{#each getTagsname}}
 										<li class="">
 											<a href="#" id="remove">x</a>
@@ -95,7 +95,14 @@
 										</li>
 										{{/each}}
 									{{/if}}
-								{{/if}}
+								{{/if}}-->
+								{{#each getTagList}}
+									<li class="" data-id="{{id}}">
+										<a href="#" class="remove">x</a>
+										<a href="#"><div class="add_tag">{{getmyTagName id}}</div></a>
+									</li>
+									
+								{{/each}}
 							</ul>
 						</div>
 						<div class="clearfix"></div>
