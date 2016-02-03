@@ -4,6 +4,7 @@ Session.setDefault('text','');
 Session.setDefault('text2','');
 Session.setDefault("myimage",'');
 Session.setDefault("catId","");
+Session.setDefault("currentClass","");
 Session.set('img_pro','');
 
 Template.addContent.helpers({
@@ -64,6 +65,26 @@ Template.addContent.helpers({
     },
     PostErrormsg: function(){
         return Session.get("PostError");
+    },
+    tolow:function(title){
+        var convertowercase = title.toLowerCase();
+        return convertowercase;
+    },
+
+    // add by chien
+
+    getClass:function(_id){
+        var id = _id;
+        var SessionId = Session.get('currentClass');
+        //alert(SessionId);
+        var cl = categories.findOne({_id:id});
+        console.log("styleclass is"+cl.title);
+        var css = cl.title.toLowerCase();
+        if(id == SessionId){
+            return css;
+        }else{
+            return;
+        }
     }
 });
 Template.addContent.events({
@@ -126,13 +147,14 @@ Template.addContent.events({
           	});
         }
     },
-    'click #cate':function(e,tpl){
+    'click .cate':function(e,tpl){
     	e.preventDefault();
-        $("#cate").css("background-color:white");
+        Session.set('currentClass',this._id);
+        $(".cate").css("background-color:white");
         $(e.currentTarget).css("background-color:red");
     	var id = this._id;
     	Session.set("catId",id);
-        $("#wrapper").addClass('app');
+        $(this).addClass('fashion');
     },
     'click .tag':function(e){
     	e.preventDefault();
