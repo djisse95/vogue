@@ -1,9 +1,6 @@
 Session.setDefault('currentPage',0);
-<<<<<<< HEAD
-// Session.set('arrayPage',undefined);
-=======
+
 Session.setDefault('currentClass','');
->>>>>>> 3fb98b903deec0bc2da256a435147b1804772a26
 Template.header.events({
 	'click .changelist':function(e,tpl){
 		Session.set('currentPage',0);
@@ -28,8 +25,7 @@ Template.header.events({
 			return;
 		var prev=Session.get('currentPage')-1;
 		Session.set('currentPage',prev);
-<<<<<<< HEAD
-=======
+
 
 	},
 	//start add style to menu====
@@ -38,9 +34,6 @@ Template.header.events({
 		//alert(catClass);
 		//alert(this._id);
 		Session.set('currentClass',this._id);
-		
-
->>>>>>> 3fb98b903deec0bc2da256a435147b1804772a26
 	}
 	//=============End Click next prev pagination===============
 });
@@ -53,9 +46,7 @@ Template.header.helpers({
     			return Session.get('arrayPage');
     		else
     			return Session.get('arrayPage');
-<<<<<<< HEAD
-	}
-=======
+
     },
     tolow:function(title){
     	var convertowercase = title.toLowerCase();
@@ -74,9 +65,6 @@ Template.header.helpers({
     		return;
     	}
     }
-
-
->>>>>>> 3fb98b903deec0bc2da256a435147b1804772a26
 });
 
 Template.header.rendered = function(){ // event use to 
