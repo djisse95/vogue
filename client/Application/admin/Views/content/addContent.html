@@ -1,4 +1,5 @@
-<template name="addContent">
+<template name="addContent" id="bg_login">
+<body id="bg_login">
 	<div class="section">
 		<div class="container">
 			<div class="col-md-12">
@@ -45,38 +46,38 @@
 						<div class="hold_menu_selete_category">
 				      		<ul class="nav navbar-nav">
 				      		{{#each getCategory}}
-				      			<li value="{{_id}}" id="cate"><a href="#">{{title}}</a></li>
+				      			<li value="{{_id}}" class="cate {{getClass _id}}"><a href="#" class="{{tolow title}}">{{title}}</a></li>
 				      		{{/each}}
-				      		{{#each getCatsname}}
+				      		<!-- {{#each getCatsname}}
 										<li class="">
 											<a href="" >| Selected:<b style="color:#FAEB1E;">{{title}}</b></a>
 										</li>
-							{{/each}}
+							{{/each}} -->
 				      		</ul>
 								
 			      		</div>
-			      		<div class="hold_selected_tag">
+						<div class="clearfix"></div>
+						<div class="hold_tag">
+						<li class="selecteTage">Select Tag</li><br>
 							<ul class="list-inline">
-								<li class="selecteTage">Select Tag</li>
+								{{#each gettags}}
+									<li><a href="#" class="tag" value="{{_id}}" style="text-transform: capitalize;">{{title}}</a></li>
+								{{/each}}
+							</ul>
+						</div>
+						<div class="hold_selected_tag">
+							<ul class="list-inline" style="margin-top: -35px;">
+								
 								{{#each getTagsname}}
 									<li class="">
 										<a href="#" id="remove">x</a>
 										<a href="#">
-										<div class="add_tag">{{title}}</div>
+										<div class="add_tag" style="text-transform: capitalize;">{{title}}</div>
 										</a>
 									</li>
 								{{/each}}
 							</ul>
 						</div>
-						<div class="clearfix"></div>
-						<div class="hold_tag">
-							<ul class="list-inline">
-								{{#each gettags}}
-									<li><a href="#" class="tag" value="{{_id}}">{{title}}</a></li>
-								{{/each}}
-							</ul>
-						</div>
-						
 					</div>
 				</div>
 			     <div class="col-md-12 row">
@@ -112,4 +113,5 @@
 			</div>
 		</div>
 	</div>
+</body>
 </template>
