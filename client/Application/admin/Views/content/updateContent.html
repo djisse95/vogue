@@ -59,10 +59,11 @@
 						<h2>Select Category <input type="hidden" id="oldCate" value="{{catId}}"></h2>
 						<div class="hold_menu_selete_category">
 				      		<ul class="nav navbar-nav">
-					      		{{#each getCategory}}
-				      				<li value="{{_id}}" id="cate"><a href="#">{{title}}</a></li>
-					      		{{/each}}
-					      		{{#if iscatId}}
+					      	{{#each getCategory}}
+				      			<li value="{{_id}}" class="cate {{getClass _id}}">
+				      			<a href="#" class="{{tolower title}}">{{title}}</a></li>
+					      	{{/each}}
+					      		<!-- {{#if iscatId}}
 					      			{{#each getCatsname}}
 										<li><a href="" >| Selected:<b style="color:#FAEB1E;">{{title}}</b></a></li>
 									{{/each}}
@@ -71,18 +72,30 @@
 				      					<li><a href="" >| Selected:<b style="color:#FAEB1E;">{{getcat_title catId}}</b></a></li>
 				      				{{/if}}
 					      		{{/if}}
-					      		
+					      		 -->
 				      		</ul>
 				      	</div>
+
+						<div class="clearfix"></div>
+						<div class="hold_tag">
+							<li class="selecteTage">Select Tag</li>
+							<br>
+							<ul class="list-inline">
+							{{#each gettags}}
+								<li><a href="#" id="tag" value="{{_id}}" 
+								style="text-transform: capitalize;">{{title}}</a></li>
+							{{/each}}
+							</ul>
+						</div>
 						<div class="clearfix"></div>
 						<div class="hold_selected_tag">
-							<ul class="list-inline">
-								<li class="selecteTage">Select Tag</li>
+							<ul class="list-inline" style="margin-top:-35px;">
+								
 								{{#if istagId}}
 									{{#each getTagsname}}
 										<li class="">
 											<a href="#" id="remove">x</a>
-											<a href="#" id="tag"><div class="add_tag">{{title}}</div></a>
+											<a href="#" id="tag"><div class="add_tag" style="text-transform: capitalize;">{{title}}</div></a>
 										</li>
 									{{/each}}
 								{{else}}
@@ -96,15 +109,7 @@
 									{{/if}}
 								{{/if}}
 							</ul>
-						</div>
-						<div class="clearfix"></div>
-						<div class="hold_tag">
-							<ul class="list-inline">
-							{{#each gettags}}
-								<li><a href="#" id="tag" value="{{_id}}">{{title}}</a></li>
-							{{/each}}
-							</ul>
-						</div>
+						</div>						
 					</div>
 				</div>
 			     <div class="col-md-12 row">

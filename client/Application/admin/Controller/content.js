@@ -288,7 +288,7 @@ Template.disContent.helpers({
         }else{
             return;
         }
-	},
+	}
    // hastext:function()
 });
 Template.disContent.events({
@@ -382,11 +382,20 @@ Template.editContent.events({
           	});
         }
     },
-    'click #cate':function(e){
-    	e.preventDefault();
-    	var id = this._id;
-    	Session.set("catId",id);
-    	$('#cate').css('.active');
+    // 'click #cate':function(e){
+    // 	e.preventDefault();
+    // 	var id = this._id;
+    // 	Session.set("catId",id);
+    // 	$('#cate').css('.active');
+    // },
+    'click .cate':function(e,tpl){
+        e.preventDefault();
+        Session.set('currentClass',this._id);
+        $(".cate").css("background-color:white");
+        $(e.currentTarget).css("background-color:red");
+        var id = this._id;
+        Session.set("catId",id);
+        $(this).addClass('fashion');
     },
     'click #tag':function(e){
     	e.preventDefault();
@@ -524,6 +533,23 @@ Template.editContent.helpers({
     },
     PostErrormsg: function(){
         return Session.get("PostError");
+    },
+    tolower:function(title){
+        var convertolow = title.toLowerCase();
+        return convertolow;
+    }, 
+    getClass:function(_id){
+        var id = _id;
+        var SessionId = Session.get('currentClass');
+        //alert(SessionId);
+        var cl = categories.findOne({_id:id});
+        console.log("styleclass is"+cl.title);
+        var css = cl.title.toLowerCase();
+        if(id == SessionId){
+            return css;
+        }else{
+            return;
+        }
     }
 });
 Template.editContent.oncreate=function(){
