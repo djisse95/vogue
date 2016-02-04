@@ -55,38 +55,58 @@ Template.login.events({
         var result = users.find({emails:email}); 
         //console.log(username,fname,lname,email);
         var msg = '';
-        
-         if(username.match(letters)){
-            if(email.match(mailformat))
-            {
-                if(password.match(passw))   
-                {
-                   // Meteor.call('registerUser',username,email,password);
-                    Meteor.call('registerUser',username,fname,lname,pays,ville,email,password);
+       
+            if( username == '' )
+                Bert.alert( 'username is required', 'danger', 'growl-top-right' );
+            else if( fname == '' )
+                Bert.alert( 'firstname is required', 'danger', 'growl-top-right' );
+            else if( lname == '' )
+                Bert.alert( 'lastname is required', 'danger', 'growl-top-right' );
+            else if( pays == '' )
+                Bert.alert( 'pays is required', 'danger', 'growl-top-right' );
+            else if( ville == '' )
+                Bert.alert( 'ville is required', 'danger', 'growl-top-right' );
+            else if( email == '' )
+                Bert.alert( 'email is required', 'danger', 'growl-top-right' );
+            else if( password == '' )
+                Bert.alert( 'password is required', 'danger', 'growl-top-right' );
+            // else
+            //     Bert.alert('please check input again','danger','growl-top-right');
 
-                    //Router.go('/login');
+             else if(username.match(letters)){
+                if(email.match(mailformat))
+                {
+                    if(password.match(passw))   
+                    {
+                       // Meteor.call('registerUser',username,email,password);
+                        Meteor.call('registerUser',username,fname,lname,pays,ville,email,password);
+                         Bert.alert('Register success','success', 'growl-top-right' ); 
+                        //Router.go('/login');
+                    }  
+                    else  
+                    { 
+                        $("#error_pass").text("[6 to 10 characters,at least 1 specail characters and 1 numeric digits]").css("color","red");  
+                        $('[name=password]').focus(); 
+                        return false;  
+                    } 
                 }  
                 else  
-                { 
-                    $("#error_pass").text("[6 to 10 characters,at least 1 specail characters and 1 numeric digits]").css("color","red");  
-                    $('[name=password]').focus(); 
+                {  
+                    $("#error_email").text("invalid email address!").css("color","red");  
+                    $('[name=email]').focus();  
                     return false;  
-                } 
-            }  
-            else  
-            {  
-                $("#error_email").text("invalid email address!").css("color","red");  
-                $('[name=email]').focus();  
-                return false;  
-            }  
+                }  
+                
+            }else{
+            //     $("#error_fname").text("plese fill username").css("color","red");
+            //     $('[name=username]').focus(); 
+            //     return false;    
+                Bert.alert('please check input again','danger','growl-top-right');
+            } 
+           
             
-        }else{
-            $("#error_fname").text("plese fill username").css("color","red");
-            $('[name=username]').focus(); 
-            return false;    
         } 
-        Bert.alert('Register success','success', 'growl-top-right' );    
-    }
+    
 });
 Template.header.events({
     'click #logout': function(event){
