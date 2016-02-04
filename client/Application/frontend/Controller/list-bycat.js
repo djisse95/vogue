@@ -97,11 +97,11 @@ Template.list.helpers({
     getTitle: function(title){
 
         var s = title;
-        var max_length = 25;
+        var max_length =  15;
 
         if (s.length > max_length)
         {
-           s = s.substr(0, 25) + '...';
+           s = s.substr(0, 15) + '...';
          
         }
         return s;

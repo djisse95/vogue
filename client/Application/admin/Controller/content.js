@@ -533,8 +533,8 @@ Template.editContent.helpers({
         //console.log('MYJSONTAGS:'+tagsjson);
         return tagsjson;
 	},
-    currentLayout:function (num, current) {
-        if( num == current) return 'img-lay';
+    currentLayout:function (num, currentLayout) {
+        if( num == currentLayout) return 'img-lay';
         else return;
     },   
     getCatsname:function(){

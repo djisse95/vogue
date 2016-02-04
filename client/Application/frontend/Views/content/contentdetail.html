@@ -8,7 +8,7 @@
 		  			<div class="col-md-12 bg-fashion-a">
 						<div class="col-lg-6 row">
 						   <div class="img-fashion">
-							<img src="/uploads/{{getImage imageId}}" class="img-responsive">
+							<img src="/uploads/{{getImage imageId}}" class="img-responsive" width="80%" height="80%">
 							</div>
 						</div>
 						<div class="col-lg-6">
@@ -26,7 +26,12 @@
 				    {{#each relateContent}}
 				    	<div class="col-md-6">
 							<h3>{{title}}</h3>
-							<a href="/contentdetail/{{_id}}"><img src="/uploads/{{getImageRelated imageId}}" class="img-thumbnail big-img" alt="Cinque Terre" width="80%" height="80%"></a>
+							<div class="fixsize">
+								<a href="/contentdetail/{{_id}}">
+								<img src="/uploads/{{getImageRelated imageId}}" 
+								class="img-thumbnail big-img" alt="Cinque Terre" style="width:100%; height:100%;">
+								</a>
+							</div>
 						</div>
 					{{/each}}
 				</div>
@@ -40,7 +45,7 @@
 		 	<div class="row">
 				<div class="col-md-12 space-top-fashion">
 					<div class="col-md-6 row">
-						<img src="/uploads/{{getImage imageId}}" class="img-responsive">
+						<img src="/uploads/{{getImage imageId}}" class="img-responsive" width="80%" height="80%"/>
 					</div>
 					<div class="col-md-6 bg-fashion">
 					    <div class="center-text-fashion">
@@ -70,7 +75,7 @@
 	 		    <!-- slide swiper -->
 				<div class="swiper-container swiper-container-horizontal">
 					<div style="transition-duration: 0ms; " class="swiper-wrapper">
-						<div class="swiper-slide swiper-slide-next"><img  class="img-responsive center-block" src="/uploads/{{getImage imageId}}"/></div>
+						<div class="swiper-slide swiper-slide-next"><img  class="img-responsive center-block" src="/uploads/{{getImage imageId}}" width="80%" height="80%"/></div>
 					</div>
 					<div class="swiper-button-next"></div>
 					<div class="swiper-button-prev"></div>
