@@ -8,9 +8,10 @@ Template.contentdetail.helpers({
             return;
         }
     },
-    relateContent:function(){
+    relateContent:function(cId){
+        // console.log(" c id "+cId);
         var id = this.catId;
-        var items = content.find({catId:id}, {sort: {createdAt: -1}}).fetch();
+        var items = content.find({_id:{$ne:cId}},{catId:id},{sort: {createdAt: -1}}).fetch();
         return items.slice(1,3);
     },
     getImageRelated:function(image){
