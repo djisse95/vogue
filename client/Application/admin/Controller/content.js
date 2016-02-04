@@ -150,11 +150,10 @@ Template.addContent.events({
     'click .cate':function(e,tpl){
     	e.preventDefault();
         Session.set('currentClass',this._id);
-        $(".cate").css("background-color:white");
-        $(e.currentTarget).css("background-color:red");
+        //$(".cate").css("background-color:white");
+       // $(e.currentTarget).css("background-color:red");
     	var id = this._id;
     	Session.set("catId",id);
-        $(this).addClass('fashion');
     },
     'click .tag':function(e){
     	e.preventDefault();
