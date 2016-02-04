@@ -136,3 +136,7 @@ Template.discategories.events({
         }
     }
 });
+Template.header.onRendered( function(){
+  $('div.swiper-wrapper').css('transform','translate3d(0px, 0px, 0px)');
+  $('.swiper-slide h1').first().addClass('swiper-slide-next');
+})

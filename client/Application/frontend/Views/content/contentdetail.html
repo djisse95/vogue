@@ -23,7 +23,7 @@
 						<p class="space-top-fashion">{{{description.text2}}}</p>
 				    </div>
 				    <h2 class="text-center">Related Contents</h2>
-				    {{#each relateContent}}
+				    {{#each relateContent _id}}
 				    	<div class="col-md-6">
 							<h3>{{title}}</h3>
 							<a href="/contentdetail/{{_id}}"><img src="/uploads/{{getImageRelated imageId}}" class="img-thumbnail big-img" alt="Cinque Terre" width="80%" height="80%"></a>

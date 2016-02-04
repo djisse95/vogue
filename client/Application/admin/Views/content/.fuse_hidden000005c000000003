@@ -1,0 +1,126 @@
+<template name="addContent" id="bg_login">
+<body id="bg_login">
+	<div class="section">
+		<div class="container">
+			<div class="col-md-12">
+				<h1 class="text-content">Content</h1>
+				<div class="download col-md-12">
+					{{#if haveImage}}
+						<img src="/uploads/{{getImage}}" width="94px" height="100%">
+					{{else}}
+						<img src="/images/img-1.png" width="94px" height="100%">
+					{{/if}}
+				</div>
+				<div class="col-md-12 row">
+					<div class="space-top-content">
+				    	<input type="file" id="img">
+					</div>
+			    </div>
+			    <br/><br/>
+				<div class="col-md-12 row">
+					{{#if PostError}}
+	                    <div class="alert alert-danger" style="padding:15px;" role="alert">
+	                        <span style="display:inline-block" class="" aria-hidden="true"></span>
+	                        <span style="display:inline-block" class="sr-only">Error:</span>
+	                        {{PostErrormsg}}
+	                    </div>
+                	{{/if}} 
+				    <h3>Title</h3>
+					<input class="form-control title" id="style_login_a">
+			    </div>
+			    <div class="col-md-12 row">
+				    <h3>Your text</h3>
+					<textarea class="form-control text" name="editor1" id="editor1" rows="6" value=""></textarea>
+			    </div>
+			    <div class="col-md-12 row">
+			       <div class="space-top-content">
+					<textarea class="form-control text2" id="style_login_a" rows="6"></textarea>
+				   </div>
+			    </div>
+			    <div class="row">
+					<div class="col-md-12">
+						<h2>Select Category</h2>
+						<div class="hold_menu_selete_category">
+				      		<ul class="nav navbar-nav">
+				      		{{#each getCategory}}
+				      			<li value="{{_id}}" class="cate {{getClass _id}}"><a href="#" class="{{tolow title}}">{{title}}</a></li>
+				      		{{/each}}
+				      		<!-- {{#each getCatsname}}
+										<li class="">
+											<a href="" >| Selected:<b style="color:#FAEB1E;">{{title}}</b></a>
+										</li>
+							{{/each}} -->
+				      		</ul>
+								
+			      		</div>
+						<div class="clearfix"></div>
+						<div class="hold_tag">
+						<li class="selecteTage">Select Tag</li><br>
+							<ul class="list-inline">
+								{{#each gettags}}
+									<li><a href="#" class="tag" value="{{_id}}" style="text-transform: capitalize;">{{title}}</a></li>
+								{{/each}}
+							</ul>
+						</div>
+						<div class="hold_selected_tag">
+							<ul class="list-inline" style="margin-top: -35px;">
+								
+								{{#each getTagsname}}
+									<li class="">
+										<a href="#" id="remove">x</a>
+										<a href="#">
+										<div class="add_tag" style="text-transform: capitalize;">{{title}}</div>
+										</a>
+									</li>
+								{{/each}}
+							</ul>
+						</div>
+
+						<!-- <div class="clearfix"></div>
+						<div class="hold_tag">
+							<ul class="list-inline">
+								{{#each gettags}}
+									<li><a href="#" class="tag" value="{{_id}}">{{title}}</a></li>
+									
+								{{/each}}
+							</ul>
+						</div>
+						 -->
+
+					</div>
+				</div>
+			     <div class="col-md-12 row">
+			      <div class="space-top-content">
+			        <h1 class="text-content">Selected layout</h1>
+			        <div class="row">
+			          <div class="col-md-4 lay1">
+					      <img src="/images/layout1.png" id="layout1" class="img-thumbnail img-layout" alt="Cinque Terre">
+			          </div>
+			          <div class="col-md-4 lay2">
+			          	<img src="/images/layout2.png" id="layout2" class="img-thumbnail img-layout" alt="Cinque Terre">
+			          </div>
+			          <div class="col-md-4 lay3">
+			          	<img src="/images/layout3.png" id="layout3" class="img-thumbnail img-layout" alt="Cinque Terre">
+			          </div>
+                      <div class="col-md-12 form-group">
+                        <div class="submit-btn-content">
+                          <div class="col-md-3">
+						  </div>
+						  <div class="col-md-3">
+						  </div>
+						  <div class="col-md-3">
+							<button class="btn_login_a pull-right" id="preview">Preview</button>
+						  </div>
+						  <div class="col-md-3">
+							<button class="btn_login_a pull-right row" id="btn-content">Submit</button>
+						  </div>
+						</div>
+					  </div>
+			        </div>
+			      </div>
+			    </div>
+			</div>
+		</div>
+	</div>
+</body>
+</template>
