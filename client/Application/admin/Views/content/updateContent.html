@@ -46,7 +46,7 @@
 				    <h3>Your text</h3>
 					<textarea class="form-control text" name="editor1" id="editor1" rows="6" value="{{description.text1}}"></textarea>
 					<script>
-		                CKEDITOR.replace( 'editor1' );
+		                //CKEDITOR.replace( 'editor1' );
 		            </script>
 			    </div>
 			    <div class="col-md-12 row">
@@ -60,26 +60,24 @@
 						<div class="hold_menu_selete_category">
 				      		<ul class="nav navbar-nav">
 					      	{{#each getCategory}}
-				      			<li value="{{_id}}" class="cate {{getClass _id}}">
-				      			<a href="#" class="{{tolower title}}">{{title}}</a></li>
-					      	{{/each}}
+				      			<li value="{{_id}}" class="cate {{getClass _id}}"><a href="#" class="{{tolow title}}">{{title}}</a></li>
+				      		{{/each}}
 					      		<!-- {{#if iscatId}}
 					      			{{#each getCatsname}}
-										<li><a href="" >| Selected:<b style="color:#FAEB1E;">{{title}}</b></a></li>
+										<li><a href="#">| Selected:<b style="color:#FAEB1E;" >{{title}}</b></a></li>
 									{{/each}}
 				      			{{else}}
 						      		{{#if catId}}
-				      					<li><a href="" >| Selected:<b style="color:#FAEB1E;">{{getcat_title catId}}</b></a></li>
+				      					<li><a href="#" >| Selected:<b style="color:#FAEB1E;">{{getcat_title catId}}</b></a></li>
+				      					<input type="hidden" value="{{_id}}" id="categoryId">
 				      				{{/if}}
-					      		{{/if}}
-					      		 -->
+					      		{{/if}} -->
+					      		
 				      		</ul>
 				      	</div>
-
 						<div class="clearfix"></div>
 						<div class="hold_tag">
-							<li class="selecteTage">Select Tag</li>
-							<br>
+						<li class="selecteTage">Select Tag</li><br>
 							<ul class="list-inline">
 							{{#each gettags}}
 								<li><a href="#" id="tag" value="{{_id}}" 
@@ -90,12 +88,11 @@
 						<div class="clearfix"></div>
 						<div class="hold_selected_tag">
 							<ul class="list-inline" style="margin-top:-35px;">
-								
-								{{#if istagId}}
+								<!--{{#if istagId}}
 									{{#each getTagsname}}
 										<li class="">
 											<a href="#" id="remove">x</a>
-											<a href="#" id="tag"><div class="add_tag" style="text-transform: capitalize;">{{title}}</div></a>
+											<a href="#" id="tag"><div class="add_tag">{{title}}</div></a>
 										</li>
 									{{/each}}
 								{{else}}
@@ -107,22 +104,30 @@
 										</li>
 										{{/each}}
 									{{/if}}
-								{{/if}}
+								{{/if}}-->
+								{{#each getTagList}}
+									<li class="" data-id="{{id}}">
+										<a href="#" class="remove">x</a>
+										<a href="#"><div class="add_tag"
+										style="text-transform: capitalize;">{{getmyTagName id}}</div></a>
+									</li>
+									
+								{{/each}}
 							</ul>
-						</div>						
+						</div>
 					</div>
 				</div>
 			     <div class="col-md-12 row">
 			      <div class="space-top-content">
 			        <h1 class="text-content">Selected layout<input type="hidden" id="oldLay" value="{{layout}}"></h1>
 			        <div class="row">
-			          <div class="col-md-4 lay1">
+			          <div class="col-md-4 lay1 {{currentLayout 1 layout}}">
 					      <img src="/images/layout1.png" id="layout1" class="img-thumbnail img-layout" alt="Cinque Terre">
 			          </div>
-			          <div class="col-md-4 lay2">
+			          <div class="col-md-4 lay2 {{currentLayout 2 layout}}">
 			          	<img src="/images/layout2.png" id="layout2" class="img-thumbnail img-layout" alt="Cinque Terre">
 			          </div>
-			          <div class="col-md-4 lay3">
+			          <div class="col-md-4 lay3 {{currentLayout 3 layout}}">
 			          	<img src="/images/layout3.png" id="layout3" class="img-thumbnail img-layout" alt="Cinque Terre">
 			          </div>
                       <div class="col-md-12 form-group">

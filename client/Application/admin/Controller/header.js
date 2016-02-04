@@ -1,5 +1,4 @@
 Session.setDefault('currentPage',0);
-
 Session.setDefault('currentClass','');
 Template.header.events({
 	'click .changelist':function(e,tpl){
