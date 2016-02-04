@@ -54,42 +54,38 @@ Template.login.events({
         var letters = /^[A-Za-z]+$/;
         var result = users.find({emails:email}); 
         //console.log(username,fname,lname,email);
-        var msg = '';
-        if( result.count() > 0 || username == '' || fname == '' || lname == '' || pays == '' || email == '' || password == ''){
-            if( username == '' )
-                Bert.alert( 'username is required', 'danger', 'growl-top-right' );
-            else if( fname == '' )
-                Bert.alert( 'firstname is required', 'danger', 'growl-top-right' );
-            else if( lname == '' )
-                Bert.alert( 'lastname is required', 'danger', 'growl-top-right' );
-            else if( pays == '' )
-                Bert.alert( 'pays is required', 'danger', 'growl-top-right' );
-            else if( email == '' )
-                Bert.alert( 'email is required', 'danger', 'growl-top-right' );
-            else if( password == '' )
-                Bert.alert( 'password is required', 'danger', 'growl-top-right' );
-            else if( result.count() > 0 )
-                Bert.alert( 'Email name is already exist.', 'danger', 'growl-top-right' );
-            else
-                Bert.alert('please check input again','danger','growl-top-right');
-            //console.log("required");
-            // Session.set("registerError", msg );
-            // Session.set('page_msg',msg);
-        //alert("It working: "+username+" "+fname+" "+lname+" "+pays+" "+ville+" "+email+" "+password);
-        }else{
-            Meteor.call('registerUser',username,fname,lname,pays,ville,email,password, function(err){
-                if(err){
-                    // console.log(err.reason);
-                    // Session.set("registerError",err.reason);
-                    Bert.alert( err.reason, 'danger', 'growl-top-right' );
-                }else{
-                   // Session.set("registerError","");
-                    Bert.alert('Register success!','success', 'growl-top-right' );
-                    Router.go('login'); 
+         if(username.match(letters)){
+            if(email.match(mailformat))
+            {
+                if(password.match(passw))   
+                {
+                   // Meteor.call('registerUser',username,email,password);
+                    Meteor.call('registerUser',username,fname,lname,pays,ville,email,password);
+
+                    //Router.go('/login');
                 }  
-            }); 
-        }         
+                else  
+                { 
+                    $("#error_pass").text("[6 to 10 characters,at least 1 specail characters and 1 numeric digits]").css("color","red");  
+                    $('[name=password]').focus(); 
+                    return false;  
+                } 
+            }  
+            else  
+            {  
+                $("#error_email").text("invalid email address!").css("color","red");  
+                $('[name=email]').focus();  
+                return false;  
+            }  
+            
+        }else{
+            $("#error_fname").text("plese fill username").css("color","red");
+            $('[name=username]').focus(); 
+            return false;    
+        } 
+         alert("register is success");     
     }
+
 });
 Template.header.events({
     'click #logout': function(event){

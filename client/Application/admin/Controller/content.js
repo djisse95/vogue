@@ -7,7 +7,6 @@ Session.setDefault("catId","");
 Session.setDefault("currentClass","");
 Session.set('img_pro','');
 
-
 Template.addContent.helpers({
 	getCategory:function(){
 		return categories.find();
@@ -71,7 +70,6 @@ Template.addContent.helpers({
         var convertowercase = title.toLowerCase();
         return convertowercase;
     },
-
     // add by chien
 
     getClass:function(_id){
