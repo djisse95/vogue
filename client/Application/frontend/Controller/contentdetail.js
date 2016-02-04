@@ -8,10 +8,13 @@ Template.contentdetail.helpers({
             return;
         }
     },
-    relateContent:function(){
+    relateContent:function(cId){
         var id = this.catId;
-        var items = content.find({catId:id}, {sort: {createdAt: -1}}).fetch();
-        return items.slice(1,3);
+        var items = content.find({_id:{$ne:cId}},{catId:id}).fetch();
+        var rand = Math.floor(Math.random()*items.length);
+        var rs = items.splice(rand,2);
+         console.log(rs);  
+        return rs;
     },
     getImageRelated:function(image){
         var img = images.findOne({_id:image});
