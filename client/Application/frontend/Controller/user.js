@@ -75,7 +75,6 @@ Template.login.events({
             else
                 Bert.alert('please check input again','danger','growl-top-right');
         }
-        
          if(username.match(letters)){
             if(email.match(mailformat))
             {
@@ -107,7 +106,6 @@ Template.login.events({
         } 
         Bert.alert('Register success','success', 'growl-top-right' );    
     }
-         
 });
 Template.header.events({
     'click #logout': function(event){

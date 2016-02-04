@@ -65,10 +65,9 @@ Template.header.helpers({
     },
     getNumberPag:function(){
     		if(Session.get('currentPage'))
-    			return Session.get('arrayPage');
+    			return Session.get('currentPage');
     		else
     			return Session.get('arrayPage');
-
     },
     tolow:function(title){
     	var convertowercase = title.toLowerCase();
