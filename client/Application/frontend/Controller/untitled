@@ -1,0 +1,39 @@
+if(username.match(letters)){
+            if(email.match(mailformat))
+            {
+                if(password.match(passw))   
+                {
+                   // Meteor.call('registerUser',username,email,password);
+                    Meteor.call('registerUser',username,fname,lname,pays,ville,email,password);
+
+                    //Router.go('/login');
+                }  
+                else  
+                { 
+                    $("#error_pass").text("[6 to 10 characters,at least 1 specail characters and 1 numeric digits]").css("color","red");  
+                    $('[name=password]').focus(); 
+                    return false;  
+                } 
+            }  
+            else  
+            {  
+                $("#error_email").text("invalid email address!").css("color","red");  
+                $('[name=email]').focus();  
+                return false;  
+            }  
+            
+        }else{
+            $("#error_fname").text("plese fill username").css("color","red");
+            $('[name=username]').focus(); 
+            return false;    
+        } 
+         alert("register is success");     
+    }
+
+
+
+
+    Bert.alert( 'username is required', 'danger', 'growl-top-right' );
+
+
+     Bert.alert('Register success','success', 'growl-top-right' );
