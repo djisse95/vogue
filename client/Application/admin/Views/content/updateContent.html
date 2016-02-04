@@ -46,7 +46,7 @@
 				    <h3>Your text</h3>
 					<textarea class="form-control text" name="editor1" id="editor1" rows="6" value="{{description.text1}}"></textarea>
 					<script>
-		                CKEDITOR.replace( 'editor1' );
+		                //CKEDITOR.replace( 'editor1' );
 		            </script>
 			    </div>
 			    <div class="col-md-12 row">
@@ -64,11 +64,12 @@
 					      		{{/each}}
 					      		{{#if iscatId}}
 					      			{{#each getCatsname}}
-										<li><a href="" >| Selected:<b style="color:#FAEB1E;">{{title}}</b></a></li>
+										<li><a href="#">| Selected:<b style="color:#FAEB1E;" >{{title}}</b></a></li>
 									{{/each}}
 				      			{{else}}
 						      		{{#if catId}}
-				      					<li><a href="" >| Selected:<b style="color:#FAEB1E;">{{getcat_title catId}}</b></a></li>
+				      					<li><a href="#" >| Selected:<b style="color:#FAEB1E;">{{getcat_title catId}}</b></a></li>
+				      					<input type="hidden" value="{{_id}}" id="categoryId">
 				      				{{/if}}
 					      		{{/if}}
 					      		
@@ -78,7 +79,7 @@
 						<div class="hold_selected_tag">
 							<ul class="list-inline">
 								<li class="selecteTage">Select Tag</li>
-								{{#if istagId}}
+								<!--{{#if istagId}}
 									{{#each getTagsname}}
 										<li class="">
 											<a href="#" id="remove">x</a>
@@ -94,7 +95,14 @@
 										</li>
 										{{/each}}
 									{{/if}}
-								{{/if}}
+								{{/if}}-->
+								{{#each getTagList}}
+									<li class="" data-id="{{id}}">
+										<a href="#" class="remove">x</a>
+										<a href="#"><div class="add_tag">{{getmyTagName id}}</div></a>
+									</li>
+									
+								{{/each}}
 							</ul>
 						</div>
 						<div class="clearfix"></div>
@@ -111,13 +119,13 @@
 			      <div class="space-top-content">
 			        <h1 class="text-content">Selected layout<input type="hidden" id="oldLay" value="{{layout}}"></h1>
 			        <div class="row">
-			          <div class="col-md-4 lay1">
+			          <div class="col-md-4 lay1 {{currentLayout 1 layout}}">
 					      <img src="/images/layout1.png" id="layout1" class="img-thumbnail img-layout" alt="Cinque Terre">
 			          </div>
-			          <div class="col-md-4 lay2">
+			          <div class="col-md-4 lay2 {{currentLayout 2 layout}}">
 			          	<img src="/images/layout2.png" id="layout2" class="img-thumbnail img-layout" alt="Cinque Terre">
 			          </div>
-			          <div class="col-md-4 lay3">
+			          <div class="col-md-4 lay3 {{currentLayout 3 layout}}">
 			          	<img src="/images/layout3.png" id="layout3" class="img-thumbnail img-layout" alt="Cinque Terre">
 			          </div>
                       <div class="col-md-12 form-group">

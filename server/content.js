@@ -11,7 +11,7 @@ Meteor.methods({
 			createdAt:new Date(),
 			catId:catId,
 			layout:layout,
-			tags:tags
+			taglist:tags
 		}
 		return content.insert(attr);
 	},
@@ -25,7 +25,7 @@ Meteor.methods({
 			},
 			catId:catId,
 			layout:layout,
-			tags:tags
+			taglist:tags
 		}
 		return content.update({_id:id},{$set:attr});
 	},

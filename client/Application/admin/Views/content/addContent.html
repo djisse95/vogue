@@ -30,10 +30,7 @@
 			    </div>
 			    <div class="col-md-12 row">
 				    <h3>Your text</h3>
-					<textarea class="form-control text" name="editor1" id="editor1" rows="6"></textarea>
-					<script>
-		                // CKEDITOR.replace('editor1');
-		            </script>
+					<textarea class="form-control text" name="editor1" id="editor1" rows="6" value=""></textarea>
 			    </div>
 			    <div class="col-md-12 row">
 			       <div class="space-top-content">
@@ -58,7 +55,7 @@
 			      		</div>
 						<div class="clearfix"></div>
 						<div class="hold_tag">
-						<li class="selecteTage">Select Tag</li><br>
+						<li class="selecteTage" id="selecttage">Select Tag</li><br>
 							<ul class="list-inline">
 								{{#each gettags}}
 									<li><a href="#" class="tag" value="{{_id}}" style="text-transform: capitalize;">{{title}}</a></li>
@@ -78,6 +75,18 @@
 								{{/each}}
 							</ul>
 						</div>
+
+						<!-- <div class="clearfix"></div>
+						<div class="hold_tag">
+							<ul class="list-inline">
+								{{#each gettags}}
+									<li><a href="#" class="tag" value="{{_id}}">{{title}}</a></li>
+									
+								{{/each}}
+							</ul>
+						</div>
+						 -->
+
 					</div>
 				</div>
 			     <div class="col-md-12 row">

@@ -1,5 +1,5 @@
 Session.setDefault('LAYOUT','');
-Session.setDefault('tagId','');
+Session.set('tagId','');
 Session.setDefault('text','');
 Session.setDefault('text2','');
 Session.setDefault("myimage",'');
@@ -70,7 +70,6 @@ Template.addContent.helpers({
         var convertowercase = title.toLowerCase();
         return convertowercase;
     },
-
     // add by chien
 
     getClass:function(_id){
@@ -107,7 +106,7 @@ Template.addContent.events({
                 tagsjson.push(alltags[i]);
             }
         }
-        if(typeof img == "undefined" || title == "" || text == "" || catId == "" || layout == ""){
+        if(typeof img == "undefined" || title == "" || text == "" || catId == "" || alltags == "" || layout == ""){
             if(typeof img == "undefined")
                 Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
             else if( title == '' )
@@ -116,6 +115,8 @@ Template.addContent.events({
                 Bert.alert( 'text is required', 'danger', 'growl-top-right' );
             else if( catId == '' )
                 Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
+            else if( alltags == '' )
+                Bert.alert( 'Tag is required', 'danger', 'growl-top-right' );
             else if( layout == '' )
                 Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
             else 
@@ -211,10 +212,10 @@ Template.addContent.events({
         var result = [];
         //console.log('array: '+result);
         var img = Session.get('ADDIMAGEID');
-        var title = tpl.$('.title').val();
+        var title = $('.title').val();
         //var text = CKEDITOR.instances.editor1.getData();
         var text = tpl.$('#editor1').val();
-        var text2 = tpl.$('.text2').val();
+        var text2 = $('.text2').val();
         var catId = Session.get("catId");
         var layout = Session.get("LAYOUT");
         var alltags=Session.get('tagId');
@@ -300,71 +301,98 @@ Template.disContent.events({
     }
 });
 
+Template.editContent.onRendered(function () {
+    //var idContent=Router.current().params._id;
+    //.log('idContent:'+idContent);
+    /*Session.set('ROUTERTAG', );
+    var myContent=content.findOne({"_id":idContent});
+    alert('CATEGORY IS '+myContent.catId);
+    Session.set('catId',myContent.catId);
+    Session.set('LAYOUT',myContent.layout);
+    var i;
+    var arr = [];
+    for (i=0;i<myContent.tags.length;i++){
+        console.log(" tag "+myContent.tags[i]);
+        arr.push(myContent.tags[i]);
+    }
+    Session.set('tagjson',arr);
+    console.log("tagjson arr "+Session.get('tagjson'));
+    */
+});
+
 Template.editContent.events({
-	'click #btn-content':function(e,tpl){
-        alert(" helo ");
+    'click #btn-content':function(e){
         e.preventDefault();
         var id = this._id;
         var img = Session.get('ADDIMAGEID');
-        
-        var title = tpl.$('.title').val();
-        //var text = CKEDITOR.instances.editor1.getData();
-        var text2 = tpl.$('.text2').val();
-        var text = tpl.$('#editor1').val();
+        var title = $('.title').val();
+        var text = $('#editor1').val();
+        var text2 =$('.text2').val();
         var catId = Session.get("catId");
-        var currentImage = tpl.$('#currentImage').val();
-               
-
-        var oldCate = tpl.$('#oldCate').val();
-        var oldLay = tpl.$('#oldLay').val();
+        var currentImage = $('#currentImage').val();
+        var oldCate = $('#oldCate').val();
+        // var layout = $('#oldLay').val();
         var layout = Session.get("LAYOUT");
 
-        var alltags=Session.get('tagId');
+        alert('pisey id:'+id +', img:'+img +', title:'+title +' ,catId'+catId +', currentImage:'+currentImage +', old cat:'+oldCate +', layout:'+layout);
+        // alert(" my layout "+layout+" old "+oldLay);
+        /*var alltags=Session.get('tagId');
         var msg="";
-        alltags=alltags.split(';');
         tagsjson=[];
-        for(var i=0;i<alltags.length;i++){
-            if(alltags[i]!=""){
-                tagsjson.push(alltags[i]);
+        if(typeof alltags !="undefined"){
+            alltags=alltags.split(';');
+            for(var i=0;i<alltags.length;i++){
+                if(alltags[i]!=""){
+                    tagsjson.push(alltags[i]);
+                }
             }
-        }
+        }else{
+            var arrr = Session.get('tagjson');
+            alert("arrr "+arrr);
+            console.log("arrr "+arrr);
+            tagsjson = arrr;
+        }*/
+        var tagsjson = [];
+        $('ul.list-inline li').each( function () {
+            if( typeof $(this).attr('data-id') !="undefined" ){
+                tagsjson.push($(this).attr('data-id'))
+            }
+        })
         if(typeof img == "undefined"){
             img = currentImage;
         }
         if(typeof catId == "undefined"){
             catId=oldCate;
         }
-        if( typeof layout == "undefined"){
-            layout=oldLay;
-        }
-        
-        if(typeof img == "undefined" || title == "" || text == "" || catId == "" || layout == ""){
-            if(typeof img == "undefined")
-                Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
-            else if(title=="")
+        // if( typeof layout == "undefined"){
+        //     layout=oldLay;
+        // }
+        console.log(tagsjson);
+        if(title == "" || text == "" || layout == ""){
+            if(title == "")
                 Bert.alert( 'title is required', 'danger', 'growl-top-right' );
             else if(text=="")
                 Bert.alert( 'text is required', 'danger', 'growl-top-right' );
-            else if( catId == '' )
-                Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
-             else if( layout == '' )
-                Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
-            else 
-                 Bert.alert( 'Please Check you input again', 'danger', 'growl-top-right' );
+            else
+                Bert.alert( 'Select Layout is required!', 'danger', 'growl-top-right' );
             Session.set('page_msg',msg);
         }else{
+        
             Meteor.call("editContent",id,img,title,text,text2,catId,layout,tagsjson,function(error,result){
                 if(error){
-                    console.log("edit content has problem!!!")
+                    console.log("edit content has problem!!!"+error.reason())
                 }else{
-                    Bert.alert( 'Update Successful!', 'success', 'growl-top-right' );
+                
+                    /*Bert.alert( 'Update Successful!', 'success', 'growl-top-right' );
                     Session.set("tagId","");
                     delete Session.keys['tagId'];
                     Session.set('ADDIMAGEID',undefined);
-                    Session.set('catId',undefined);
+                    Session.set('catId',undefined);*/
+                    Session.set('tagId','');
                     Router.go('/managecontent');
                 }
             });
+            Router.go('/managecontent');
         }
     },
     'keypress input': function(event) {
@@ -373,30 +401,42 @@ Template.editContent.events({
         Session.set("PostError","");
         Session.set("page_msg","");
     },
-	'change #img': function(event, template) {
+    'change #img': function(event, template) {
         var files = event.target.files;
         for (var i = 0, ln = files.length; i < ln; i++) {
-          	images.insert(files[i], function (err, fileObj) {
-	            Session.set('ADDIMAGEID', fileObj._id);
-          	});
+            images.insert(files[i], function (err, fileObj) {
+                Session.set('ADDIMAGEID', fileObj._id);
+            });
         }
     },
     'click #cate':function(e){
-    	e.preventDefault();
-    	var id = this._id;
-    	Session.set("catId",id);
-    	$('#cate').css('.active');
+        e.preventDefault();
+        var id = this._id;
+        //alert(id);
+        Session.set("catId",id);
+        $('#cate').css('.active');
     },
     'click #tag':function(e){
-    	e.preventDefault();
+        e.preventDefault();
         var id = this._id;
-        //var listTags;
-        var Tags=Session.get("tagId");
-       // console.log("tags "+Tags);
+
+        var Tags = Session.get("tagId");
+        var exist = false;
+        $('ul.list-inline li').each( function(){
+            if( $(this).attr('data-id') == id ){
+                exist = true;
+            }
+        });
+        if( exist != true ){
+            var listTags = ( Tags !="" )? Tags+";"+id:id;
+            Session.set("tagId",listTags);
+        }
+        
+        /*
         if(Tags){
-            
+            d
             if(!Tags.match(id)){
-                var listTags=Session.get("tagId")+";"+id;
+                var listTags=Tags+";"+id;
                 Session.set("tagId",listTags);
             }else{
                 //console.log("tag: "+Tags);
@@ -406,25 +446,24 @@ Template.editContent.events({
         }else{
             var listTags=id;
             Session.set("tagId",listTags);
-        }
+        }*/
+        console.log(Session.get("tagId"));
+
     },
-    'click #remove':function(e){
-		e.preventDefault();
-		var alltags = Session.get('tagId');
-		var id = this._id;
-		var resl = alltags.replace(id, ""); 
-		Session.set("tagId", resl);	
+    'click .remove':function(e){
+        e.preventDefault();
+        $(e.currentTarget).parent().remove();
     },
     'click #layout1':function(e){
-    	e.preventDefault();
-    	Session.set('LAYOUT',1);
+        e.preventDefault();
+        Session.set('LAYOUT',1);
         $(".lay1").addClass('img-lay');
         $(".lay2").removeClass('img-lay');
         $(".lay3").removeClass('img-lay');
     },
     'click #layout2':function(e){
-    	e.preventDefault();
-    	Session.set('LAYOUT',2);
+        e.preventDefault();
+        Session.set('LAYOUT',2);
         $(".lay2").addClass('img-lay');
         $(".lay1").removeClass('img-lay');
         $(".lay3").removeClass('img-lay');
@@ -488,7 +527,11 @@ Template.editContent.helpers({
        }
         //console.log('MYJSONTAGS:'+tagsjson);
         return tagsjson;
-	},   
+	},
+    currentLayout:function (num, current) {
+        if( num == current) return 'img-lay';
+        else return;
+    },   
     getCatsname:function(){
         var allcats=Session.get('catId');
         allcats=allcats.split(';');
@@ -523,6 +566,46 @@ Template.editContent.helpers({
     },
     PostErrormsg: function(){
         return Session.get("PostError");
+    },
+    getTagList: function(){
+        var idContent = this._id;
+        var myContent = content.findOne({_id:idContent});
+       
+        var arr = [];
+      
+        if( typeof myContent != 'undefined'){
+            Session.set('catId',myContent.catId);
+            Session.set('LAYOUT',myContent.layout);
+            if( typeof myContent.taglist != 'undefined'){
+                
+                var tag = myContent.taglist;
+                if( tag.length > 0 ){
+                    for (var i=0; i< tag.length ;i++){
+                        arr.push({id:tag[i]});
+                    }
+                }
+            }
+        }
+        
+        var selectTag = Session.get('tagId');
+        console.log(selectTag);
+        if( selectTag != "" ){
+            var mytag = selectTag.split(';');
+            for (var i=0; i<mytag.length; i++){
+                arr.push({id:mytag[i]});
+            }
+        }
+        
+        //Session.set('tagjson',arr); 
+        if( arr.length > 0) return arr;
+        else return;   
+        
+    },
+    getmyTagName: function ( tagid ) {
+        if( tagid != "" ){
+            var tag = tags.findOne({_id:tagid});
+            return tag.title;
+        }else return;
     }
 });
 Template.editContent.oncreate=function(){
