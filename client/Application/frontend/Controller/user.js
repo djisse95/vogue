@@ -54,6 +54,28 @@ Template.login.events({
         var letters = /^[A-Za-z]+$/;
         var result = users.find({emails:email}); 
         //console.log(username,fname,lname,email);
+        var msg = '';
+         if( result.count() > 0 || username == '' || fname == '' || lname == '' || pays == '' || email == '' || password == '' || mySelect == ''){
+            if( username == '' )
+                Bert.alert( 'username is required', 'danger', 'growl-top-right' );
+            else if( fname == '' )
+                Bert.alert( 'firstname is required', 'danger', 'growl-top-right' );
+            else if( lname == '' )
+                Bert.alert( 'lastname is required', 'danger', 'growl-top-right' );
+            else if( pays == '' )
+                Bert.alert( 'pays is required', 'danger', 'growl-top-right' );
+            else if( email == '' )
+                Bert.alert( 'email is required', 'danger', 'growl-top-right' );
+            else if( password == '' )
+                Bert.alert( 'password is required', 'danger', 'growl-top-right' );
+            else if( mySelect == '' )
+                Bert.alert( 'mySelect is required', 'danger', 'growl-top-right' );
+            else if( result.count() > 0 )
+                Bert.alert( 'Email name is already exist.', 'danger', 'growl-top-right' );
+            else
+                Bert.alert('please check input again','danger','growl-top-right');
+        }
+        
          if(username.match(letters)){
             if(email.match(mailformat))
             {
@@ -83,9 +105,9 @@ Template.login.events({
             $('[name=username]').focus(); 
             return false;    
         } 
-         alert("register is success");     
+        Bert.alert('Register success','success', 'growl-top-right' );    
     }
-
+         
 });
 Template.header.events({
     'click #logout': function(event){
