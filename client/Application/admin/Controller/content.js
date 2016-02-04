@@ -236,7 +236,18 @@ Template.addContent.events({
 
 Template.disContent.helpers({
 	getContent:function(){
-		return content.find();
+            var loggedInUser = Meteor.user();
+            var userId = Meteor.userId();
+            var group = 'mygroup';
+            if (Roles.userIsInRole(loggedInUser, ['Admin'], group)) {
+                return content.find();
+            }
+            else if (Roles.userIsInRole(loggedInUser, ['member'], group)) { 
+                return content.find({userId:userId});
+            }
+            else{
+                return;
+            }
 	},
 	getCate:function(){
 		var catID = this.catId;
