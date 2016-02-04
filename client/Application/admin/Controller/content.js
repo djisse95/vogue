@@ -229,13 +229,15 @@ Template.addContent.events({
                 tagsjson.push(alltags[i]);
             }
         }
-         if(typeof img == "undefined" || title == "" || text == "" || catId == "" || layout == ""){
+         if(typeof img == "undefined" || title == "" || text == "" || text2 == "" || catId == "" || layout == ""){
             
             if(typeof img == "undefined")
                 Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
             else if( title == '' )
                 Bert.alert( 'title is required', 'danger', 'growl-top-right' );
             else if( text == '' )
+                Bert.alert( 'text is required', 'danger', 'growl-top-right' );
+            else if( text2 == '' )
                 Bert.alert( 'text is required', 'danger', 'growl-top-right' );
             else if( catId == '' )
                 Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
