@@ -106,12 +106,14 @@ Template.addContent.events({
                 tagsjson.push(alltags[i]);
             }
         }
-        if(typeof img == "undefined" || title == "" || text == "" || catId == "" || alltags == "" || layout == ""){
+        if(typeof img == "undefined" || title == "" || text == "" || text2 == "" || catId == "" || alltags == "" || layout == ""){
             if(typeof img == "undefined")
                 Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
             else if( title == '' )
                 Bert.alert( 'title is required', 'danger', 'growl-top-right' );
             else if( text == '' )
+                Bert.alert( 'text is required', 'danger', 'growl-top-right' );
+            else if( text2 == '' )
                 Bert.alert( 'text is required', 'danger', 'growl-top-right' );
             else if( catId == '' )
                 Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
@@ -226,13 +228,15 @@ Template.addContent.events({
                 tagsjson.push(alltags[i]);
             }
         }
-         if(typeof img == "undefined" || title == "" || text == "" || catId == "" || layout == ""){
+         if(typeof img == "undefined" || title == "" || text == "" || text2 == "" || catId == "" || layout == ""){
             
             if(typeof img == "undefined")
                 Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
             else if( title == '' )
                 Bert.alert( 'title is required', 'danger', 'growl-top-right' );
             else if( text == '' )
+                Bert.alert( 'text is required', 'danger', 'growl-top-right' );
+            else if( text2 == '' )
                 Bert.alert( 'text is required', 'danger', 'growl-top-right' );
             else if( catId == '' )
                 Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
@@ -334,7 +338,7 @@ Template.editContent.events({
         // var layout = $('#oldLay').val();
         var layout = Session.get("LAYOUT");
 
-        alert('pisey id:'+id +', img:'+img +', title:'+title +' ,catId'+catId +', currentImage:'+currentImage +', old cat:'+oldCate +', layout:'+layout);
+        //alert('pisey id:'+id +', img:'+img +', title:'+title +' ,catId'+catId +', currentImage:'+currentImage +', old cat:'+oldCate +', layout:'+layout);
         // alert(" my layout "+layout+" old "+oldLay);
         /*var alltags=Session.get('tagId');
         var msg="";
@@ -409,12 +413,13 @@ Template.editContent.events({
             });
         }
     },
-    'click #cate':function(e){
+    'click .cate':function(e){
         e.preventDefault();
+        Session.set('currentClass',this._id);
+        //$(".cate").css("background-color:white");
+       // $(e.currentTarget).css("background-color:red");
         var id = this._id;
-        //alert(id);
         Session.set("catId",id);
-        $('#cate').css('.active');
     },
     'click #tag':function(e){
         e.preventDefault();
@@ -606,6 +611,25 @@ Template.editContent.helpers({
             var tag = tags.findOne({_id:tagid});
             return tag.title;
         }else return;
+    },
+    tolow:function(title){
+        var convertowercase = title.toLowerCase();
+        return convertowercase;
+    },
+    // add by chien
+
+    getClass:function(_id){
+        var id = _id;
+        var SessionId = Session.get('currentClass');
+        //alert(SessionId);
+        var cl = categories.findOne({_id:id});
+        console.log("styleclass is"+cl.title);
+        var css = cl.title.toLowerCase();
+        if(id == SessionId){
+            return css;
+        }else{
+            return;
+        }
     }
 });
 Template.editContent.oncreate=function(){
