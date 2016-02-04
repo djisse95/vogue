@@ -108,7 +108,7 @@ Template.addContent.events({
                 tagsjson.push(alltags[i]);
             }
         }
-        if(typeof img == "undefined" || title == "" || text == "" || catId == "" || layout == ""){
+        if(typeof img == "undefined" || title == "" || text == "" || catId == "" || alltags == "" || layout == ""){
             if(typeof img == "undefined")
                 Bert.alert( 'Images is required', 'danger', 'growl-top-right' );
             else if( title == '' )
@@ -117,6 +117,8 @@ Template.addContent.events({
                 Bert.alert( 'text is required', 'danger', 'growl-top-right' );
             else if( catId == '' )
                 Bert.alert( 'Category is required', 'danger', 'growl-top-right' );
+            else if( alltags == '' )
+                Bert.alert( 'Tag is required', 'danger', 'growl-top-right' );
             else if( layout == '' )
                 Bert.alert( 'layout is required', 'danger', 'growl-top-right' );
             else 
@@ -327,14 +329,9 @@ Template.editContent.events({
         var id = this._id;
         var img = Session.get('ADDIMAGEID');
         var title = $('.title').val();
-      
-        //var text = CKEDITOR.instances.editor1.getData();
         var text = $('#editor1').val();
         var text2 =$('.text2').val();
-        alert("www"+text2 + text);
         var catId = Session.get("catId");
-        //var cat = $("#categoryId").val();
-        //alert("currentcatId="+cat);
         var currentImage = $('#currentImage').val();
         var oldCate = $('#oldCate').val();
         // var layout = $('#oldLay').val();
@@ -533,7 +530,11 @@ Template.editContent.helpers({
        }
         //console.log('MYJSONTAGS:'+tagsjson);
         return tagsjson;
-	},   
+	},
+    currentLayout:function (num, current) {
+        if( num == current) return 'img-lay';
+        else return;
+    },   
     getCatsname:function(){
         var allcats=Session.get('catId');
         allcats=allcats.split(';');
