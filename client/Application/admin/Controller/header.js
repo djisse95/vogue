@@ -1,5 +1,16 @@
 Session.setDefault('currentPage',0);
 Session.setDefault('currentClass','');
+// Template.header.rendered = function(){
+//     $('#addConten').click(function(event){
+//         $( "addConten" ).addClass( "add-content" );
+//         $( "addConten" ).removeClass( "changelist" );
+//     });
+//      $('.changelist').click(function(event){
+//         $( "changelist" ).addClass( "changelist" );
+//         $( "changelist" ).removeClass( "add-content" );
+//     });
+// }
+
 Template.header.events({
 	'click .changelist':function(e,tpl){
 		Session.set('currentPage',0);
@@ -18,6 +29,16 @@ Template.header.events({
 		var i=Session.get('currentPage')+1;	
 		Session.set('currentPage',i);
 	},
+    'click .addConten':function(){
+        Session.set('currentClass',"");
+        $(".addConten").addClass('add-content');
+        $(".homepg").removeClass('add-content');
+    },
+    'click .homepg':function(){
+        Session.set('currentClass',"");
+        $(".homepg").addClass('add-content');
+        $(".addConten").removeClass('add-content');
+    },
 	'click .swiper-button-prev':function(e){
 		e.preventDefault();
 		if(Session.get('currentPage')==0)
@@ -32,6 +53,8 @@ Template.header.events({
 		//var catClass = this.title.toLowerCase();
 		//alert(catClass);
 		//alert(this._id);
+        $(".addConten").removeClass('add-content');
+        $(".homepg").removeClass('add-content');
 		Session.set('currentClass',this._id);
 	}
 	//=============End Click next prev pagination===============
