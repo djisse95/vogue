@@ -17,5 +17,5 @@ Meteor.publish("tags", function () {
     return tags.find({});
 });
 Meteor.publish("content", function () {
-    return content.find({});
+    return content.find();
 });

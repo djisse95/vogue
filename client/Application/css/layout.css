@@ -47,12 +47,28 @@
 	background-size:150px 60px;
 	background-position:center center;
 }
+#header .nav > li > a.lifestyle:hover {
+	background:url("../images/bg_nav-02.png") no-repeat;
+	background-size:150px 60px;
+	background-position:center center;
+}
 #header .nav > li.beauty  > a{
 	background:url("../images/bg_nav-01.png") no-repeat;
 	background-size:40px 40px;
 	background-position:center center;
 }
+#header .nav > li  > a.beauty:hover{
+	background:url("../images/bg_nav-01.png") no-repeat;
+	background-size:40px 40px;
+	background-position:center center;
+}
+
 #header .nav > li.fashion  > a{
+	background:url("../images/bg_nav-03.png") no-repeat;
+	background-size:60px 60px;
+	background-position:center center;
+}
+#header .nav > li > a.fashion:hover{
 	background:url("../images/bg_nav-03.png") no-repeat;
 	background-size:60px 60px;
 	background-position:center center;
@@ -63,10 +79,6 @@
 	color:#fff;
 	margin-top: 10px;
 }
-
-
-
-
 
 .hold_menu_selete_category{
 	margin-bottom:25px;
@@ -87,7 +99,7 @@
     padding: 20px 25px;
 	color: #000;
 	font-size: 14px;
-	background:#fff;
+	//background:#fff;
 } 
 
 .hold_menu_selete_category .nav > li:first-child  > a{
@@ -112,17 +124,32 @@
 	background-size:150px 60px;
 	background-position:center center;
 }
+.hold_menu_selete_category .nav  > li > a.lifestyle:hover {
+	background:url("../images/bg_nav-02.png") no-repeat;
+	background-size:150px 60px;
+	background-position:center center;
+}
 .hold_menu_selete_category .nav > li.beauty  > a{
 	background:url("../images/bg_nav-01.png") no-repeat;
 	background-size:40px 40px;
 	background-position:center center;
 }
+.hold_menu_selete_category .nav > li  > a.beauty:hover{
+	background:url("../images/bg_nav-01.png") no-repeat;
+	background-size:40px 40px;
+	background-position:center center;
+}
+
 .hold_menu_selete_category .nav > li.fashion  > a{
 	background:url("../images/bg_nav-03.png") no-repeat;
 	background-size:60px 60px;
 	background-position:center center;
 }
-
+.hold_menu_selete_category .nav > li > a.fashion:hover{
+	background:url("../images/bg_nav-03.png") no-repeat;
+	background-size:60px 60px;
+	background-position:center center;
+}
 
 .hold_tag{
 	margin-bottom:25px;
