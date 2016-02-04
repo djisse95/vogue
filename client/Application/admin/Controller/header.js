@@ -42,17 +42,9 @@ Template.header.helpers({
     },
     getNumberPag:function(){
     		if(Session.get('currentPage'))
-<<<<<<< HEAD
     			return Session.get('currentPage');
     		else
     			return Session.get('arrayPage');
-    }
-=======
-    			return Session.get('arrayPage');
-    		else
-    			return Session.get('arrayPage');
->>>>>>> 71a5f618ee656a575d6b2391b594fcb6a76424a3
-
     },
     tolow:function(title){
     	var convertowercase = title.toLowerCase();
