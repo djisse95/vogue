@@ -60,9 +60,11 @@
 						<h2>Select Category <input type="hidden" id="oldCate" value="{{catId}}"></h2>
 						<div class="hold_menu_selete_category">
 				      		<ul class="nav navbar-nav">
-					      	{{#each getCategory}}
-				      			<li value="{{_id}}" class="cate {{getClass _id}}"><a href="#" class="{{tolow title}}">{{title}}</a></li>
-				      		{{/each}}
+				      			<!-- <li value="{{catId}}" class="cate {{getUpClass catId}}"><a href="#" class="{{getClass catId}}">{{getUpCatTitle catId}}</a></li> -->
+				      			{{setforDefault catId}}
+						      	{{#each getCategory catId}}
+					      			<li value="{{_id}}" class="cate {{getClass _id}}"><a href="#" class="{{tolow title}}">{{title}}</a></li>
+					      		{{/each}}
 					      		<!-- {{#if iscatId}}
 					      			{{#each getCatsname}}
 										<li><a href="#">| Selected:<b style="color:#FAEB1E;" >{{title}}</b></a></li>
@@ -78,7 +80,7 @@
 				      	</div>
 						<div class="clearfix"></div>
 						<div class="hold_tag">
-						<li class="selecteTage">Select Tag</li><br>
+						<li class="selecteTage"><h2>Select Tag</h2></li><br>
 							<ul class="list-inline">
 							{{#each gettags}}
 								<li><a href="#" id="tag" value="{{_id}}" 
