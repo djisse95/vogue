@@ -416,6 +416,7 @@ Template.editContent.events({
     'click .cate':function(e){
         e.preventDefault();
         Session.set('currentClass',this._id);
+        Session.set("setDefault","");
         //$(".cate").css("background-color:white");
        // $(e.currentTarget).css("background-color:red");
         var id = this._id;
@@ -506,8 +507,9 @@ Template.editContent.helpers({
         else 
             return false;
     },
-	getCategory:function(){
-        return categories.find();
+	getCategory:function(catId){
+    Session.set("classtoUpdate",catId);
+    return categories.find({});
     },
     getcat_title:function(catId){
         var title = categories.findOne({_id:catId});
@@ -618,17 +620,38 @@ Template.editContent.helpers({
     },
     // add by chien
 
+    getUpClass:function(id){
+
+        var cl = categories.findOne({_id:id});
+        console.log("styleclass is"+cl.title);
+
+        return cl.title.toLowerCase();
+    },
+    getUpCatTitle:function(id){
+        var cl = categories.findOne({_id:id});
+        return cl.title;
+        
+        
+    },
     getClass:function(_id){
         var id = _id;
         var SessionId = Session.get('currentClass');
+        var catId = Session.get('setDefault');
+        // alert(catId);
         //alert(SessionId);
         var cl = categories.findOne({_id:id});
         console.log("styleclass is"+cl.title);
         var css = cl.title.toLowerCase();
-        if(id == SessionId){
-            return css;
-        }else{
-            return;
+        if(id == catId)
+        return css;
+        else if(id == SessionId)
+        return css;
+        else
+        return;
+    },
+    setforDefault:function(catId){
+        if(catId != ""){
+            Session.set("setDefault",catId);
         }
     }
 });
