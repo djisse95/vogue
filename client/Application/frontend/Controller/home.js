@@ -5,7 +5,7 @@ Template.home.helpers({
         var arr=[];
         var query=12;
         var array=[];
-        var nunberPage=Session.get('next');
+        var nunberPage=Session.get('NUM-PAGE');
         if(nunberPage){
           query=nunberPage*12;  
         }
@@ -29,6 +29,7 @@ Template.home.helpers({
         }else{
             var start=query-12;
         }
+        console.log("START="+start);
         for(var i=start;i<query;i++){
             if(arr[i]){
                 array.push(arr[i]);

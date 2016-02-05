@@ -3,12 +3,12 @@ Template.list.helpers({
         var catId = Session.get("categoriesId");
         return content.find({catId:catId},{limit:6});
     },
-    discontent:function(){
-        var catId = Session.get("categoriesId");
+    getContentbyCat:function(){
+        var catId = this._id;
         var arr=[];
         var query=12;
         var array=[];
-        var nunberPage=Session.get('next');
+        var nunberPage=Session.get('NUM-PAGE');
         if(nunberPage){
           query=nunberPage*12;  
         }

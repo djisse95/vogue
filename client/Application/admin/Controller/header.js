@@ -1,19 +1,30 @@
-Session.setDefault('currentPage',0);
 Session.setDefault('currentClass','');
-// Template.header.rendered = function(){
-//     $('#addConten').click(function(event){
-//         $( "addConten" ).addClass( "add-content" );
-//         $( "addConten" ).removeClass( "changelist" );
-//     });
-//      $('.changelist').click(function(event){
-//         $( "changelist" ).addClass( "changelist" );
-//         $( "changelist" ).removeClass( "add-content" );
-//     });
-// }
-
+Template.header.onCreated(function () {
+    var num_default = 1;
+    Session.set("NUM_DEFAULT",num_default);
+});
+Template.header.helpers({
+    getnum:function(){
+        var default_page = Session.get("NUM_DEFAULT");
+        if(default_page){
+            return default_page;
+        }else{
+            return false;
+        }
+        
+    }
+});
+num = 0;
 Template.header.events({
+    "click .menupage11":function(e){
+        e.preventDefault();
+        alert("hello");
+        Session.set("NUM-PAGE",1)
+    },
 	'click .changelist':function(e,tpl){
-		Session.set('currentPage',0);
+		Session.set("NUM-PAGE",1);
+        var num = 1;
+        $(".count-num").html(num);
 	},
 	/*'click #listCate':function(e){
 		e.preventDefault();
@@ -25,9 +36,15 @@ Template.header.events({
 	},*/
 	//=============Start Click next prev pagination=============
 	'click .swiper-button-next':function(e){
-		e.preventDefault();
-		var i=Session.get('currentPage')+1;	
-		Session.set('currentPage',i);
+        e.preventDefault();
+        var num = $(".count-num").text();
+            num ++;
+            console.log("COUNT="+num);
+        if(num>0){
+            Session.set("NUM-PAGE",num);
+            $(".count-num").html(num);
+            $(".swiper-button-prev").removeClass("swiper-button-disabled");
+        }
 	},
     'click .addConten':function(){
         Session.set('currentClass',"");
@@ -41,11 +58,15 @@ Template.header.events({
     },
 	'click .swiper-button-prev':function(e){
 		e.preventDefault();
-		if(Session.get('currentPage')==0)
-			return;
-		var prev=Session.get('currentPage')-1;
-		Session.set('currentPage',prev);
-
+        var count = $(".count-num").text();
+            count --;
+        if(count>0){
+            Session.set("NUM-PAGE",count);
+            $(".count-num").html(count);
+        }
+        else{
+            $(".swiper-button-prev").addClass("swiper-button-disabled");
+        }
 
 	},
 	//start add style to menu====
@@ -87,7 +108,12 @@ Template.header.helpers({
     	}
     }
 });
+Template.header.rendered = function(){
+    var num_default = 1;
+    console.log("ADD_NUM="+num_default);
+    $(".count-num").html(num_default);
 
+}
 Template.header.rendered = function(){ // event use to 
 	var swiper = new Swiper('.swiper-container', {
         pagination: '.swiper-pagination',
