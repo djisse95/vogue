@@ -87,6 +87,14 @@ Template.addContent.helpers({
     }
 });
 Template.addContent.events({
+    // 'keypress .title': function(event,tpl) {
+    //     var title = tpl.$('.title').val();
+    //     if (title.length > 70) {
+    //         Bert.alert( 'Title length should less than 70!', 'danger', 'growl-top-right' );
+    //         event.stopPropagation();
+    //         return false;
+    //     }
+    // },
     'click #btn-content':function(e,tpl){
         e.preventDefault();
         var img = Session.get('ADDIMAGEID');
@@ -98,7 +106,6 @@ Template.addContent.events({
         var layout = Session.get("LAYOUT");
         var alltags=Session.get('tagId');
         var msg="";
-        //console.log("Hello Sophy: "+title+"<br> text1: "+text+"<br> text2: "+text2+"<br> catId: "+catId+"<br> layout: "+layout+"<br> alltags: "+alltags);
         alltags=alltags.split(';');
         tagsjson=[];
         for(var i=0;i<alltags.length;i++){
@@ -146,7 +153,7 @@ Template.addContent.events({
         for (var i = 0, ln = files.length; i < ln; i++) {
           	images.insert(files[i], function (err, fileObj) {
 	            // Inserted new doc with ID fileObj._id, and kicked off the data upload using HTTP
-            	Session.setPersistent('ADDIMAGEID', fileObj._id);
+            	Session.set('ADDIMAGEID', fileObj._id);
           	});
         }
     },
@@ -416,6 +423,7 @@ Template.editContent.events({
     'click .cate':function(e){
         e.preventDefault();
         Session.set('currentClass',this._id);
+        Session.set("setDefault","");
         //$(".cate").css("background-color:white");
        // $(e.currentTarget).css("background-color:red");
         var id = this._id;
@@ -506,8 +514,9 @@ Template.editContent.helpers({
         else 
             return false;
     },
-	getCategory:function(){
-        return categories.find();
+	getCategory:function(catId){
+    Session.set("classtoUpdate",catId);
+    return categories.find({});
     },
     getcat_title:function(catId){
         var title = categories.findOne({_id:catId});
@@ -618,17 +627,38 @@ Template.editContent.helpers({
     },
     // add by chien
 
+    getUpClass:function(id){
+
+        var cl = categories.findOne({_id:id});
+        console.log("styleclass is"+cl.title);
+
+        return cl.title.toLowerCase();
+    },
+    getUpCatTitle:function(id){
+        var cl = categories.findOne({_id:id});
+        return cl.title;
+        
+        
+    },
     getClass:function(_id){
         var id = _id;
         var SessionId = Session.get('currentClass');
+        var catId = Session.get('setDefault');
+        // alert(catId);
         //alert(SessionId);
         var cl = categories.findOne({_id:id});
         console.log("styleclass is"+cl.title);
         var css = cl.title.toLowerCase();
-        if(id == SessionId){
-            return css;
-        }else{
-            return;
+        if(id == catId)
+        return css;
+        else if(id == SessionId)
+        return css;
+        else
+        return;
+    },
+    setforDefault:function(catId){
+        if(catId != ""){
+            Session.set("setDefault",catId);
         }
     }
 });

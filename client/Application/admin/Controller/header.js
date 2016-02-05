@@ -26,14 +26,6 @@ Template.header.events({
         var num = 1;
         $(".count-num").html(num);
 	},
-	/*'click #listCate':function(e){
-		e.preventDefault();
-		var id = this._id;
-		console.log('going to '+id);
-		Session.set("categoriesId",id);
-		Router.go("list");
-		//alert(id);
-	},*/
 	//=============Start Click next prev pagination=============
 	'click .swiper-button-next':function(e){
         e.preventDefault();
