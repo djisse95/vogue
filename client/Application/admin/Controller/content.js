@@ -87,6 +87,14 @@ Template.addContent.helpers({
     }
 });
 Template.addContent.events({
+    // 'keypress .title': function(event,tpl) {
+    //     var title = tpl.$('.title').val();
+    //     if (title.length > 70) {
+    //         Bert.alert( 'Title length should less than 70!', 'danger', 'growl-top-right' );
+    //         event.stopPropagation();
+    //         return false;
+    //     }
+    // },
     'click #btn-content':function(e,tpl){
         e.preventDefault();
         var img = Session.get('ADDIMAGEID');
@@ -98,7 +106,6 @@ Template.addContent.events({
         var layout = Session.get("LAYOUT");
         var alltags=Session.get('tagId');
         var msg="";
-        //console.log("Hello Sophy: "+title+"<br> text1: "+text+"<br> text2: "+text2+"<br> catId: "+catId+"<br> layout: "+layout+"<br> alltags: "+alltags);
         alltags=alltags.split(';');
         tagsjson=[];
         for(var i=0;i<alltags.length;i++){

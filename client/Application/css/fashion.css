@@ -9,6 +9,7 @@
   background: url("../images/bg-fashion2.png") no-repeat;
   overflow: hidden;
   background-position: top;
+  min-height: 361px;
 }
 .center-text-fashion{
   text-align: center;
@@ -24,8 +25,8 @@
   font-size: 40px;
 }
 .text-fashion-a{
-  font-size: 40px;
-  margin-top: 40px;
+  font-size: 34px;
+  margin-top: 70px;
 }
 .space-top-fashion{
   margin-top: 30px;
