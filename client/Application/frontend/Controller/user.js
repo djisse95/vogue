@@ -78,10 +78,17 @@ Template.login.events({
                 {
                     if(password.match(passw))   
                     {
-                       // Meteor.call('registerUser',username,email,password);
-                        Meteor.call('registerUser',username,fname,lname,pays,ville,email,password);
-                         Bert.alert('Register success','success', 'growl-top-right' ); 
-                        //Router.go('/login');
+
+                        Meteor.call('registerUser',username,fname,lname,pays,ville,email,password, function(err){
+                            if(err){
+                                Bert.alert(err.reason,'danger', 'growl-top-right' );
+                                Session.set("registerError",err.reason);
+                            }else{
+                                Session.set("registerError","");
+                                Bert.alert('Register success','success', 'growl-top-right' );
+                                Router.go('login'); 
+                            }  
+                        }); 
                     }  
                     else  
                     { 
