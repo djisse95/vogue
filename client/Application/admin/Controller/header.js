@@ -3,24 +3,8 @@ Template.header.onCreated(function () {
     var num_default = 1;
     Session.set("NUM_DEFAULT",num_default);
 });
-Template.header.helpers({
-    getnum:function(){
-        var default_page = Session.get("NUM_DEFAULT");
-        if(default_page){
-            return default_page;
-        }else{
-            return false;
-        }
-        
-    }
-});
 num = 0;
 Template.header.events({
-    "click .menupage11":function(e){
-        e.preventDefault();
-        alert("hello");
-        Session.set("NUM-PAGE",1)
-    },
 	'click .changelist':function(e,tpl){
 		Session.set("NUM-PAGE",1);
         var num = 1;
@@ -55,6 +39,7 @@ Template.header.events({
         if(count>0){
             Session.set("NUM-PAGE",count);
             $(".count-num").html(count);
+            $(".swiper-button-next").removeClass("swiper-button-disabled");
         }
         else{
             $(".swiper-button-prev").addClass("swiper-button-disabled");
@@ -73,14 +58,16 @@ Template.header.events({
 	//=============End Click next prev pagination===============
 });
 Template.header.helpers({
+    getnum:function(){
+        var default_page = Session.get("NUM_DEFAULT");
+        if(default_page){
+            return default_page;
+        }else{
+            return false;
+        }
+    },
     dismenu : function(){
         return categories.find();
-    },
-    getNumberPag:function(){
-    		if(Session.get('currentPage'))
-    			return Session.get('currentPage');
-    		else
-    			return Session.get('arrayPage');
     },
     tolow:function(title){
     	var convertowercase = title.toLowerCase();
@@ -100,23 +87,3 @@ Template.header.helpers({
     	}
     }
 });
-Template.header.rendered = function(){
-    var num_default = 1;
-    console.log("ADD_NUM="+num_default);
-    $(".count-num").html(num_default);
-
-}
-Template.header.rendered = function(){ // event use to 
-	var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        spaceBetween: 30
-    });
-    $(".swiper-button-prev").removeClass('swiper-button-disabled');
-    $(".swiper-button-next").removeClass('swiper-button-disabled');
-
-    //Session.set('currentPage',0);
-
-};

@@ -10,6 +10,7 @@ Template.home.helpers({
           query=nunberPage*12;  
         }
         var items = content.find({},{limit:query});
+        console.log("LENG_ITEM"+query);
         items.forEach(function(value){
             var obj={
                 _id        : value._id,
@@ -28,13 +29,15 @@ Template.home.helpers({
             var start=0;
         }else{
             var start=query-12;
+            /*if(start != 12){
+                $(".swiper-button-next").addClass("swiper-button-disabled");
+            }*/
         }
         console.log("START="+start);
         for(var i=start;i<query;i++){
             if(arr[i]){
                 array.push(arr[i]);
             }
-           
         }
         return array;
     },
