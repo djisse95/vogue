@@ -5,8 +5,18 @@ Session.setDefault('text2','');
 Session.setDefault("myimage",'');
 Session.setDefault("catId","");
 Session.setDefault("currentClass","");
+Session.set('querylimitcontent',10);
 Session.set('img_pro','');
-
+var processScroll = true;
+$(window).scroll(function() {
+    if (processScroll  && $(window).scrollTop() > $(document).height() - $(window).height() - 100) {
+        processScroll = false;
+        var oldLimit=Session.get('querylimitcontent');
+        oldLimit+=10;
+        Session.set('querylimitcontent',oldLimit);
+        processScroll = true;
+    }
+});
 Template.addContent.helpers({
 	getCategory:function(){
 		return categories.find();
@@ -146,7 +156,9 @@ Template.addContent.events({
             delete Session.keys['tagId'];
             Session.set("LAYOUT","");
             delete Session.keys['LAYOUT'];
-            Meteor.call('addContent',img,title,text,text2,catId,layout,tagsjson);   
+            Meteor.call('addContent',img,title,text,text2,catId,layout,tagsjson);  
+            Session.set("catId","");
+            Session.set('tagId',"");
             Router.go('/managecontent');
         }
     },
@@ -285,11 +297,13 @@ Template.disContent.helpers({
             var loggedInUser = Meteor.user();
             var userId = Meteor.userId();
             var group = 'mygroup';
+            var querylimit= Session.get('querylimitcontent');
+            //alert(querylimit);
             if (Roles.userIsInRole(loggedInUser, ['Admin'], group)) {
-                return content.find();
+                return content.find({},{limit: querylimit});
             }
             else if (Roles.userIsInRole(loggedInUser, ['member'], group)) { 
-                return content.find({userId:userId});
+                return content.find({userId:userId}, {limit: querylimit});
             }
             else{
                 return;
@@ -308,6 +322,14 @@ Template.disContent.helpers({
             return;
         }
 	},
+    getStatus:function(status){
+        html='';
+        if(status==1){
+            return "accept" 
+        }else{
+            return "pending"
+        }
+    }
    // hastext:function()
 });
 Template.disContent.events({
@@ -317,6 +339,35 @@ Template.disContent.events({
         if (confirm("Are you sure you want to delete this?")) {
             Meteor.call("removeContent",id);
         }
+    },
+    "click #onpending":function(e){
+        e.preventDefault();
+        var curId=$(e.currentTarget).attr('data-id');
+        //$(e.currentTarget).setAttribute("id", "onaccept");
+        var status=1;
+        Meteor.call("updateStatus",curId,status,function(err){
+            if(err){
+                 console.log("Error update status");
+            }else {
+                console.log("success update")
+                //this.setAttribute("id", "onaccept");
+                $(e.currentTarget).attr('id', 'onaccept');
+            }
+        })
+    },
+    "click #onaccept":function(e){
+        e.preventDefault();
+        var curId=$(e.currentTarget).attr('data-id');
+        var status=0;
+        Meteor.call("updateStatus",curId,status,function(err){
+            if(err){
+                 console.log("Error update status");
+            }else {
+                console.log("success update")
+                //this.setAttribute("id", "onaccept");
+                $(e.currentTarget).attr('id', 'onpending');
+            }
+        })
     }
 });
 
@@ -408,6 +459,7 @@ Template.editContent.events({
                     Session.set('ADDIMAGEID',undefined);
                     Session.set('catId',undefined);*/
                     Session.set('tagId','');
+                    Session.set("catId","")
                     Router.go('/managecontent');
                 }
             });

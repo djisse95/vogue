@@ -64,3 +64,29 @@ Template.preview.helpers({
     }
 
 }); 
+Template.preview.events({
+    'click #addContent':function(e,tpl){
+        e.preventDefault();
+        var title = tpl.$('.title').text();
+        var text = tpl.$('.text1').text();
+        var text2 = tpl.$('.text2').text();
+        var img = Session.get('ADDIMAGEID');
+        var catId = Session.get("catId");
+        var layout = Session.get("LAYOUT");
+        var alltags=Session.get('tagId');
+        //alert('ok: '+image);
+        var msg="";
+        alltags=alltags.split(';');
+        tagsjson=[];
+        for(var i=0;i<alltags.length;i++){
+            if(alltags[i]!=""){
+                tagsjson.push(alltags[i]);
+            }
+        }
+        
+        Meteor.call('addContent',img,title,text,text2,catId,layout,tagsjson);  
+        alert('Success '); 
+        Router.go('/managecontent');
+        
+    }
+});

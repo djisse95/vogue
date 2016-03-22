@@ -76,9 +76,11 @@ Template.login.events({
              else if(username.match(letters)){
                 if(email.match(mailformat))
                 {
+                    // $("#error_email").remove();
+                    
                     if(password.match(passw))   
                     {
-
+                        $("#error_pass").remove();
                         Meteor.call('registerUser',username,fname,lname,pays,ville,email,password, function(err){
                             if(err){
                                 Bert.alert(err.reason,'danger', 'growl-top-right' );
@@ -86,6 +88,13 @@ Template.login.events({
                             }else{
                                 Session.set("registerError","");
                                 Bert.alert('Register success','success', 'growl-top-right' );
+                                $('#username').val("");
+                                $('[name=firstname]').val("");
+                                $('[name=lastname]').val("");
+                                $('[name=country]').val("");
+                                $('[name=city]').val("");
+                                $('[name=email]').val("");
+                                $('[name=password]').val("");
                                 Router.go('login'); 
                             }  
                         }); 
@@ -99,8 +108,9 @@ Template.login.events({
                 }  
                 else  
                 {  
-                    $("#error_email").text("invalid email address!").css("color","red");  
-                    $('[name=email]').focus();  
+                    // $("#error_email").text("invalid email address!").css("color","red");  
+                    // $('[name=email]').focus();  
+                    Bert.alert( 'invalid email address!', 'danger', 'growl-top-right' );
                     return false;  
                 }  
                 
@@ -109,10 +119,8 @@ Template.login.events({
             //     $('[name=username]').focus(); 
             //     return false;    
                 Bert.alert('please check input again','danger','growl-top-right');
-            } 
-           
-            
-        } 
+            }   
+        }
     
 });
 Template.header.events({
@@ -138,6 +146,7 @@ Template.header.events({
     }
 });
 // ================ Manage User =================== //
+
 Session.set("count",0);
 Template.manageuser.events({
     "click #remove":function(e){
@@ -157,12 +166,13 @@ Template.manageuser.events({
         var pays = $('#country').val();
         var ville = $('#city').val();
         var email = $('#email').val();
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var password = $('#password').val();
         var mySelect = $('#mySelect').val();
         var result = users.find({emails:email}); 
         //console.log(username,fname,lname,email);
         var msg = '';
-        if( result.count() > 0 || username == '' || fname == '' || lname == '' || pays == '' || email == '' || password == '' || mySelect == ''){
+        if( result.count() > 0 || username == '' || fname == '' || lname == '' || pays == '' || email == '' || !email.match(re) || password == '' || mySelect == ''){
             if( username == '' )
                 Bert.alert( 'username is required', 'danger', 'growl-top-right' );
             else if( fname == '' )
@@ -173,6 +183,8 @@ Template.manageuser.events({
                 Bert.alert( 'pays is required', 'danger', 'growl-top-right' );
             else if( email == '' )
                 Bert.alert( 'email is required', 'danger', 'growl-top-right' );
+            else if (!email.match(re))
+                Bert.alert( 'Not format email', 'danger', 'growl-top-right' );
             else if( password == '' )
                 Bert.alert( 'password is required', 'danger', 'growl-top-right' );
             else if( mySelect == '' )
@@ -203,8 +215,10 @@ Template.manageuser.helpers({
         var a = Session.get("count");
         a++;
         var allUser = Meteor.users.find({});
+        //var allUser = Meteor.users.find({}, {limit:Session.get('querylimit')});
         return allUser;
-    },
+    }
+
 });
 //==================== Update User =======================
 Template.edituser.events({
@@ -217,13 +231,16 @@ Template.edituser.events({
         var pays = $('[name=country]').val();
         var ville = $('[name=city]').val();
         var email = $('#email').val();
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         // var password = $('#password').val();
         var mySelect = $('#mySelect').val();
        // alert("it Working"+id+" "+username+" "+fname+" "+lname+" "+pays+" "+ville+" "+email);
        var result = users.find({emails:email}); 
         //console.log(username,fname,lname,email);
         var msg = '';
-        if( result.count() > 0 || username == '' || fname == '' || lname == '' || pays == '' || email == ''  || mySelect == ''){
+        if( result.count() > 0 || username == '' || fname == '' || lname == '' || pays == '' || email == '' || !email.match(re) || mySelect == ''){
+            if (!email.match(re))
+                Bert.alert( 'Not format email', 'danger', 'growl-top-right' );
             if( username == '' )
                 Bert.alert( 'username is required', 'danger', 'growl-top-right' );
             else if( fname == '' )
@@ -232,8 +249,10 @@ Template.edituser.events({
                 Bert.alert( 'lastname is required', 'danger', 'growl-top-right' );
             else if( pays == '' )
                 Bert.alert( 'pays is required', 'danger', 'growl-top-right' );
-            else if( email == '' )
+            else if( email == '')
                 Bert.alert( 'email is required', 'danger', 'growl-top-right' );
+            else if (!email.match(re))
+                Bert.alert( 'Not format email', 'danger', 'growl-top-right' );
             else if( mySelect == '' )
                 Bert.alert( 'mySelect is required', 'danger', 'growl-top-right' );
             else if( result.count() > 0 )
