@@ -11,7 +11,8 @@ Meteor.methods({
 			createdAt:new Date(),
 			catId:catId,
 			layout:layout,
-			taglist:tags
+			taglist:tags,
+			status:0
 		}
 		return content.insert(attr);
 	},
