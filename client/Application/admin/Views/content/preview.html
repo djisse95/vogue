@@ -4,7 +4,7 @@
 		<div class="container">
 		  	<div class="row">
 				<div class="col-md-12">
-			  		<h1 class="text-fashion-a">{{title}}</h1>
+			  		<h1 class="text-fashion-a title">{{title}}</h1>
 		  			<div class="col-md-12 bg-fashion-a">
 						<div class="col-lg-6 row">
 						   <div class="img-fashion">
@@ -13,14 +13,14 @@
 						</div>
 						<div class="col-lg-6">
 						    <div class="center-text-fashion-a">
-							  <p class="text-fashion-p">{{{text}}}
+							  <p class="text-fashion-p text1">{{{text}}}
 							</p>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-12">
 						<!-- <p>{{text2}}</p> -->
-						<p class="space-top-fashion">{{{text2}}}</p>
+						<p class="space-top-fashion text2">{{{text2}}}</p>
 				    </div>
 				    <h2 class="text-center">Related Contents</h2>
 				    {{#each relateContent}}
@@ -44,13 +44,13 @@
 					</div>
 					<div class="col-md-6 bg-fashion">
 					    <div class="center-text-fashion">
-						  	<h2 class="text-fashion">{{title}}</h2>
+						  	<h2 class="text-fashion title">{{title}}</h2>
 						</div>
 					</div>
 					<div class="col-md-12">
-						<p>{{{text}}}</p>
+						<p class="text1">{{{text}}}</p>
 
-						<p class="space-top-fashion">{{{text2}}}</p>
+						<p class="space-top-fashion text2">{{{text2}}}</p>
 				    </div>
 				</div>
 			</div>
@@ -62,8 +62,8 @@
 		<div class="container">
 		  <div class="row">
 			<div class="col-md-12">
-			  <h1 class="text-fashion-a text-center">{{title}}</h1>
-			  <p class="text-slider-fashion">{{{text}}}</p> 
+			  <h1 class="text-fashion-a text-center title">{{title}}</h1>
+			  <p class="text-slider-fashion text1">{{{text}}}</p> 
 			</div>
 			 <div class="col-md-12">
 			   <div class="slider"> 
@@ -79,10 +79,19 @@
 			   </div>
 			 </div>
 			  <div class="col-md-12">
-			     <p class="text-slider-fashion">{{{text2}}}</p> 
+			     <p class="text-slider-fashion text2">{{{text2}}}</p> 
 			 </div>
 		</div>
 	  </div>
 	</div>
 {{/each}}
+<div class="section">
+		<div class="container">
+		  	<div class="row">
+				<div class="col-md-12">
+					<button class="btn" id="addContent">ADD</button>
+				</div>
+			</div>
+		</div>
+</div>
 </template>
