@@ -148,7 +148,9 @@ Template.addContent.events({
             delete Session.keys['tagId'];
             Session.set("LAYOUT","");
             delete Session.keys['LAYOUT'];
-            Meteor.call('addContent',img,title,text,text2,catId,layout,tagsjson);   
+            Meteor.call('addContent',img,title,text,text2,catId,layout,tagsjson);  
+            Session.set("catId","");
+            Session.set('tagId',"");
             Router.go('/managecontent');
         }
     },
@@ -449,6 +451,7 @@ Template.editContent.events({
                     Session.set('ADDIMAGEID',undefined);
                     Session.set('catId',undefined);*/
                     Session.set('tagId','');
+                    Session.set("catId","")
                     Router.go('/managecontent');
                 }
             });
