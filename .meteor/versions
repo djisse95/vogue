@@ -32,6 +32,7 @@ cfs:tempstore@0.1.5
 cfs:upload-http@0.0.20
 cfs:worker@0.1.4
 check@1.1.0
+coffeescript@1.0.11
 ddp@1.2.2
 ddp-client@1.2.1
 ddp-common@1.2.2
@@ -68,6 +69,7 @@ livedata@1.0.15
 localstorage@1.0.5
 logging@1.0.8
 lsun:ckeditor@4.5.4
+manuelschoebel:ms-seo@0.4.1
 matteodem:easy-search@1.6.4
 meteor@1.1.10
 meteor-base@1.0.1
@@ -107,6 +109,7 @@ session@1.1.1
 sha@1.0.4
 spacebars@1.0.7
 spacebars-compiler@1.0.7
+spiderable@1.0.9
 srp@1.0.4
 standard-minifiers@1.0.2
 swiper:swiper@3.0.8

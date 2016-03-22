@@ -48,6 +48,11 @@ Template.contentdetail.helpers({
         if(layout==3){
             return content.findOne({_id:id});
         }
+    },
+    getUrl:function(){
+        var r = Router.current().route.path(this);
+        r = r.replace(/^\//g,"");
+        return Meteor.absoluteUrl()+r;
     }
 
 });

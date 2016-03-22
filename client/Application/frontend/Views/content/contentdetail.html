@@ -1,93 +1,172 @@
 <template name="contentdetail">
-{{#with getLayout1}}
-	<div class="section">
-		<div class="container">
-		  	<div class="row">
-				<div class="col-md-12">
-			  		<h1 class="text-fashion-a">{{title}}</h1>
-		  			<div class="col-md-12 bg-fashion-a">
-						<div class="col-lg-6 row">
-						   <div class="img-fashion">
-							<img src="/uploads/{{getImage imageId}}" class="img-responsive" width="80%" height="80%">
-							</div>
-						</div>
-						<div class="col-lg-6">
-						    <div class="center-text-fashion-a">
-							  <p class="text-fashion-p">{{{description.text1}}}
-							</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12">
-						<!-- <p>{{description.text2}}</p> -->
-						<p class="space-top-fashion">{{{description.text2}}}</p>
-				    </div>
-				    <h2 class="text-center">Related Contents</h2>
-				    {{#each relateContent _id}}
-				    	<div class="col-md-6">
-							<h3>{{title}}</h3>
-							<div class="fixsize">
-								<a href="/contentdetail/{{_id}}">
-								<img src="/uploads/{{getImageRelated imageId}}" 
-								class="img-thumbnail big-img" alt="Cinque Terre" style="width:100%; height:100%;">
-								</a>
-							</div>
-						</div>
-					{{/each}}
-				</div>
-			</div>
-	  	</div>
-	</div>
-{{/with}}
-{{#with getLayout2}}
-	<div class="section">
-		<div class="container">
-		 	<div class="row">
-				<div class="col-md-12 space-top-fashion">
-					<div class="col-md-6 row">
-						<img src="/uploads/{{getImage imageId}}" class="img-responsive" width="80%" height="80%"/>
-					</div>
-					<div class="col-md-6 bg-fashion">
-					    <div class="center-text-fashion">
-						  	<h2 class="text-fashion">{{title}}</h2>
-						</div>
-					</div>
-					<div class="col-md-12">
-						<p>{{{description.text1}}}</p>
-
-						<p class="space-top-fashion">{{{description.text2}}}</p>
-				    </div>
-				</div>
-			</div>
-	   	</div>
-	</div>
-{{/with}}
-{{#with getLayout3}}
-	<div class="section">
-		<div class="container">
-		  <div class="row">
-			<div class="col-md-12">
-			  <h1 class="text-fashion-a text-center">{{title}}</h1>
-			  <p class="text-slider-fashion">{{{description.text1}}}</p> 
-			</div>
-			 <div class="col-md-12">
-			   <div class="slider"> 
-	 		    <!-- slide swiper -->
-				<div class="swiper-container swiper-container-horizontal">
-					<div style="transition-duration: 0ms; " class="swiper-wrapper">
-						<div class="swiper-slide swiper-slide-next"><img  class="img-responsive center-block" src="/uploads/{{getImage imageId}}" width="80%" height="80%"/></div>
-					</div>
-					<div class="swiper-button-next"></div>
-					<div class="swiper-button-prev"></div>
-				</div>
-				<!-- /slide swiper -->	
-			   </div>
-			 </div>
-			  <div class="col-md-12">
-			     <p class="text-slider-fashion">{{{description.text2}}}</p> 
-			 </div>
-		</div>
-	  </div>
-	</div>
-{{/with}}
+    {{#with getLayout1}}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-fashion-a">{{title}}</h1>
+                    <div class="col-md-12 bg-fashion-a">
+                        <div class="col-lg-6 row">
+                            <div class="img-fashion">
+                                <img src="/upload/{{getImage imageId}}" class="img-responsive" width="80%" height="80%">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="center-text-fashion-a">
+                                <p class="text-fashion-p">{{{description.text1}}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <!-- <p>{{description.text2}}</p> -->
+                        <p class="space-top-fashion">{{{description.text2}}}</p>
+                    </div>
+                    <!-- Social sharing -->
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{getUrl}}" data-via="chaksaray" data-size="large">Tweet</a>
+                    <script>
+                    ! function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0],
+                            p = /^http:/.test(d.location) ? 'http' : 'https';
+                        if (!d.getElementById(id)) {
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = p + '://platform.twitter.com/widgets.js';
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }
+                    }(document, 'script', 'twitter-wjs');
+                    </script>
+                    <div id="fb-root"></div>
+                    <script>
+                    (function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1678919525678084";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+                    </script>
+                    <div class="fb-share-button" data-href="{{getUrl}}" data-layout="button"></div>
+                    <!-- <h1>{{getUrl}}</h1> -->
+                    <!-- end social sharing -->
+                    <h2 class="text-center">Related Contents</h2> {{#each relateContent _id}}
+                    <div class="col-md-6">
+                        <h3>{{title}}</h3>
+                        <div class="fixsize">
+                            <a href="/contentdetail/{{_id}}">
+                                <img src="/upload/{{getImageRelated imageId}}" class="img-thumbnail big-img" alt="Cinque Terre" style="width:100%; height:100%;">
+                            </a>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/with}} {{#with getLayout2}}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 space-top-fashion">
+                    <div class="col-md-6 row">
+                        <img src="/upload/{{getImage imageId}}" class="img-responsive" width="80%" height="80%" />
+                    </div>
+                    <div class="col-md-6 bg-fashion">
+                        <div class="center-text-fashion">
+                            <h2 class="text-fashion">{{title}}</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <p>{{{description.text1}}}</p>
+                        <p class="space-top-fashion">{{{description.text2}}}</p>
+                    </div>
+                    <!-- Social sharing -->
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{getUrl}}" data-via="chaksaray" data-size="large">Tweet</a>
+                    <script>
+                    ! function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0],
+                            p = /^http:/.test(d.location) ? 'http' : 'https';
+                        if (!d.getElementById(id)) {
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = p + '://platform.twitter.com/widgets.js';
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }
+                    }(document, 'script', 'twitter-wjs');
+                    </script>
+                    <div id="fb-root"></div>
+                    <script>
+                    (function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1678919525678084";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+                    </script>
+                    <div class="fb-share-button" data-href="{{getUrl}}" data-layout="button"></div>
+                    <!-- <h1>{{getUrl}}</h1> -->
+                    <!-- end social sharing -->
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/with}} {{#with getLayout3}}
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-fashion-a text-center">{{title}}</h1>
+                    <p class="text-slider-fashion">{{{description.text1}}}</p>
+                </div>
+                <div class="col-md-12">
+                    <div class="slider">
+                        <!-- slide swiper -->
+                        <div class="swiper-container swiper-container-horizontal">
+                            <div style="transition-duration: 0ms; " class="swiper-wrapper">
+                                <div class="swiper-slide swiper-slide-next"><img class="img-responsive center-block" src="/upload/{{getImage imageId}}" width="80%" height="80%" /></div>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                        <!-- /slide swiper -->
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <p class="text-slider-fashion">{{{description.text2}}}</p>
+                </div>
+                <!-- Social sharing -->
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{getUrl}}" data-via="chaksaray" data-size="large">Tweet</a>
+                    <script>
+                    ! function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0],
+                            p = /^http:/.test(d.location) ? 'http' : 'https';
+                        if (!d.getElementById(id)) {
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = p + '://platform.twitter.com/widgets.js';
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }
+                    }(document, 'script', 'twitter-wjs');
+                    </script>
+                    <div id="fb-root"></div>
+                    <script>
+                    (function(d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (d.getElementById(id)) return;
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=1678919525678084";
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }(document, 'script', 'facebook-jssdk'));
+                    </script>
+                    <div class="fb-share-button" data-href="{{getUrl}}" data-layout="button"></div>
+                    <!-- <h1>{{getUrl}}</h1> -->
+                    <!-- end social sharing -->
+            </div>
+        </div>
+    </div>
+    {{/with}}
 </template>
