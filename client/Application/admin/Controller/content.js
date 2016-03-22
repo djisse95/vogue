@@ -87,14 +87,22 @@ Template.addContent.helpers({
     }
 });
 Template.addContent.events({
-    // 'keypress .title': function(event,tpl) {
-    //     var title = tpl.$('.title').val();
-    //     if (title.length > 70) {
-    //         Bert.alert( 'Title length should less than 70!', 'danger', 'growl-top-right' );
-    //         event.stopPropagation();
-    //         return false;
-    //     }
-    // },
+    'click #addTage':function (e,tpl) {
+        // add Tage
+        e.preventDefault();
+        var title = $('#inputTage').val();
+        var result = tags.find({title:title.toLowerCase()});
+        if(result.count() > 0 || title == "" ){
+            if(title==""){
+                Bert.alert( 'Title is required!', 'danger', 'growl-top-right' );
+            }
+            if(result.count() > 0){
+                Bert.alert( 'Title has already!', 'danger', 'growl-top-right' );
+            }
+        }else{
+            Meteor.call('addtage',title.toLowerCase()); 
+        }
+    },
     'click #btn-content':function(e,tpl){
         e.preventDefault();
         var img = Session.get('ADDIMAGEID');

@@ -1,5 +1,5 @@
 Meteor.methods({
-    distags: function(title){
+    addtage: function(title){
         var attr = {
             title : title
         }

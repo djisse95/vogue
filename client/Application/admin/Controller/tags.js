@@ -18,7 +18,7 @@ Template.tags.events({
 			Session.set("PostError", msg );
 			Session.set('page_msg',msg);
 		}else{
-			Meteor.call('distags',title); 
+			Meteor.call('addtage',title); 
 		}
 	},
 	'click #delete':function(){

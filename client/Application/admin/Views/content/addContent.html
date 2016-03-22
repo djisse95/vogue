@@ -45,22 +45,20 @@
 				      		{{#each getCategory}}
 				      			<li value="{{_id}}" class="cate {{getClass _id}}"><a href="#" class="{{tolow title}}">{{title}}</a></li>
 				      		{{/each}}
-				      		<!-- {{#each getCatsname}}
-										<li class="">
-											<a href="" >| Selected:<b style="color:#FAEB1E;">{{title}}</b></a>
-										</li>
-							{{/each}} -->
 				      		</ul>
 								
 			      		</div>
 						<div class="clearfix"></div>
 						<div class="hold_tag">
 						<h2>Select Tag</h2>
+						<input type="text" class="form-control" id="inputTage" required>
+						<button id="addTage">addTage</button>
 						<li class="selecteTage" id="selecttage"></li><br>
 							<ul class="list-inline">
 								{{#each gettags}}
 									<li><a href="#" class="tag" value="{{_id}}" style="text-transform: capitalize;">{{title}}</a></li>
 								{{/each}}
+
 							</ul>
 						</div>
 						<div class="hold_selected_tag">
@@ -76,18 +74,6 @@
 								{{/each}}
 							</ul>
 						</div>
-
-						<!-- <div class="clearfix"></div>
-						<div class="hold_tag">
-							<ul class="list-inline">
-								{{#each gettags}}
-									<li><a href="#" class="tag" value="{{_id}}">{{title}}</a></li>
-									
-								{{/each}}
-							</ul>
-						</div>
-						 -->
-
 					</div>
 				</div>
 			     <div class="col-md-12 row">
