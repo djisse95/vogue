@@ -22,6 +22,7 @@
                                         <th>Title</th>
                                         <th>Categories</th>
                                         <th>Action</th>
+                                        <th>status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -37,6 +38,7 @@
                                                 <a href="/editContent/{{_id}}" id="update-con">update</a> |
                                                 <a href="#" id="remove-con">delete</a>
                                             </td>
+                                            <td><a href="#" data-id="{{_id}}" id="onstatus">{{getStatus status}}</a></td>
                                         </tr>
                                     {{/each}}
                                 </tbody>
