@@ -31,5 +31,8 @@ Meteor.methods({
 	},
 	removeContent:function(id){
 		return content.remove({_id:id});
+	},
+	updateStatus:function(id){
+		return content.update({_id:id},{$set:{status:1}});
 	}
 });

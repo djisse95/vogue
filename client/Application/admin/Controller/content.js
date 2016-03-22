@@ -300,6 +300,14 @@ Template.disContent.helpers({
             return;
         }
 	},
+    getStatus:function(status){
+        html='';
+        if(status==1){
+            return "accept" 
+        }else{
+            return "pending"
+        }
+    }
    // hastext:function()
 });
 Template.disContent.events({
@@ -309,6 +317,15 @@ Template.disContent.events({
         if (confirm("Are you sure you want to delete this?")) {
             Meteor.call("removeContent",id);
         }
+    },
+    "click #onstatus":function(e){
+        e.preventDefault();
+        var curId=$(e.currentTarget).attr('data-id');
+        alert(curId);
+        Meteor.call("updateStatus",curId,function(err){
+            if(err) console.log("Error update status");
+            else console.log("success update")
+        })
     }
 });
 
