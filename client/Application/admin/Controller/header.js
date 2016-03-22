@@ -9,6 +9,7 @@ Template.header.events({
 		Session.set("NUM-PAGE",1);
         var num = 1;
         $(".count-num").html(num);
+        $(".swiper-button-next").removeClass("swiper-button-disabled");
 	},
 	//=============Start Click next prev pagination=============
 	'click .swiper-button-next':function(e){
@@ -17,9 +18,14 @@ Template.header.events({
             num ++;
             console.log("COUNT="+num);
         if(num>0){
-            Session.set("NUM-PAGE",num);
-            $(".count-num").html(num);
-            $(".swiper-button-prev").removeClass("swiper-button-disabled");
+            if(Session.get('getNumberOfContent')==12){
+                Session.set("NUM-PAGE",num);
+                $(".count-num").html(num);
+                $(".swiper-button-prev").removeClass("swiper-button-disabled");  
+            }else{
+                $(".swiper-button-next").addClass("swiper-button-disabled");
+            }
+            
         }
 	},
     'click .addConten':function(){

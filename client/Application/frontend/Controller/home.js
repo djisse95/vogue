@@ -9,7 +9,7 @@ Template.home.helpers({
         if(nunberPage){
           query=nunberPage*12;  
         }
-        var items = content.find({status:1},{limit:query});
+        var items = content.find({},{limit:query});
         console.log("LENG_ITEM"+query);
         items.forEach(function(value){
             var obj={
@@ -39,6 +39,7 @@ Template.home.helpers({
                 array.push(arr[i]);
             }
         }
+        Session.set('getNumberOfContent',array.length);
         return array;
     },
     //==========End Query paginatoin============
