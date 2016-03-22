@@ -157,12 +157,13 @@ Template.manageuser.events({
         var pays = $('#country').val();
         var ville = $('#city').val();
         var email = $('#email').val();
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var password = $('#password').val();
         var mySelect = $('#mySelect').val();
         var result = users.find({emails:email}); 
         //console.log(username,fname,lname,email);
         var msg = '';
-        if( result.count() > 0 || username == '' || fname == '' || lname == '' || pays == '' || email == '' || password == '' || mySelect == ''){
+        if( result.count() > 0 || username == '' || fname == '' || lname == '' || pays == '' || email == '' || !email.match(re) || password == '' || mySelect == ''){
             if( username == '' )
                 Bert.alert( 'username is required', 'danger', 'growl-top-right' );
             else if( fname == '' )
@@ -173,6 +174,8 @@ Template.manageuser.events({
                 Bert.alert( 'pays is required', 'danger', 'growl-top-right' );
             else if( email == '' )
                 Bert.alert( 'email is required', 'danger', 'growl-top-right' );
+            else if (!email.match(re))
+                Bert.alert( 'Not format email', 'danger', 'growl-top-right' );
             else if( password == '' )
                 Bert.alert( 'password is required', 'danger', 'growl-top-right' );
             else if( mySelect == '' )
@@ -217,13 +220,16 @@ Template.edituser.events({
         var pays = $('[name=country]').val();
         var ville = $('[name=city]').val();
         var email = $('#email').val();
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         // var password = $('#password').val();
         var mySelect = $('#mySelect').val();
        // alert("it Working"+id+" "+username+" "+fname+" "+lname+" "+pays+" "+ville+" "+email);
        var result = users.find({emails:email}); 
         //console.log(username,fname,lname,email);
         var msg = '';
-        if( result.count() > 0 || username == '' || fname == '' || lname == '' || pays == '' || email == ''  || mySelect == ''){
+        if( result.count() > 0 || username == '' || fname == '' || lname == '' || pays == '' || email == '' || !email.match(re) || mySelect == ''){
+            if (!email.match(re))
+                Bert.alert( 'Not format email', 'danger', 'growl-top-right' );
             if( username == '' )
                 Bert.alert( 'username is required', 'danger', 'growl-top-right' );
             else if( fname == '' )
@@ -232,8 +238,10 @@ Template.edituser.events({
                 Bert.alert( 'lastname is required', 'danger', 'growl-top-right' );
             else if( pays == '' )
                 Bert.alert( 'pays is required', 'danger', 'growl-top-right' );
-            else if( email == '' )
+            else if( email == '')
                 Bert.alert( 'email is required', 'danger', 'growl-top-right' );
+            else if (!email.match(re))
+                Bert.alert( 'Not format email', 'danger', 'growl-top-right' );
             else if( mySelect == '' )
                 Bert.alert( 'mySelect is required', 'danger', 'growl-top-right' );
             else if( result.count() > 0 )
