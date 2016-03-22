@@ -5,8 +5,18 @@ Session.setDefault('text2','');
 Session.setDefault("myimage",'');
 Session.setDefault("catId","");
 Session.setDefault("currentClass","");
+Session.set('querylimitcontent',10);
 Session.set('img_pro','');
-
+var processScroll = true;
+$(window).scroll(function() {
+    if (processScroll  && $(window).scrollTop() > $(document).height() - $(window).height() - 100) {
+        processScroll = false;
+        var oldLimit=Session.get('querylimitcontent');
+        oldLimit+=10;
+        Session.set('querylimitcontent',oldLimit);
+        processScroll = true;
+    }
+});
 Template.addContent.helpers({
 	getCategory:function(){
 		return categories.find();
@@ -277,11 +287,13 @@ Template.disContent.helpers({
             var loggedInUser = Meteor.user();
             var userId = Meteor.userId();
             var group = 'mygroup';
+            var querylimit= Session.get('querylimitcontent');
+            //alert(querylimit);
             if (Roles.userIsInRole(loggedInUser, ['Admin'], group)) {
-                return content.find();
+                return content.find({},{limit: querylimit});
             }
             else if (Roles.userIsInRole(loggedInUser, ['member'], group)) { 
-                return content.find({userId:userId});
+                return content.find({userId:userId}, {limit: querylimit});
             }
             else{
                 return;
