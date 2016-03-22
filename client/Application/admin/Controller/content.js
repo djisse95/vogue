@@ -318,13 +318,33 @@ Template.disContent.events({
             Meteor.call("removeContent",id);
         }
     },
-    "click #onstatus":function(e){
+    "click #onpending":function(e){
         e.preventDefault();
         var curId=$(e.currentTarget).attr('data-id');
-        alert(curId);
-        Meteor.call("updateStatus",curId,function(err){
-            if(err) console.log("Error update status");
-            else console.log("success update")
+        //$(e.currentTarget).setAttribute("id", "onaccept");
+        var status=1;
+        Meteor.call("updateStatus",curId,status,function(err){
+            if(err){
+                 console.log("Error update status");
+            }else {
+                console.log("success update")
+                //this.setAttribute("id", "onaccept");
+                $(e.currentTarget).attr('id', 'onaccept');
+            }
+        })
+    },
+    "click #onaccept":function(e){
+        e.preventDefault();
+        var curId=$(e.currentTarget).attr('data-id');
+        var status=0;
+        Meteor.call("updateStatus",curId,status,function(err){
+            if(err){
+                 console.log("Error update status");
+            }else {
+                console.log("success update")
+                //this.setAttribute("id", "onaccept");
+                $(e.currentTarget).attr('id', 'onpending');
+            }
         })
     }
 });
