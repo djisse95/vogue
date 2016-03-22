@@ -312,6 +312,14 @@ Template.disContent.helpers({
             return;
         }
 	},
+    getStatus:function(status){
+        html='';
+        if(status==1){
+            return "accept" 
+        }else{
+            return "pending"
+        }
+    }
    // hastext:function()
 });
 Template.disContent.events({
@@ -321,6 +329,35 @@ Template.disContent.events({
         if (confirm("Are you sure you want to delete this?")) {
             Meteor.call("removeContent",id);
         }
+    },
+    "click #onpending":function(e){
+        e.preventDefault();
+        var curId=$(e.currentTarget).attr('data-id');
+        //$(e.currentTarget).setAttribute("id", "onaccept");
+        var status=1;
+        Meteor.call("updateStatus",curId,status,function(err){
+            if(err){
+                 console.log("Error update status");
+            }else {
+                console.log("success update")
+                //this.setAttribute("id", "onaccept");
+                $(e.currentTarget).attr('id', 'onaccept');
+            }
+        })
+    },
+    "click #onaccept":function(e){
+        e.preventDefault();
+        var curId=$(e.currentTarget).attr('data-id');
+        var status=0;
+        Meteor.call("updateStatus",curId,status,function(err){
+            if(err){
+                 console.log("Error update status");
+            }else {
+                console.log("success update")
+                //this.setAttribute("id", "onaccept");
+                $(e.currentTarget).attr('id', 'onpending');
+            }
+        })
     }
 });
 
