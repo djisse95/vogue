@@ -20,7 +20,7 @@
 #header .nav > li > a {
     position: relative;
     display: block;
-    padding: 20px 18px;
+    padding: 20px 15px;
 	color: #000;
 	font-size: 18px;
 }
@@ -28,7 +28,7 @@
 #header .nav > li > a:hover, .nav > li > a:focus {
     position: relative;
     display: block;
-    padding: 20px 25px;
+    padding: 20px 18px;
 	color: #000;
 	font-size: 18px;
 	background:#fff;
