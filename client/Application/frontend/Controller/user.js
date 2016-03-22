@@ -146,6 +146,7 @@ Template.header.events({
     }
 });
 // ================ Manage User =================== //
+
 Session.set("count",0);
 Template.manageuser.events({
     "click #remove":function(e){
@@ -211,8 +212,10 @@ Template.manageuser.helpers({
         var a = Session.get("count");
         a++;
         var allUser = Meteor.users.find({});
+        //var allUser = Meteor.users.find({}, {limit:Session.get('querylimit')});
         return allUser;
-    },
+    }
+
 });
 //==================== Update User =======================
 Template.edituser.events({
