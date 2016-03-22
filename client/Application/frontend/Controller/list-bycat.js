@@ -13,7 +13,7 @@ Template.list.helpers({
           query=nunberPage*12;  
         }
         console.log('displaying elt...');
-        var items = content.find({catId:catId},{limit:query});
+        var items = content.find({catId:catId,status:1},{limit:query});
         console.log('items:'+items.count());
         items.forEach(function(value){
             var obj={
@@ -40,6 +40,7 @@ Template.list.helpers({
             }
            
         }
+        Session.set('getNumberOfContent',array.length);
         return array;
     },
      getcatename:function(catId){

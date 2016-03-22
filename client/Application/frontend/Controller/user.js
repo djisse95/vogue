@@ -76,9 +76,11 @@ Template.login.events({
              else if(username.match(letters)){
                 if(email.match(mailformat))
                 {
+                    // $("#error_email").remove();
+                    
                     if(password.match(passw))   
                     {
-
+                        $("#error_pass").remove();
                         Meteor.call('registerUser',username,fname,lname,pays,ville,email,password, function(err){
                             if(err){
                                 Bert.alert(err.reason,'danger', 'growl-top-right' );
@@ -86,6 +88,13 @@ Template.login.events({
                             }else{
                                 Session.set("registerError","");
                                 Bert.alert('Register success','success', 'growl-top-right' );
+                                $('#username').val("");
+                                $('[name=firstname]').val("");
+                                $('[name=lastname]').val("");
+                                $('[name=country]').val("");
+                                $('[name=city]').val("");
+                                $('[name=email]').val("");
+                                $('[name=password]').val("");
                                 Router.go('login'); 
                             }  
                         }); 
@@ -99,8 +108,9 @@ Template.login.events({
                 }  
                 else  
                 {  
-                    $("#error_email").text("invalid email address!").css("color","red");  
-                    $('[name=email]').focus();  
+                    // $("#error_email").text("invalid email address!").css("color","red");  
+                    // $('[name=email]').focus();  
+                    Bert.alert( 'invalid email address!', 'danger', 'growl-top-right' );
                     return false;  
                 }  
                 
@@ -109,10 +119,8 @@ Template.login.events({
             //     $('[name=username]').focus(); 
             //     return false;    
                 Bert.alert('please check input again','danger','growl-top-right');
-            } 
-           
-            
-        } 
+            }   
+        }
     
 });
 Template.header.events({
@@ -138,6 +146,7 @@ Template.header.events({
     }
 });
 // ================ Manage User =================== //
+
 Session.set("count",0);
 Template.manageuser.events({
     "click #remove":function(e){
@@ -206,8 +215,10 @@ Template.manageuser.helpers({
         var a = Session.get("count");
         a++;
         var allUser = Meteor.users.find({});
+        //var allUser = Meteor.users.find({}, {limit:Session.get('querylimit')});
         return allUser;
-    },
+    }
+
 });
 //==================== Update User =======================
 Template.edituser.events({
